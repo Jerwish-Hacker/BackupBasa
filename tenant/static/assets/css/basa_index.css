@@ -1,0 +1,105 @@
+.navbar {
+  transition: all 0.4s;
+}
+
+.navbar .nav-link {
+  color:#034694;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: #395ccd;
+  text-decoration: none;
+}
+
+.navbar .navbar-brand {
+  color: #395ccd;
+}
+
+
+/* Change navbar styling on scroll */
+.navbar.active {
+  background: white;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.active .nav-link {
+  color: #555;
+}
+
+.navbar.active .nav-link:hover,
+.navbar.active .nav-link:focus {
+  color: #555;
+  text-decoration: none;
+}
+
+.navbar.active .navbar-brand {
+  color: #555;
+}
+
+h1{
+  color: #034694;
+}
+footer {
+  width: 100%;
+}
+.login_class{
+  margin-top: 10px;
+}
+
+.error {
+  border-color: red!important;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change navbar styling on small viewports */
+@media (max-width: 991.98px) {
+  .navbar {
+      background: #fff;
+  }
+
+  .navbar .navbar-brand, .navbar .nav-link {
+      color: #555;
+  }
+  .background_image img{
+    width: 300;
+    height: 100;
+  }
+  
+}
+
+
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+.text-small {
+  font-size: 0.9rem !important;
+}
+
+
+body {
+  min-height: 110vh;
+  background-color: white;
+}

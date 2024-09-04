@@ -1,0 +1,565 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+    <link rel="stylesheet" href="{% static 'staffplanning/assets/css/jquery-ui.css' %}">
+{% block body %}
+    <style>
+    .radio-button-error{
+        border: 1px solid red;
+    }
+    #productivity-model{
+        z-index: 10000;
+    }
+    #comment-model{
+        z-index: 100000;
+    }
+    </style>
+    <div class="row justify-content-between p-2">
+        <form id="id_staffplanning_form" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="servicetype" style="color: #11556c;font-weight: 600;font-size: 14px;">Site</label>
+                    <div class="single_form">
+                        {% render_field form.site %}
+                    </div>
+                </div>
+                <div class="col-md-6 pt-3">
+                    <div class="dropdown">
+                        <p style="font-size:14px;color:blue;font-weight: 500;cursor:pointer;padding:0;margin:0;" class="dropbtn" id="id_last_user_submitted_time"></p>
+                        <div class="dropdown-content">
+                            <table class="table storebookTable noborder">
+                                <thead>
+                                    <tr>
+                                        <td style="font-size:12px;font-weight: 600;">User</td>
+                                        <td style="width: 100%;font-size:12px;font-weight: 600;">Created&nbsp;Date&nbsp;Time</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="per_day_user_submission_log">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3 radio radio_1 d-none">
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <input name="fetch_previous_data" id="radio_input_1" type="radio" value="" checked>
+                                        </div>
+                                        <div class="ml-2 radio_text_1">
+                                            DateValue
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 radio radio_2 d-none">
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <input name="fetch_previous_data" id="radio_input_2" type="radio" value="">
+                                        </div>
+                                        <div class="ml-2  radio_text_2">
+                                            DateValue
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 radio radio_3 d-none">
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <input name="fetch_previous_data" id="radio_input_3" type="radio" value="">
+                                        </div>
+                                        <div class="ml-2  radio_text_3">
+                                            DateValue
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 productivity_hyper_link">
+            </div>
+            <div class="container-fluid mb-2" style="background-color:#FFFFFF;border: 0.5px solid #e3f5fb;border-radius: 15px;box-shadow: 1px 3px 10px #888888;">
+                <label for="Providers" style="color: #11556c;font-weight: 700;font-size: 16px;padding-top:10px">Providers</label>
+                <i class="fa fa-file text-primary" aria-hidden="true" style="cursor:pointer" data-toggle="modal" data-target="#providers-model" ></i>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Providers Present</label>
+                        <div class="single_form">
+                            {% render_field form.providers_present_comment.as_hidden%}
+                            {% render_field form.providers_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="servicetype">Walk-in Providers Present</label>
+                        <div class="single_form">
+                            {% render_field form.walk_in_providers_present_comment.as_hidden %}
+                            {% render_field form.walk_in_providers_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="walk_in_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label for="servicetype">Total Providers Present</label>
+                                <div class="single_form">
+                                    {% render_field form.total_providers_present_comment.as_hidden %}
+                                    {% render_field form.total_providers_present class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="servicetype">Total Provider Appointments Scheduled Today</label>
+                                <div class="single_form">
+                                    {% render_field form.total_providers_appointment_scheduled_today_comment.as_hidden %}
+                                    {% render_field form.total_providers_appointment_scheduled_today class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_providers_appointment_scheduled_today_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid mb-2" style="background-color:#FFFFFF;border: 0.5px solid #e3f5fb;border-radius: 15px;box-shadow: 1px 3px 10px #888888;">
+                <label for="specialty" style="color: #11556c;font-weight: 700;font-size: 16px;padding-top:10px">Specialty Providers</label>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="servicetype">Endocrinology Providers</label>
+                        <div class="single_form">
+                            {% render_field form.endocrinology_providers_comment.as_hidden %}
+                            {% render_field form.endocrinology_providers class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="endocrinology_providers_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="servicetype">Infectious Disease Providers Present</label>
+                        <div class="single_form">
+                            {% render_field form.infectious_disease_providers_present_comment.as_hidden %}
+                            {% render_field form.infectious_disease_providers_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="infectious_disease_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="servicetype">Podiatry Providers Present</label>
+                        <div class="single_form">
+                            {% render_field form.podiatry_providers_present_comment.as_hidden %}
+                            {% render_field form.podiatry_providers_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="podiatry_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="servicetype">Optometry Providers Present</label>
+                        <div class="single_form">
+                            {% render_field form.optometry_comment.as_hidden %}
+                            {% render_field form.optometry class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="optometry_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <label for="servicetype">Total Specialty Providers Present</label>
+                                <div class="single_form">
+                                    {% render_field form.total_specialty_providers_present_comment.as_hidden %}
+                                    {% render_field form.total_specialty_providers_present class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_specialty_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="servicetype">Total Specialty Appointments Scheduled Today</label>
+                                <div class="single_form">
+                                    {% render_field form.total_specialty_appointment_scheduled_today_comment.as_hidden %}
+                                    {% render_field form.total_specialty_appointment_scheduled_today class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_specialty_appointment_scheduled_today_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid mb-2" style="background-color:#FFFFFF;border: 0.5px solid #e3f5fb;border-radius: 15px;box-shadow: 1px 3px 10px #888888;">
+                <label for="otherproviders" style="color: #11556c;font-weight: 700;font-size: 16px;padding-top:10px">Other Providers</label>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Integrated BH Providers Present</label>
+                        <div class="single_form">
+                            {% render_field form.integrated_bh_providers_present_comment.as_hidden %}
+                            {% render_field form.integrated_bh_providers_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="integrated_bh_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="servicetype">Telepsychiatry Providers Present</label>
+                        <div class="single_form">
+                            {% render_field form.telepsychiatry_providers_present_comment.as_hidden %}
+                            {% render_field form.telepsychiatry_providers_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="telepsychiatry_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <label for="servicetype">Total Other Providers Present</label>
+                                <div class="single_form">
+                                    {% render_field form.total_other_providers_present_comment.as_hidden %}
+                                    {% render_field form.total_other_providers_present class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_other_providers_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-5 mb-2">
+                                <label for="servicetype">Total Other Providers Appointments Scheduled Today</label>
+                                <div class="single_form">
+                                    {% render_field form.total_other_providers_appointment_scheduled_today_comment.as_hidden %}
+                                    {% render_field form.total_other_providers_appointment_scheduled_today class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_other_providers_appointment_scheduled_today_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Nurses Present</label>
+                        <div class="single_form">
+                            {% render_field form.nurses_present_comment.as_hidden %}
+                            {% render_field form.nurses_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="nurses_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="servicetype">Receptionist Present</label>
+                        <div class="single_form">
+                            {% render_field form.receptionist_present_comment.as_hidden %}
+                            {% render_field form.receptionist_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="receptionist_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="servicetype">Total MA's Present</label>
+                        <div class="single_form">
+                            {% render_field form.provider_specialty_app_walk_in_ma_present_comment.as_hidden %}
+                            {% render_field form.provider_specialty_app_walk_in_ma_present class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="provider_specialty_app_walk_in_ma_present_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <label for="servicetype">Nurses Provider Ratio</label>
+                                <div class="single_form">
+                                    {% render_field form.nurses_provider_ratio_comment.as_hidden %}
+                                    {% render_field form.nurses_provider_ratio class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="nurses_provider_ratio_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label for="servicetype">MA Provider Ratio</label>
+                                <div class="single_form">
+                                    {% render_field form.ma_provider_ratio_comment.as_hidden %}
+                                    {% render_field form.ma_provider_ratio class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="ma_provider_ratio_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label for="servicetype">Receptionist Providers Ratio</label>
+                                <div class="single_form">
+                                    {% render_field form.receptionist_provider_ratio_comment.as_hidden %}
+                                    {% render_field form.receptionist_provider_ratio class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="receptionist_provider_ratio_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid mb-2" style="background-color:#FFFFFF;border: 0.5px solid #e3f5fb;border-radius: 15px;box-shadow: 1px 3px 10px #888888;">
+                <label for="callouts" style="color: #11556c;font-weight: 700;font-size: 16px;padding-top:10px">Call Outs</label>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Provider Call Outs</label>
+                        <div class="single_form">
+                            {% render_field form.providers_call_outs_comment.as_hidden %}
+                            {% render_field form.providers_call_outs class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="providers_call_outs_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Providers Number of Patients Rescheduled</label>
+                        <div class="single_form">
+                            {% render_field form.providers_no_of_patients_rescheduled_comment.as_hidden %}
+                            {% render_field form.providers_no_of_patients_rescheduled class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="providers_no_of_patients_rescheduled_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Number of Patients Placed on Another Provider Schedule</label>
+                        <div class="single_form">
+                            {% render_field form.no_of_patients_placed_on_another_provider_schedule_comment.as_hidden %}
+                            {% render_field form.no_of_patients_placed_on_another_provider_schedule class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="no_of_patients_placed_on_another_provider_schedule_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Specialty Provider Call Outs</label>
+                        <div class="single_form">
+                            {% render_field form.specialty_providers_call_outs_comment.as_hidden %}
+                            {% render_field form.specialty_providers_call_outs class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="specialty_providers_call_outs_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Specialty Provider Number of Patients Rescheduled</label>
+                        <div class="single_form">
+                            {% render_field form.specialty_providers_no_of_patients_rescheduled_comment.as_hidden %}
+                            {% render_field form.specialty_providers_no_of_patients_rescheduled class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="specialty_providers_no_of_patients_rescheduled_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">MA's Call Outs</label>
+                        <div class="single_form">
+                            {% render_field form.ma_call_outs_comment.as_hidden %}
+                            {% render_field form.ma_call_outs class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="ma_call_outs_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Nurses Call Outs</label>
+                        <div class="single_form">
+                            {% render_field form.nurses_call_outs_comment.as_hidden %}
+                            {% render_field form.nurses_call_outs class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="nurses_call_outs_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Receptionist Call Outs</label>
+                        <div class="single_form">
+                            {% render_field form.receptionist_call_outs_comment.as_hidden %}
+                            {% render_field form.receptionist_call_outs class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="receptionist_call_outs_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid mb-2" style="background-color:#FFFFFF;border: 0.5px solid #e3f5fb;border-radius: 15px;box-shadow: 1px 3px 10px #888888;">
+                <label for="otherproviders" style="color: #11556c;font-weight: 700;font-size: 16px;padding-top:10px">Productivity</label>
+                <div class="row">
+                    <div class="col-md-3 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label for="grievancereporttype">Total Appointment Scheduled Today</label>
+                                <div class="single_form">
+                                    {% render_field form.total_appointment_scheduled_today_comment.as_hidden %}
+                                    {% render_field form.total_appointment_scheduled_today class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_appointment_scheduled_today_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Number of Providers Who Met Productivity at End of Day</label>
+                        <div class="single_form">
+                            {% render_field form.no_of_providers_who_met_productivity_at_end_of_day_comment.as_hidden %}
+                            {% render_field form.no_of_providers_who_met_productivity_at_end_of_day class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="no_of_providers_who_met_productivity_at_end_of_day_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Number of Providers Who Did Not Meet Productivity at End of Day</label>
+                        <div class="single_form">
+                            {% render_field form.no_of_pds_who_did_not_meet_pdty_at_end_of_day_comment.as_hidden %}
+                            {% render_field form.no_of_pds_who_did_not_meet_pdty_at_end_of_day class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="no_of_pds_who_did_not_meet_pdty_at_end_of_day_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Number of Medical Appointment Slots Available at End of Day</label>
+                        <div class="single_form">
+                            {% render_field form.no_of_medical_appointment_slots_available_at_end_of_day_comment.as_hidden %}
+                            {% render_field form.no_of_medical_appointment_slots_available_at_end_of_day class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="no_of_medical_appointment_slots_available_at_end_of_day_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Qualified Visits Conducted</label>
+                        <div class="single_form">
+                            {% render_field form.qualified_visits_conducted_comment.as_hidden %}
+                            {% render_field form.qualified_visits_conducted class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="qualified_visits_conducted_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-8 mb-2">
+                                <label for="grievancereporttype">Total Visit Conducted</label>
+                                <div class="single_form">
+                                    {% render_field form.visit_capacity_utilization_percentage_comment.as_hidden %}
+                                    {% render_field form.visit_capacity_utilization_percentage class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="visit_capacity_utilization_percentage_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %} Productivity Status to check every productivity input field is filled or not if not we can fill it on tomorrow{% endcomment %}
+            {% render_field form.productivity_status.as_hidden %}
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="grievancereporttype" style="color: #11556c;font-weight: 600;font-size: 14px;">List Any Barriers</label>
+                    <div class="single_form">
+                        {% render_field form.list_any_barriers %}
+                    </div>
+                </div>
+                <div class="col-md-8 mb-2 d-none other_reasons_field">
+                    <label for="grievancereporttype" style="color: #11556c;font-weight: 600;font-size: 14px;">Other Reasons</label>
+                    <div class="single_form">
+                        {% render_field form.other_reasons %}
+                    </div>
+                </div>
+                {% render_field form.save_for_tomorrow.as_hidden %}
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-6 text-right">
+                    <p id="error-display-near-submit" class="alert alert-success d-none" role="alert"></p>
+                    <button id="edit_form" class="{{ edit_button_show }}" type="button" class="main-btn">Edit Previous Report</button>
+                    <button id="submitbutton_save_for_today" type="submit" class="main-btn">Save/Update Today Report</button>
+                    <button id="submitbutton_save_for_tomorrow" type="submit" class="main-btn">Save/Update Tomorrow Report</button>
+                </div>
+            </div>
+        </form>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">{{form.errors}}
+            </div>
+        {% endif %}
+    </div>
+    <div class="modal" id="comment-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="resolvingtext">Add Comments</label>
+                    <textarea class="form-control" id="modelcommenttext" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal" id="alert-model" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert-text">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal" id="providers-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div id="error-alert-provider" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                <div class="col-md-12 timeslot" style="padding:0">
+                    <div class="d-flex justify-content-between" style="padding:0">
+                        <div class="col-md-3" style="padding:0">
+                            <label>Provider Type</label>
+                        </div>
+                        <div class="col-md-2" style="padding:0">
+                            <label>No. of Providers</label>
+                        </div>
+                        <div class="col-md-2" style="padding:0">
+                            <label>Working Hour's</label>
+                        </div>
+                        <div class="col-md-2" style="padding:0">
+                          <label>No. of Appts</label>
+                        </div>
+                        <div class="col-md-2" style="padding:0">
+                          <label>Remove Row</label>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between pt-1 newly_added_div1" style="padding:0">
+                      <div class="col-md-3" style="padding:0">
+                        <select class="form-control" name="provider_type" id="id_provider_type1" data-id="1">
+                            <option value="MD/DO">MD/DO</option>
+                            <option value="Walk-In">Walk-In</option>
+                            <option value="Endocrinology">Endocrinology</option>
+                            <option value="Infectious Disease">Infectious Disease</option>
+                            <option value="Podiatry">Podiatry</option>
+                            <option value="Optometry">Optometry</option>
+                            <option value="BH Provider">BH Provider</option>
+                            <option value="Telepsychiatry">Telepsychiatry</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2" style="padding:0">
+                        <select class="form-control provider_count" name="provider_count" id="id_provider_count1" data-id="1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2" style="padding:0">
+                        <input class="form-control hours_working" type="text" name="hours_working" value="" id="id_hours_working1" data-id="1"> 
+                      </div>
+                      <div class="col-md-2" style="padding:0">
+                        <input class="form-control" type="text" name="no_of_appointments" value="" id="id_no_of_appointments1" data-id="1" disabled> 
+                      </div>
+                      <div class="col-md-2" style="padding:0">
+                        <button type="button" class="btn btn-outline-danger remove_row" data-id="1">Remove</button>
+                      </div>
+                    </div>
+                </div>
+             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success mr-auto" id="id_add_provider">Add Provider</button>
+              <button type="button" class="btn btn-primary" id="id_save_provider">Save</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="available_locations" value="{{available_locations}}">
+
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'staffplanning/assets/js/vendor/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/es6/staff-planning-index.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+{% endblock %}

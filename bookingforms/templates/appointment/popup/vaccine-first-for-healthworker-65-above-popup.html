@@ -1,0 +1,27 @@
+{% load i18n %}
+<style>
+    #vaccine-first-for-health-or-65-modal{
+        z-index: 200000;
+    }
+</style>
+
+<div id="vaccine-first-for-health-or-65-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger font-weight-bold">{% trans "COVID-19 Vaccine Update" %}</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "According to Kern County guidelines, we are vaccinating Healthcare Workers, Individuals 65+, Education Workers, Food Workers, Agriculture Workers, Non-Healthcare Emergency Services, 18+ with underlying health conditions including: Cancer, Chronic Pulmonary Disease, Solid Organ Transplant, Sickle Cell Disease, Type 2 diabetes, Chronic Kidney Disease, Down Syndrome, Pregnancy, Severe Obesity, or Heart Conditions. Any requests received that do not meet current tier criteria will be scheduled when applicable tiers have opened." %}
+                </p>
+                <div class="row">
+                    <div class="col text-center">
+                        <button class="align-right js-vaccine-healthworker-confirm" type="cancel">{% trans "I Agree" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

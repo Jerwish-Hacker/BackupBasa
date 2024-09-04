@@ -1,0 +1,457 @@
+{% extends 'appointment/common/base.html' %}
+
+
+{% block index %}
+<style>
+    .header_hero {
+    height: auto !important;
+}
+</style>
+<div class="container margin-top-form">
+    <div class="card p-step-form">
+        <div class="form-steps">
+            <div class="step" data-step="0">
+                <div class="step-item">
+                    1
+                </div>
+                <div>Appointment</div>
+            </div>
+            <div class="step" data-step="1">
+                <div class="step-item">
+                    2
+                </div>
+                <div>Demographics</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-item">
+                    3
+                </div>
+                <div>Description</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-item">
+                    4
+                </div>
+                <div>Description</div>
+            </div>
+        </div>
+
+        <form action="" class="mt-5 pl-3 pr-3">
+            <div class="step-form d-none" data-step="0">
+                <h3 class="text-center mb-3">Appointment</h3>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="preffered day">Preferred day of week</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Monday</option>
+                                <option value="">Tuesday</option>
+                                <option value="">Wednesday</option>
+                                <option value="">Thursday</option>
+                                <option value="">Friday</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="preffered day">Preferred time frame</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Early Morning</option>
+                                <option value="">Late Morning</option>
+                                <option value="">Early Afternoon</option>
+                                <option value="">Early Afternoon</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Employer</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Job role</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="step-form d-none" data-step="1">
+                <h3 class="text-center mb-3">Demographics</h3>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">First Name</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Last Name</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="">Social security number</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Date of birth</label>
+                        <div class="single_form">
+                            <input type="date">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Gender</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Male</option>
+                                <option value="">Female</option>
+                                <option value="">Non-binary</option>
+                                <option value="">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Phone</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="single_form">
+                                    <select name="" id="">
+                                        <option value="">Home</option>
+                                        <option value="">Work</option>
+                                        <option value="">Cell</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="single_form">
+                                    <input type="tel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Email address</label>
+                        <div class="single_form">
+                            <input type="email">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="">Street address</label>
+                        <div class="single_form">
+                            <textarea name="" id="" cols="30" style="height: 100px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">City</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">State</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Zip</label>
+                        <div class="single_form">
+                            <input type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Primary Language</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Martial status</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Single</option>
+                                <option value="">Married</option>
+                                <option value="">Divorced</option>
+                                <option value="">Separated</option>
+                                <option value="">Widowed</option>
+                                <option value="">Domestic Partner</option>
+                                <option value="">Significant Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Ethnicity</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Hispanic/Latino</option>
+                                <option value="">Non-Hispanic Latino</option>
+                                <option value="">Decline to Report</option>
+                                <option value="">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Race</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Alaskan Native</option>
+                                <option value="">American Indian</option>
+                                <option value="">Asian</option>
+                                <option value="">Black</option>
+                                <option value="">Native-Hawaiian</option>
+                                <option value="">Pacific Islander</option>
+                                <option value="">White</option>
+                                <option value="">Decline to Report</option>
+                                <option value="">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Are you a veteran?</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Yes</option>
+                                <option value="">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Employment status</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Full-Time</option>
+                                <option value="">Not Employed</option>
+                                <option value="">Active Military Duty</option>
+                                <option value="">Part Time</option>
+                                <option value="">Retired</option>
+                                <option value="">Seasonal</option>
+                                <option value="">Self-Employed</option>
+                                <option value="">Student Full-Time</option>
+                                <option value="">Student Part-Time</option>
+                                <option value="">Child</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Homeless status</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Not Homeless</option>
+                                <option value="">At Risk for Homeless</option>
+                                <option value="">Currently Not Homeless, was in Last 12 Months</option>
+                                <option value="">Homeless, Unknown Shelter</option>
+                                <option value="">Shelter</option>
+                                <option value="">Living with Others</option>
+                                <option value="">Street/Camp/Bridge</option>
+                                <option value="">Transitional Housing</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Form worker status</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Not a farm worker</option>
+                                <option value="">Migrant</option>
+                                <option value="">Seasonal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Sexual orientation</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Straight</option>
+                                <option value="">Lesbian or Gay</option>
+                                <option value="">Bisexual</option>
+                                <option value="">Something Else</option>
+                                <option value="">Don't Know</option>
+                                <option value="">Choose Not to Disclose</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="">Gender Identity</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Female</option>
+                                <option value="">Male</option>
+                                <option value="">Transgender Male (Female to Male)</option>
+                                <option value="">Transgender Female (Male to Female)</option>
+                                <option value="">Other</option>
+                                <option value="">Choose Not to Disclose</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="step-form d-none" data-step="2">
+                <h3 class="text-center mb-3">Heading</h3>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Guarantor name</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Relationship</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Date of birth</label>
+                        <div class="single_form">
+                            <input type="date">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Family size</label>
+                        <div class="single_form">
+                            <input type="number">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Income frequency</label>
+                        <div class="single_form">
+                            <select name="" id="">
+                                <option value="">Weekly</option>
+                                <option value="">Monthly</option>
+                                <option value="">Annually</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Primary insurance carrier</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Subscriber ID</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Group number (if applicable) (Optional)</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="">Subscriber Name (First and Last):</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Subscriber Relationship:</label>
+                        <div class="single_form">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="step-form d-none" data-step="3">
+                <h3 class="text-center mb-3">Complete</h3>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="preffered day">Attachment</label>
+                        <div>
+                            <input type="file">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="">Declaration</label>
+                        <div class="single_form">
+                            <textarea name="" id="" style="height: 100px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="text-center footer">
+                <button type="button" class="cancel-btn d-none">Previous</button>
+                <button type="button" class="main-btn">Next Step</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

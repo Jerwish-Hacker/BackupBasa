@@ -1,0 +1,298 @@
+<div class="user-details p-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12  text-right">
+                <button id="archive-view-button"  data-id="{{ khsappointment.id }}" data-toggle="modal" data-target="#archive-model" type="button" class="archive btn btn-primary">Archive</button>
+            </div>
+            <div class="col-md-12 text-right">
+                <span id="viewlock" class="badge badge-success"></span>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="archivedvaluefromdb" value="{{ khsappointment.is_archived }}"/>
+    <h4>Appointment</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Vaccine Type : {{ khsappointment.appointment_type|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            County : {{ khsappointment.county|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            {% if khsappointment.vaccine_eligibility_status == none %}
+                {% if khsappointment.is_healthworker != none %}
+                    {% if khsappointment.is_healthworker == 1 %}
+                        Vaccine Eligibility Status : {{ khsappointment.is_healthworker|yesno:"Healthcare Worker," }}
+                    {% elif khsappointment.is_healthworker == 0 %}
+                        {% if khsappointment.is_above_age_65 != none %}
+                            {% if khsappointment.is_above_age_65 == 1 %}
+                                Vaccine Eligibility Status : {{ khsappointment.is_above_age_65|yesno:"65+ Years Old," }}
+                            {% elif khsappointment.is_above_age_65 == 0 %}
+                                Vaccine Eligibility Status : {{ khsappointment.is_above_age_65|yesno:"," }}
+                            {% endif %}
+                        {% else %}
+                            Vaccine Eligibility Status : {{ khsappointment.is_above_age_65|yesno:"," }}
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    Vaccine Eligibility Status : {{ khsappointment.is_healthworker|yesno:"," }}
+                {% endif %}
+            {% else %}
+                Vaccine Eligibility Status : {{ khsappointment.vaccine_eligibility_status|default_if_none:"" }}
+            {% endif %}
+        </div>
+        <!-- <div class="col-md-6">
+            Is Health Worker : {{ appointment.is_healthworker|yesno:"Yes,No,-" }}
+        </div>
+        <div class="col-md-6">
+            Is 65 years old and over : {{ appointment.is_above_age_65|yesno:"Yes,No,-" }}
+        </div> -->
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            {% if khsappointment.preferred_day_of_week == '' %}
+                Preferred day of week : {{ khsappointment.preferred_date|default_if_none:"" }}
+            {% else %}
+                Preferred day of week : {{ khsappointment.preferred_day_of_week|default_if_none:"" }}
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            Preferred time frame : {{ khsappointment.preferred_time_frame|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+    {% comment  %} 
+    <!-- CommentedAsPerReq -->
+        <div class="col-md-6">
+            Employer : {{ appointment.employer|default_if_none:"" }}
+        </div>
+    {% endcomment %}
+        <div class="col-md-6">
+            Job Role : {{ khsappointment.job_role|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Received the first dose of the Covid Vaccine? : {{ khsappointment.is_previously_vaccinated|yesno:"Yes,No," }}
+        </div>
+        <div class="col-md-6">
+            {% if khsappointment.is_previously_vaccinated or khsappointment.covid_vaccine_manufacturer %}
+            {{ khsappointment.covid_vaccine_manufacturer|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Current patient of {{ title|title }} ? : {{ khsappointment.is_a_patient_of_clinic|yesno:"Yes,No,Unknown" }}
+        </div>
+    </div>
+    <h4>Demographics</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            First Name : {{ khsappointment.first_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Last Name : {{ khsappointment.last_name|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Social security number : {{ khsappointment.social_security_number|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Date of birth : {{ khsappointment.date_of_birth|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Gender : {{ khsappointment.gender|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Email : {{ khsappointment.email_address|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Family Size : {{ khsappointment.family_size|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Household Income : {{ khsappointment.household_income|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Income frequency : {{ khsappointment.income_frequency|default_if_none:"" }}
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Contact number : {{ khsappointment.contact_number|default_if_none:"" }}
+            ({{ khsappointment.contact_number_type|default_if_none:"" }})
+            <br>
+            Can you accept texts ? : {{ khsappointment.is_contact_number_reachable_by_text|yesno:"Yes,No,Unknown" }}
+        </div>
+        <div class="col-md-6">
+            Street address : {{ khsappointment.street_address|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            City : {{ khsappointment.city|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            State : {{ khsappointment.state|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Zip : {{ khsappointment.zip_code|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Primary language :
+            {% if khsappointment.primary_language == 'Other' %}
+            {{ khsappointment.primary_langauge_entered|default_if_none:"" }}
+            {% else %}
+            {{ khsappointment.primary_language|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Martial status : {{ khsappointment.marital_status|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Ethnicity : {{ khsappointment.ethnicity|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Race : {{ khsappointment.race|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Veteran : {{ khsappointment.is_veteran|yesno:"Yes,No,Unknown" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Employment status : {{ khsappointment.employment_status|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Homeless status : {{ khsappointment.homeless_status|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Emergency Contact Name : {{ khsappointment.emergency_contact_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Emergency Contact Number : {{ khsappointment.emergency_contact_number|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Emergency Contact Relationship :
+            {% if khsappointment.emergency_contact_relationship == 'Other' %}
+            {{ khsappointment.emergency_contact_relationship_entered|default_if_none:"" }}
+            {% else %}
+            {{ khsappointment.emergency_contact_relationship|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Marital Status : {{ khsappointment.marital_status|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Farm worker status : {{ khsappointment.farmworker_status|default_if_none:"" }}
+        </div>
+    </div>
+    <h4>Insurance</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Guarantor name : {{ khsappointment.guarantor_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Guarantor Relationship to Patient :
+            {% if khsappointment.guarantor_relationship == 'Other' %}
+            {{ khsappointment.guarantor_relationship_entered|default_if_none:"" }}
+            {% else %}
+            {{ khsappointment.guarantor_relationship|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Date of Birth of Guarantor : {{ khsappointment.guarantor_date_of_birth|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Primary insurance carrier : {{ khsappointment.primary_insurance_carrier|default_if_none:"" }}
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Subscriber ID : {{ khsappointment.subscriber_id|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Group number : {{ khsappointment.group_number|default_if_none:"" }}
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Subscriber name : {{ khsappointment.subscriber_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Subscriber relationship :
+            {% if khsappointment.subscriber_relationship == 'Other' %}
+            {{ khsappointment.subscriber_relationship_entered|default_if_none:"" }}
+            {% else %}
+            {{ khsappointment.subscriber_relationship|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <h4>Documents</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : {{ khsappointment.identification_document|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if khsappointment.attachment_support %}
+            <a href="{{ khsappointment.attachment_support.url|urlencode }}">{{ khsappointment.attachment_support.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : Insurance Card (Front)
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if khsappointment.insurance_card %}
+            <a href="{{ khsappointment.insurance_card.url|urlencode }}">{{ khsappointment.insurance_card.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : Insurance Card (Back)
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if khsappointment.insurance_card_back %}
+            <a href="{{ khsappointment.insurance_card_back.url|urlencode }}">{{ khsappointment.insurance_card_back.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    var archive = $('#archivedvaluefromdb').val();
+    if(archive=='True')
+    {
+        const button = document.getElementById('archive-view-button')
+        button.innerHTML="Archived";
+        button.disabled=true;
+        button.className="btn btn-secondary"
+    }
+</script>

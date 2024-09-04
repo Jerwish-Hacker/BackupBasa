@@ -1,0 +1,61 @@
+<div class="user-details p-3">
+    <h4>Documents</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : {{ uploadurlmodel.identification_document|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if uploadurlmodel.attachment_support %}
+            <a href="{{ uploadurlmodel.attachment_support.url}}">{{ uploadurlmodel.attachment_support.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : Insurance Card (Front)
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if uploadurlmodel.insurance_card %}
+            <a href="{{ uploadurlmodel.insurance_card.url }}">{{ uploadurlmodel.insurance_card.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : Insurance Card (Back)
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if uploadurlmodel.insurance_card_back %}
+            <a href="{{ uploadurlmodel.insurance_card_back.url }}">{{ uploadurlmodel.insurance_card_back.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <h4>Extra Documents</h4>
+    <div class="row mb-2">
+        <div class="col-md-12">
+            Attached Document 1 : {% if uploadurlmodel.file_1 %}
+            <a href="{{ uploadurlmodel.file_1.url }}">{{ uploadurlmodel.file_1.name }}</a>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            Attached Document 2 : {% if uploadurlmodel.file_2 %}
+            <a href="{{ uploadurlmodel.file_2.url }}">{{ uploadurlmodel.file_2.name }}</a>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            Attached Document 3 : {% if uploadurlmodel.file_3 %}
+            <a href="{{ uploadurlmodel.file_3.url }}">{{ uploadurlmodel.file_3.name }}</a>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            Attached Document 4 : {% if uploadurlmodel.file_4 %}
+            <a href="{{ uploadurlmodel.file_4.url }}">{{ uploadurlmodel.file_4.name }}</a>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            Attached Document 5 : {% if uploadurlmodel.file_5 %}
+            <a href="{{ uploadurlmodel.file_5.url }}">{{ uploadurlmodel.file_5.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

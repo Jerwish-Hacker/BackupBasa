@@ -1,0 +1,145 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'staffplanning/assets/css/dashboard.css' %}" />
+        <link rel="stylesheet" href="{% static 'staffplanning/assets/css/jquery-ui.css' %}">
+        <style>
+            .card{
+                transition: all 0.2s ease-out;
+                box-shadow: 0px 2px 4px rgba(38, 38, 38, 0.2);
+              }
+              .card:hover {
+                  transition: all 0.5s ease-out;
+                  box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+                  transform: scale(1.02);
+              }
+        </style>
+    {% endblock css %}
+{% block body %}
+    {% csrf_token %}
+    <div class="row justify-content-start p-3">
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-2 text-xl-left text-sm-center text-md-left">
+            <select class="form-control" id="id_site_selector" name="site">
+            </select>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12 mb-2">
+            <div class="single_formdashboard">
+                <input type="text" id="my_date_picker" name="my_date_picker">
+            </div>
+        </div>
+        <div class="col-xl-7 col-lg-6 col-md-4 col-sm-12 mb-2 text-xl-right text-sm-center text-md-right">
+            <button type="button" class="btn btn-primary operation_button" style="border-radius: 25px;width:110px;" data-operation="Medical">Medical</button>
+            <button type="button" class="btn btn-outline-primary operation_button" style="border-radius: 25px;width:110px;" data-operation="Dental">Dental</button>
+            <button type="button" class="btn btn-outline-primary operation_button" style="border-radius: 25px;width:110px;" data-operation="Optometry">Optometry</button>
+        </div>
+        <div class="col-md-12 text-center previous_date">
+        </div>
+        <div class="col-md-12 pb-2 pt-2">
+            <div class="row justify-content-start previous_day_cards pt-2" style="background-color:white;min-height:100px;min-width:250px;resize:both;overflow:auto;">
+            </div>
+        </div>
+        <div class="col-md-12 text-center start_date">
+        </div>
+        <div class="col-md-12 medical_table pt-2">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td>Site</td>
+                            <td>MD</td>
+                            <td>Walk-in</td>
+                            <td>Specialist</td>
+                            <td>Total<br/>Providers</td>
+                            <td>Reception</td>
+                            <td>Reception/Provider<br/>Ratio</td>
+                            <td>MA's</td>
+                            <td>MA's/Provider<br/>Ratio</td>
+                            <td>Nurses</td>
+                            <td>Nurses/Provider<br/>Ratio</td>
+                            <td>CallOuts</td>
+                            <td>Appointment<br/>Scheduled</td>
+                            <td>Qualified<br/>Visits</td>
+                            <td>Visit<br/>Capacity<br/>Utilization</td>
+                        </tr>
+                    </thead>
+                    <tbody id="storebookingData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12 pt-2 dental_table d-none">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td>Site</td>
+                            <td>MD</td>
+                            <td>Registered Dental<br/>Hygienist</td>
+                            <td>Total<br/>Providers</td>
+                            <td>Dental Hygienist<br/>Provider Ratio</td>
+                            <td>Reception</td>
+                            <td>Reception/Provider<br/>Ratio</td>
+                            <td>Registered Dental<br>Assistants present</td>
+                            <td>Dental Assistants<br/>Present</td>
+                            <td>Registered Dental Assistant<br/>Provider Ratio</td>
+                            <td>CallOuts</td>
+                            <td>Appointment<br/>Scheduled</td>
+                            <td>Total Qualified<br/>Visits</td>
+                            <td>Visit<br/>Capacity<br/>Utilization</td>
+                        </tr>
+                    </thead>
+                    <tbody id="dentalData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12 pt-2 optometry_table d-none">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td>Site</td>
+                            <td>MD</td>
+                            <td>Optometry MA<br>Present</td>
+                            <td>MA / Optometrist Ratio</td>
+                            <td>Receptionist<br>Present</td>
+                            <td>Receptionist/<br>Optometrist</td>
+                            <td>Optician</td>
+                            <td>Optician/Optometrist<br>Ratio</td>
+                            <td>CallOuts</td>
+                            <td>Appointment<br/>Scheduled</td>
+                            <td>Qualified<br/>Visits</td>
+                            <td>Visit<br/>Capacity<br/>Utilization</td>
+                        </tr>
+                    </thead>
+                    <tbody id="optometryData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="medical_location" value="{{medical}}">
+    <input type="hidden" id="dental_location" value="{{dental}}">
+    <input type="hidden" id="optometry_location" value="{{optometry}}">
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'staffplanning/assets/js/vendor/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/vendor/moment.min.js' %}" ></script>
+    <script src="{% static 'staffplanning/assets/js/es6/dashboard.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+          
+            $(function() {
+                $( "#my_date_picker" ).datepicker({
+                    dateFormat: 'mm-dd-yy'
+                });
+            });
+        })
+    </script>
+{% endblock %}

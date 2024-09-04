@@ -1,0 +1,30 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block body %}
+<div class="d-flex justify-content-center pt-2">
+    <div class="col-md-4">
+    <form method="POST" action="/appointment/healthplan-login/">
+        {% for message in messages %}
+            <div class="alert alert-danger p-1">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% csrf_token %}
+        <label>An OTP has send to your email {{ email }}</label>
+         <input class="form-control mb-2" type="text" name="otp" placeholder="Enter OTP"
+         autocomplete="username" maxlength="150" required="" id="id_otp">
+        <input type="hidden" name="login" value="{{user}}">
+        <button class="col-md-4 text-center btn btn-lg btn-primary btn-block" type="submit" style="background: #60a6a2;border: #60a6a2;">Login</button>  
+    </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+{% endblock %}

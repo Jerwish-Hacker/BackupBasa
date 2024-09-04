@@ -1,0 +1,127 @@
+{% load static %}
+{% load i18n %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Outreach | {{ title|title }}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href={{ titlelogo }}>
+
+    <link rel="stylesheet" href="{% static "appointment/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "outreach/assets/css/style.css" %}">
+    {% block css %}
+    {% endblock css %}
+    <style>
+        .icon-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: #333333;
+            background: #dddddd;
+            border: none;
+            outline: none;
+            border-radius: 50%;
+          }
+          
+          .icon-button:hover {
+            cursor: pointer;
+          }
+          
+          .icon-button:active {
+            background: #cccccc;
+            border: none;
+          }
+          
+          .icon-button__badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: red;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+          }
+        html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: table;
+        }
+           
+    </style>
+
+</head>
+
+<body style="background-color: white;">
+    <section>
+            <div class="nav-bar pt-2 pb-2">
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-4 social-icons">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'outreach:outreach_notification_list' outreach=outreach%}">
+                        <button type="button" class="icon-button">
+                            <span class="fa fa-bell" ></span>
+                            <span class="icon-button__badge">0</span>
+                        </button><a>
+                    <div class="col">
+                        <ul class="navbar-nav ml-auto ml-md-0">
+                            <li class="nav-item dropdown">
+                                <a style="color:#007bff;" 
+                                class="px-4 text-grey nav-link dropdown-toggle" id="userDropdown" href="#" role="button" 
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user fa-lg"></i>&nbsp;{{user.username}}</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                                </div>
+                            </li>
+                        </ul> 
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+    <div class="footer-secondary mt-0" style="height: 0;display: table-row;">
+        <div class="col-12 py-2">
+            <div class="row">
+                <div class="col-md-7" style="align-self: center;">
+                    <div >
+                        <span style="color:#007bff;">©2023 Basa. All Rights Reserved.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "appointment/assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    {% block script%}
+    {% endblock %}
+</body>
+
+</html>

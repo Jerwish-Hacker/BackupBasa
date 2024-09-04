@@ -1,0 +1,25 @@
+{
+  "name": "patientbooking",
+  "version": "1.0.0",
+  "description": "# Installation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel bookingforms/static/appointment/assets/js/es6 --out-dir bookingforms/static/appointment/assets/js/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:kelenolabspvt/clinicsierravista/patientbooking.git"
+  },
+  "author": "Prince Thomas",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "webpack-cli": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11"
+  }
+}

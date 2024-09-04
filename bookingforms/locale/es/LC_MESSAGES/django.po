@@ -1,0 +1,1612 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-07 17:28+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\bookingforms\forms.py:18 .\bookingforms\forms.py:30
+#: .\bookingforms\forms.py:214 .\bookingforms\forms.py:466
+#: .\bookingforms\forms.py:478 .\bookingforms\forms.py:662
+msgid "Other"
+msgstr "Otr"
+
+#: .\bookingforms\forms.py:22 .\bookingforms\forms.py:470
+msgid "Mother"
+msgstr "Madre"
+
+#: .\bookingforms\forms.py:23 .\bookingforms\forms.py:471
+msgid "Father"
+msgstr "Padre"
+
+#: .\bookingforms\forms.py:24 .\bookingforms\forms.py:472
+msgid "Husband"
+msgstr "Marido"
+
+#: .\bookingforms\forms.py:25 .\bookingforms\forms.py:473
+msgid "Wife"
+msgstr "Esposa"
+
+#: .\bookingforms\forms.py:26 .\bookingforms\forms.py:121
+#: .\bookingforms\forms.py:474 .\bookingforms\forms.py:569
+msgid "Significant Other"
+msgstr "Pareja"
+
+#: .\bookingforms\forms.py:27 .\bookingforms\forms.py:475
+msgid "Sister"
+msgstr "Hermana"
+
+#: .\bookingforms\forms.py:28 .\bookingforms\forms.py:476
+msgid "Brother"
+msgstr "Hermano"
+
+#: .\bookingforms\forms.py:29 .\bookingforms\forms.py:477
+msgid "Caregiver"
+msgstr "Cuidado"
+
+#: .\bookingforms\forms.py:33 .\bookingforms\forms.py:481
+msgid "COVID-19 Testing"
+msgstr "COVID-19 Pruebas"
+
+#: .\bookingforms\forms.py:38 .\bookingforms\forms.py:486
+#: .\bookingforms\views.py:94 .\bookingforms\views.py:134
+#: .\bookingforms\views.py:1174
+msgid "COVID-19 Vaccine"
+msgstr "Vacuna para el COVID-19"
+
+#: .\bookingforms\forms.py:51 .\bookingforms\forms.py:499
+#: .\bookingforms\views.py:68 .\bookingforms\views.py:1148
+msgid "Monday"
+msgstr "lunes"
+
+#: .\bookingforms\forms.py:52 .\bookingforms\forms.py:500
+#: .\bookingforms\views.py:69 .\bookingforms\views.py:1149
+msgid "Tuesday"
+msgstr "martes"
+
+#: .\bookingforms\forms.py:53 .\bookingforms\forms.py:501
+#: .\bookingforms\views.py:70 .\bookingforms\views.py:1150
+msgid "Wednesday"
+msgstr "Miércoles"
+
+#: .\bookingforms\forms.py:54 .\bookingforms\forms.py:502
+#: .\bookingforms\views.py:71 .\bookingforms\views.py:1151
+msgid "Thursday"
+msgstr "Jueves"
+
+#: .\bookingforms\forms.py:55 .\bookingforms\forms.py:503
+#: .\bookingforms\views.py:72 .\bookingforms\views.py:1152
+msgid "Friday"
+msgstr "Viernes"
+
+#: .\bookingforms\forms.py:56 .\bookingforms\forms.py:81
+#: .\bookingforms\forms.py:504 .\bookingforms\forms.py:529
+#: .\bookingforms\views.py:73 .\bookingforms\views.py:79
+#: .\bookingforms\views.py:143 .\bookingforms\views.py:1153
+#: .\bookingforms\views.py:1159
+msgid "Soonest Available"
+msgstr "Lo más pronto disponible"
+
+#: .\bookingforms\forms.py:64 .\bookingforms\forms.py:512
+msgid "18+ with Underlying Medical Condition"
+msgstr ""
+
+#: .\bookingforms\forms.py:65 .\bookingforms\forms.py:513
+msgid "Healthcare Worker"
+msgstr "Trabajador de la salud"
+
+#: .\bookingforms\forms.py:66 .\bookingforms\forms.py:514
+msgid "65+ Years"
+msgstr "65+ años"
+
+#: .\bookingforms\forms.py:67 .\bookingforms\forms.py:515
+msgid "Education Worker"
+msgstr ""
+
+#: .\bookingforms\forms.py:68 .\bookingforms\forms.py:516
+msgid "Food and Agriculture Worker"
+msgstr ""
+
+#: .\bookingforms\forms.py:69 .\bookingforms\forms.py:517
+msgid "Emergency Services Worker"
+msgstr ""
+
+#: .\bookingforms\forms.py:70 .\bookingforms\forms.py:518
+msgid "None of the Above"
+msgstr "Ninguna de las anteriores"
+
+#: .\bookingforms\forms.py:77 .\bookingforms\forms.py:525
+#: .\bookingforms\views.py:75 .\bookingforms\views.py:1155
+msgid "Early Morning"
+msgstr "Temprano en la mañana"
+
+#: .\bookingforms\forms.py:78 .\bookingforms\forms.py:526
+#: .\bookingforms\views.py:76 .\bookingforms\views.py:1156
+msgid "Late Morning"
+msgstr "Mañana tarde"
+
+#: .\bookingforms\forms.py:79 .\bookingforms\forms.py:527
+#: .\bookingforms\views.py:77 .\bookingforms\views.py:1157
+msgid "Early Afternoon"
+msgstr "Temprano en la tarde"
+
+#: .\bookingforms\forms.py:80 .\bookingforms\forms.py:528
+#: .\bookingforms\views.py:78 .\bookingforms\views.py:1158
+msgid "Late Afternoon"
+msgstr "Al final de la tarde"
+
+#: .\bookingforms\forms.py:96 .\bookingforms\forms.py:544
+msgid "Male"
+msgstr "Masculin"
+
+#: .\bookingforms\forms.py:97 .\bookingforms\forms.py:545
+msgid "Female"
+msgstr "Mujer"
+
+#: .\bookingforms\forms.py:98 .\bookingforms\forms.py:546
+msgid "Non-Binary"
+msgstr "No binario"
+
+#: .\bookingforms\forms.py:99 .\bookingforms\forms.py:131
+#: .\bookingforms\forms.py:146 .\bookingforms\forms.py:547
+#: .\bookingforms\forms.py:579 .\bookingforms\forms.py:594
+msgid "Unknown"
+msgstr "Desconocid"
+
+#: .\bookingforms\forms.py:106 .\bookingforms\forms.py:554
+#: .\bookingforms\templates\forms\form-step-2.html:127
+msgid "Cell"
+msgstr "Celda"
+
+#: .\bookingforms\forms.py:107 .\bookingforms\forms.py:555
+#: .\bookingforms\templates\forms\form-step-2.html:117
+msgid "Work"
+msgstr "Trabaja"
+
+#: .\bookingforms\forms.py:108 .\bookingforms\forms.py:556
+#: .\bookingforms\templates\common\base.html:98
+#: .\bookingforms\templates\forms\form-step-2.html:107
+#: .\bookingforms\templates\healthplan\base.html:111
+#: .\bookingforms\templates\uploads_url\base.html:97
+#: .\bookingforms\templates\uploads_url\index.html:206
+msgid "Home"
+msgstr "Hogar"
+
+#: .\bookingforms\forms.py:115 .\bookingforms\forms.py:563
+msgid "Single"
+msgstr "Único"
+
+#: .\bookingforms\forms.py:116 .\bookingforms\forms.py:564
+msgid "Married"
+msgstr "Casad"
+
+#: .\bookingforms\forms.py:117 .\bookingforms\forms.py:565
+msgid "Divorced"
+msgstr "Divorciad"
+
+#: .\bookingforms\forms.py:118 .\bookingforms\forms.py:566
+msgid "Separated"
+msgstr "Apartad"
+
+#: .\bookingforms\forms.py:119 .\bookingforms\forms.py:567
+msgid "Widowed"
+msgstr "Viud"
+
+#: .\bookingforms\forms.py:120 .\bookingforms\forms.py:568
+msgid "Domestic Partner"
+msgstr "Socio doméstico"
+
+#: .\bookingforms\forms.py:128 .\bookingforms\forms.py:576
+msgid "Hispanic/Latino"
+msgstr "Hispano / latino"
+
+#: .\bookingforms\forms.py:129 .\bookingforms\forms.py:577
+msgid "Non-Hispanic Latino"
+msgstr "Latino no hispano"
+
+#: .\bookingforms\forms.py:130 .\bookingforms\forms.py:145
+#: .\bookingforms\forms.py:578 .\bookingforms\forms.py:593
+msgid "Decline to Report"
+msgstr "Declive para informar"
+
+#: .\bookingforms\forms.py:138 .\bookingforms\forms.py:586
+msgid "Alaskan Native"
+msgstr "Nativo de Alaska"
+
+#: .\bookingforms\forms.py:139 .\bookingforms\forms.py:587
+msgid "American Indian"
+msgstr "indio americano"
+
+#: .\bookingforms\forms.py:140 .\bookingforms\forms.py:588
+msgid "Asian"
+msgstr "Asiática"
+
+#: .\bookingforms\forms.py:141 .\bookingforms\forms.py:589
+msgid "Black"
+msgstr "Negr"
+
+#: .\bookingforms\forms.py:142 .\bookingforms\forms.py:590
+msgid "Native-Hawaiian"
+msgstr "Nativo hawaiano"
+
+#: .\bookingforms\forms.py:143 .\bookingforms\forms.py:591
+msgid "Pacific Islander"
+msgstr "Isleño del pacífico"
+
+#: .\bookingforms\forms.py:144 .\bookingforms\forms.py:592
+msgid "White"
+msgstr "Blanc"
+
+#: .\bookingforms\forms.py:153 .\bookingforms\forms.py:601
+msgid "Full-Time"
+msgstr "Tiempo completo"
+
+#: .\bookingforms\forms.py:154 .\bookingforms\forms.py:602
+msgid "Not Employed"
+msgstr "Desempleado"
+
+#: .\bookingforms\forms.py:155 .\bookingforms\forms.py:603
+msgid "Active Military Duty"
+msgstr "Servicio militar activo"
+
+#: .\bookingforms\forms.py:156 .\bookingforms\forms.py:604
+msgid "Part Time"
+msgstr "Tiempo parcial"
+
+#: .\bookingforms\forms.py:157 .\bookingforms\forms.py:605
+msgid "Retired"
+msgstr "Retirad"
+
+#: .\bookingforms\forms.py:158 .\bookingforms\forms.py:188
+#: .\bookingforms\forms.py:606 .\bookingforms\forms.py:636
+msgid "Seasonal"
+msgstr "Estacional"
+
+#: .\bookingforms\forms.py:159 .\bookingforms\forms.py:607
+msgid "Self-Employed"
+msgstr "Trabajadores por cuenta propia"
+
+#: .\bookingforms\forms.py:160 .\bookingforms\forms.py:608
+msgid "Student Full-Time"
+msgstr "Estudiante a tiempo completo"
+
+#: .\bookingforms\forms.py:161 .\bookingforms\forms.py:609
+msgid "Student Part-Time"
+msgstr "Estudiante a tiempo parcial"
+
+#: .\bookingforms\forms.py:162 .\bookingforms\forms.py:610
+msgid "Child"
+msgstr "Niño"
+
+#: .\bookingforms\forms.py:169 .\bookingforms\forms.py:617
+msgid "Not Homeless"
+msgstr "No sin hogar"
+
+#: .\bookingforms\forms.py:170 .\bookingforms\forms.py:618
+msgid "At Risk for Homeless"
+msgstr "En riesgo de sin hogar"
+
+#: .\bookingforms\forms.py:172 .\bookingforms\forms.py:620
+msgid "Currently Not Homless, was in Last 12 Months"
+msgstr "Actualmente no tiene hogar, estuvo en los últimos 12 meses"
+
+#: .\bookingforms\forms.py:174 .\bookingforms\forms.py:622
+msgid "Homeless, Unknown Shelter"
+msgstr "Refugio desconocido para personas sin hogar"
+
+#: .\bookingforms\forms.py:175 .\bookingforms\forms.py:623
+msgid "Shelter"
+msgstr "Refugio"
+
+#: .\bookingforms\forms.py:176 .\bookingforms\forms.py:624
+msgid "Living with Others"
+msgstr "Viviendo con otros"
+
+#: .\bookingforms\forms.py:177 .\bookingforms\forms.py:625
+msgid "Street/Camp/Bridge"
+msgstr "Calle / campamento / puente"
+
+#: .\bookingforms\forms.py:178 .\bookingforms\forms.py:626
+msgid "Transitional Housing"
+msgstr "Vivienda transicional"
+
+#: .\bookingforms\forms.py:186 .\bookingforms\forms.py:634
+msgid "Not a Farmworker"
+msgstr "No es un trabajador agrícola"
+
+#: .\bookingforms\forms.py:187 .\bookingforms\forms.py:635
+msgid "Migrant"
+msgstr "Inmigrante"
+
+#: .\bookingforms\forms.py:195 .\bookingforms\forms.py:643
+msgid "Weekly"
+msgstr "Semanal"
+
+#: .\bookingforms\forms.py:196 .\bookingforms\forms.py:644
+msgid "Monthly"
+msgstr "Mensual"
+
+#: .\bookingforms\forms.py:197 .\bookingforms\forms.py:645
+msgid "Annually"
+msgstr "Anualmente"
+
+#: .\bookingforms\forms.py:205 .\bookingforms\forms.py:653
+msgid "English"
+msgstr "Inglés"
+
+#: .\bookingforms\forms.py:206 .\bookingforms\forms.py:654
+msgid "Spanish"
+msgstr "Español"
+
+#: .\bookingforms\forms.py:207 .\bookingforms\forms.py:655
+msgid "Punjabi"
+msgstr "punjabi"
+
+#: .\bookingforms\forms.py:208 .\bookingforms\forms.py:656
+msgid "Arabic"
+msgstr "Arábica"
+
+#: .\bookingforms\forms.py:209 .\bookingforms\forms.py:657
+msgid "American Sign Language"
+msgstr "lenguaje de signos americano"
+
+#: .\bookingforms\forms.py:210 .\bookingforms\forms.py:658
+msgid "Hmong"
+msgstr "Hmong"
+
+#: .\bookingforms\forms.py:211 .\bookingforms\forms.py:659
+msgid "Tagalog"
+msgstr "Tagal"
+
+#: .\bookingforms\forms.py:212 .\bookingforms\forms.py:660
+msgid "Laotian"
+msgstr "Laotiana"
+
+#: .\bookingforms\forms.py:213 .\bookingforms\forms.py:661
+msgid "Vietnamese "
+msgstr "vietnamita"
+
+#: .\bookingforms\forms.py:221 .\bookingforms\forms.py:669
+#: .\bookingforms\forms.py:875
+msgid "Drivers licence"
+msgstr "Licencia de conducir"
+
+#: .\bookingforms\forms.py:222 .\bookingforms\forms.py:670
+msgid "State identification card"
+msgstr "Tarjeta de identificación estatal"
+
+#: .\bookingforms\forms.py:252 .\bookingforms\forms.py:700
+msgid "Select Location"
+msgstr "Seleccionar ubicación"
+
+#: .\bookingforms\forms.py:253 .\bookingforms\forms.py:701
+msgid "Select a Preferred day of week"
+msgstr "Seleccione un día de la semana preferido"
+
+#: .\bookingforms\forms.py:254 .\bookingforms\forms.py:702
+msgid "Select Your Vaccine Eligibility Status?"
+msgstr "Seleccione su estado de elegibilidad de la vacuna?"
+
+#: .\bookingforms\forms.py:255 .\bookingforms\forms.py:703
+#: .\bookingforms\views.py:138 .\bookingforms\views.py:182
+#: .\bookingforms\views.py:242
+msgid "Select a Preferred time frame"
+msgstr "Seleccione un marco de tiempo preferido"
+
+#: .\bookingforms\forms.py:256 .\bookingforms\forms.py:704
+msgid "Select Gender"
+msgstr "Seleccione género"
+
+#: .\bookingforms\forms.py:257 .\bookingforms\forms.py:705
+msgid "Select Marital status"
+msgstr "Seleccione el estado civil"
+
+#: .\bookingforms\forms.py:258 .\bookingforms\forms.py:706
+msgid "Select Ethnicity"
+msgstr "Seleccione la etnicidad"
+
+#: .\bookingforms\forms.py:259 .\bookingforms\forms.py:707
+msgid "Select Race"
+msgstr "Seleccione la carrera"
+
+#: .\bookingforms\forms.py:260 .\bookingforms\forms.py:708
+msgid "Select Employment Status"
+msgstr "Seleccione Estado de Empleo"
+
+#: .\bookingforms\forms.py:261 .\bookingforms\forms.py:709
+msgid "Select Homeless status"
+msgstr "Seleccione estado sin hogar"
+
+#: .\bookingforms\forms.py:262 .\bookingforms\forms.py:710
+msgid "Select Farm worker status"
+msgstr "elegir el estatus de trabajador agrícola"
+
+#: .\bookingforms\forms.py:263 .\bookingforms\forms.py:711
+msgid "Select Income frequency"
+msgstr "Seleccione la frecuencia de ingresos"
+
+#: .\bookingforms\forms.py:264 .\bookingforms\forms.py:712
+msgid "Select Primary Language"
+msgstr "Seleccione el idioma primario"
+
+#: .\bookingforms\forms.py:265 .\bookingforms\forms.py:713
+#: .\bookingforms\forms.py:887
+msgid "Select Identification Document"
+msgstr "Seleccionar documento de identificación"
+
+#: .\bookingforms\forms.py:267 .\bookingforms\forms.py:715
+msgid "Select Emergency Contact Relationship"
+msgstr "Seleccione Relación de contacto de emergencia"
+
+#: .\bookingforms\forms.py:268 .\bookingforms\forms.py:716
+msgid "Select Subscriber Relationship"
+msgstr "Seleccionar relación de suscriptor"
+
+#: .\bookingforms\forms.py:269 .\bookingforms\forms.py:717
+msgid "Select Guarantor's Relationship to Patient"
+msgstr "Seleccione la relación del garante con la paciente"
+
+#: .\bookingforms\forms.py:270 .\bookingforms\forms.py:718
+msgid "Select State"
+msgstr "Seleccione estado"
+
+#: .\bookingforms\forms.py:272 .\bookingforms\forms.py:720
+#: .\bookingforms\views.py:94 .\bookingforms\views.py:1174
+msgid "Select Appointment Type"
+msgstr "Seleccione Tipo de Cita"
+
+#: .\bookingforms\forms.py:273 .\bookingforms\forms.py:721
+msgid "Select the Vaccine"
+msgstr "Seleccione la carrera"
+
+#: .\bookingforms\forms.py:876
+msgid "ID"
+msgstr ""
+
+#: .\bookingforms\models.py:15 .\bookingforms\models.py:242
+#: .\bookingforms\models.py:377
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:15
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:14
+#: .\bookingforms\templates\forms\form-step-1.html:14
+#: .\bookingforms\templates\healthplan\index.html:30
+msgid "Appointment Type"
+msgstr "Tipo de Cita"
+
+#: .\bookingforms\models.py:18 .\bookingforms\models.py:231
+#: .\bookingforms\models.py:380
+msgid "County"
+msgstr "condado"
+
+#: .\bookingforms\models.py:20 .\bookingforms\models.py:382
+msgid "Preferred Day of the Week"
+msgstr "Día de la semana preferido"
+
+#: .\bookingforms\models.py:23 .\bookingforms\models.py:385
+msgid "Preffered Date"
+msgstr "Día de la semana preferido"
+
+#: .\bookingforms\models.py:26 .\bookingforms\models.py:388
+msgid "Preferred time frame"
+msgstr "Marco de tiempo preferido"
+
+#: .\bookingforms\models.py:32 .\bookingforms\models.py:394
+msgid "Employer"
+msgstr "Empleado"
+
+#: .\bookingforms\models.py:34 .\bookingforms\models.py:396
+msgid "Job Role"
+msgstr "Puesto de trabajo"
+
+#: .\bookingforms\models.py:37 .\bookingforms\models.py:399
+msgid "Have you received the first dose of the Covid Vaccine?"
+msgstr "¿Ha recibido la primera dosis de la vacuna Covid?"
+
+#: .\bookingforms\models.py:39 .\bookingforms\models.py:401
+msgid "If Yes, which manufacturer?"
+msgstr "Si es así, ¿qué fabricante?"
+
+#: .\bookingforms\models.py:45 .\bookingforms\models.py:407
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:130
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:119
+#: .\bookingforms\templates\forms\form-step-1.html:136
+msgid "Are you a current patient of Clinica Sierra Vista?"
+msgstr "¿Es usted una paciente actual de Clínica Sierra Vista?"
+
+#: .\bookingforms\models.py:47 .\bookingforms\models.py:409
+msgid "Vaccine Eligibility Status?"
+msgstr "¿Estado de elegibilidad de la vacuna?"
+
+#: .\bookingforms\models.py:50 .\bookingforms\models.py:412
+msgid "Are you a healthcare worker and or 65 years old and over?"
+msgstr "¿Es usted un trabajador de la salud y tiene 65 años o más?"
+
+#: .\bookingforms\models.py:52 .\bookingforms\models.py:414
+msgid "Are you a healthcare worker?"
+msgstr "¿Eres un trabajador de la salud?"
+
+#: .\bookingforms\models.py:54 .\bookingforms\models.py:416
+msgid "Are you 65 years old and over?"
+msgstr "¿Tienes 65 años o más?"
+
+#: .\bookingforms\models.py:59 .\bookingforms\models.py:248
+#: .\bookingforms\models.py:421
+#: .\bookingforms\templates\forms\form-step-2.html:16
+msgid "Last Name"
+msgstr "Apellido"
+
+#: .\bookingforms\models.py:61 .\bookingforms\models.py:246
+#: .\bookingforms\models.py:423
+#: .\bookingforms\templates\forms\form-step-2.html:10
+msgid "First Name"
+msgstr "Nombre de pila"
+
+#: .\bookingforms\models.py:63 .\bookingforms\models.py:425
+#: .\bookingforms\templates\forms\form-step-2.html:22
+msgid "Social Security Number"
+msgstr "Número de seguridad social"
+
+#: .\bookingforms\models.py:65 .\bookingforms\models.py:427
+msgid "Decline to answer about SSN"
+msgstr "Declive para responder sobre SSN"
+
+#: .\bookingforms\models.py:68 .\bookingforms\models.py:250
+#: .\bookingforms\models.py:430
+#: .\bookingforms\templates\forms\form-step-2.html:42
+#: .\bookingforms\templates\uploads_url\index.html:84
+msgid "Date of Birth"
+msgstr "Fecha de nacimiento"
+
+#: .\bookingforms\models.py:73 .\bookingforms\models.py:435
+#: .\bookingforms\models.py:657
+#: .\bookingforms\templates\forms\form-step-2.html:48
+msgid "Gender"
+msgstr "Género"
+
+#: .\bookingforms\models.py:79 .\bookingforms\models.py:441
+#: .\bookingforms\templates\forms\form-step-2.html:93
+msgid "Contact Number"
+msgstr "Número de contacto"
+
+#: .\bookingforms\models.py:81 .\bookingforms\models.py:443
+msgid "Contact Number Type"
+msgstr "TTipo de número de contacto"
+
+#: .\bookingforms\models.py:86 .\bookingforms\models.py:448
+msgid "Can you accept texts if you can’t be reached by phone?"
+msgstr ""
+"¿Puede aceptar mensajes de texto si no pueden comunicarse con usted por "
+"teléfono?"
+
+#: .\bookingforms\models.py:89 .\bookingforms\models.py:451
+#: .\bookingforms\templates\forms\form-step-2.html:54
+msgid "Email Address"
+msgstr "Correo electrónico"
+
+#: .\bookingforms\models.py:91 .\bookingforms\models.py:453
+#: .\bookingforms\templates\forms\form-step-2.html:188
+msgid "Street Address"
+msgstr "Dirección"
+
+#: .\bookingforms\models.py:93 .\bookingforms\models.py:455
+#: .\bookingforms\models.py:665
+#: .\bookingforms\templates\forms\form-step-2.html:174
+msgid "City"
+msgstr "Ciudad"
+
+#: .\bookingforms\models.py:95 .\bookingforms\models.py:457
+msgid "Other City ? Enter Here"
+msgstr "Otra ciudad ? Entre aquí"
+
+#: .\bookingforms\models.py:96 .\bookingforms\models.py:458
+#: .\bookingforms\models.py:667
+#: .\bookingforms\templates\forms\form-step-2.html:167
+msgid "State"
+msgstr "Expresar"
+
+#: .\bookingforms\models.py:97 .\bookingforms\models.py:459
+#: .\bookingforms\templates\forms\form-step-2.html:194
+msgid "Zip"
+msgstr "Cremallera"
+
+#: .\bookingforms\models.py:101 .\bookingforms\models.py:463
+#: .\bookingforms\templates\forms\form-step-2.html:200
+msgid "Primary Language"
+msgstr "Lenguaje primario"
+
+#: .\bookingforms\models.py:104 .\bookingforms\models.py:466
+msgid "Enter Langauge"
+msgstr "Ingresar idioma"
+
+#: .\bookingforms\models.py:107 .\bookingforms\models.py:469
+#: .\bookingforms\templates\forms\form-step-2.html:212
+msgid "Marital Status"
+msgstr "Estado civil"
+
+#: .\bookingforms\models.py:112 .\bookingforms\models.py:474
+#: .\bookingforms\templates\forms\form-step-2.html:218
+msgid "Ethnicity"
+msgstr "Etnicidad"
+
+#: .\bookingforms\models.py:117 .\bookingforms\models.py:479
+#: .\bookingforms\templates\forms\form-step-2.html:224
+msgid "Race"
+msgstr "Raza"
+
+#: .\bookingforms\models.py:122 .\bookingforms\models.py:484
+#: .\bookingforms\templates\forms\form-step-2.html:234
+msgid "Are you a Veteran?"
+msgstr "¿Eres un veterano?"
+
+#: .\bookingforms\models.py:125 .\bookingforms\models.py:487
+#: .\bookingforms\templates\forms\form-step-2.html:271
+msgid "Emergency Contact Name"
+msgstr "nombre del contacto de emergencia"
+
+#: .\bookingforms\models.py:127 .\bookingforms\models.py:489
+#: .\bookingforms\templates\forms\form-step-2.html:277
+msgid "Emergency Contact Number"
+msgstr "Número de contacto de emergencia"
+
+#: .\bookingforms\models.py:130 .\bookingforms\models.py:492
+#: .\bookingforms\templates\forms\form-step-2.html:286
+msgid "Emergency Contact Relationship"
+msgstr "Relación de contacto de emergencia"
+
+#: .\bookingforms\models.py:133 .\bookingforms\models.py:495
+msgid "Emergency Contact Relationship Entered"
+msgstr "Relación de contacto de emergencia ingresada"
+
+#: .\bookingforms\models.py:136 .\bookingforms\models.py:498
+#: .\bookingforms\templates\forms\form-step-2.html:299
+msgid "Employment Status"
+msgstr "Estado de Empleo"
+
+#: .\bookingforms\models.py:141 .\bookingforms\models.py:503
+#: .\bookingforms\templates\forms\form-step-2.html:305
+msgid "Homeless Status"
+msgstr "Estado sin hogar"
+
+#: .\bookingforms\models.py:146 .\bookingforms\models.py:508
+msgid "Farmworker Status"
+msgstr "Estado de trabajador agrícola"
+
+#: .\bookingforms\models.py:152 .\bookingforms\models.py:514
+#: .\bookingforms\templates\forms\form-step-3.html:8
+msgid "Guarantor Name"
+msgstr "Nombre del garante"
+
+#: .\bookingforms\models.py:153 .\bookingforms\models.py:515
+msgid "Is Guarantor Details Declined ?"
+msgstr "¿Se rechazan los detalles del garante?"
+
+#: .\bookingforms\models.py:156 .\bookingforms\models.py:518
+msgid "Guarantor Relationship"
+msgstr "Relación de garante"
+
+#: .\bookingforms\models.py:159 .\bookingforms\models.py:521
+#: .\bookingforms\templates\forms\form-step-3.html:45
+msgid "Other Guarantor Relationship ? Enter it here"
+msgstr "¿Otra relación de garante? Insértelo aquí"
+
+#: .\bookingforms\models.py:161 .\bookingforms\models.py:523
+msgid "Guarantor Date of Birth"
+msgstr "Fecha de la garra de nacimiento"
+
+#: .\bookingforms\models.py:166 .\bookingforms\models.py:528
+#: .\bookingforms\templates\forms\form-step-2.html:60
+msgid "Family Size"
+msgstr "Tamaño de la familia"
+
+#: .\bookingforms\models.py:168 .\bookingforms\models.py:530
+msgid "Household Income"
+msgstr "Ingreso familiar"
+
+#: .\bookingforms\models.py:170 .\bookingforms\models.py:532
+msgid "Is Household Income Decline to answer ?"
+msgstr "¿Los ingresos del hogar se reducen para responder?"
+
+#: .\bookingforms\models.py:172 .\bookingforms\models.py:534
+#: .\bookingforms\templates\forms\form-step-2.html:85
+msgid "Income Frequency"
+msgstr "Frecuencia de Ingresos"
+
+#: .\bookingforms\models.py:178 .\bookingforms\models.py:540
+#: .\bookingforms\templates\forms\form-step-3.html:54
+msgid "Primary Insurance Carrier"
+msgstr "Carrier de seguros primarios"
+
+#: .\bookingforms\models.py:180 .\bookingforms\models.py:542
+msgid "Not Insured"
+msgstr "No asegurado"
+
+#: .\bookingforms\models.py:182 .\bookingforms\models.py:544
+#: .\bookingforms\templates\forms\form-step-3.html:81
+msgid "Subscriber ID"
+msgstr "identificación de suscriptor"
+
+#: .\bookingforms\models.py:184 .\bookingforms\models.py:546
+msgid "Group Number (if applicable)"
+msgstr "Número de grupo (si corresponde)"
+
+#: .\bookingforms\models.py:186 .\bookingforms\models.py:548
+#: .\bookingforms\templates\forms\form-step-3.html:94
+msgid "Subscriber Name (First and Last)"
+msgstr "Nombre del suscriptor (nombre y apellido)"
+
+#: .\bookingforms\models.py:189 .\bookingforms\models.py:551
+#: .\bookingforms\templates\forms\form-step-3.html:110
+msgid "Subscriber Relationship"
+msgstr "Relación de suscriptor"
+
+#: .\bookingforms\models.py:192 .\bookingforms\models.py:554
+msgid "Other Subscriber Relationship ? Enter it here"
+msgstr "¿Otra relación de suscriptor? Insértelo aquí"
+
+#: .\bookingforms\models.py:195 .\bookingforms\models.py:557
+msgid "Identification Document"
+msgstr "Documento de identificación"
+
+#: .\bookingforms\models.py:197 .\bookingforms\models.py:559
+msgid "Attachment support"
+msgstr "Soporte de apego"
+
+#: .\bookingforms\models.py:200 .\bookingforms\models.py:562
+msgid "Insurance Card (Front)"
+msgstr "Tarjeta de seguro (frente)"
+
+#: .\bookingforms\models.py:202 .\bookingforms\models.py:564
+msgid "Insurance Card (Back)"
+msgstr "Tarjeta de seguro (reverso)"
+
+#: .\bookingforms\models.py:205 .\bookingforms\models.py:567
+msgid "Is Declaration accepted ?"
+msgstr "¿Se acepta la Declaración?"
+
+#: .\bookingforms\models.py:208 .\bookingforms\models.py:570
+msgid "Description"
+msgstr "Descripción"
+
+#: .\bookingforms\models.py:214
+#: .\bookingforms\templates\forms\fixed-steps.html:10
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:9
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:8
+#: .\bookingforms\templates\forms\form-step-1.html:8
+#: .\bookingforms\templates\forms\steps.html:8
+msgid "Appointment"
+msgstr "Cita"
+
+#: .\bookingforms\models.py:215
+msgid "Appointments"
+msgstr "Equipo"
+
+#: .\bookingforms\models.py:228
+msgid "County Name"
+msgstr "Nombre del condado"
+
+#: .\bookingforms\models.py:232
+msgid "Countys"
+msgstr "condado"
+
+#: .\bookingforms\models.py:244 .\bookingforms\models.py:679
+msgid "MRN"
+msgstr ""
+
+#: .\bookingforms\models.py:252
+msgid "Phone Number"
+msgstr "Número de teléfono:"
+
+#: .\bookingforms\models.py:254
+msgid "Provider"
+msgstr ""
+
+#: .\bookingforms\models.py:261
+msgid "Health Plan Patient"
+msgstr "Relación con la paciente"
+
+#: .\bookingforms\models.py:262
+msgid "Health Plan Patients"
+msgstr "Relación con la paciente"
+
+#: .\bookingforms\models.py:271 .\bookingforms\models.py:706
+msgid "Out Reach Status"
+msgstr "Estado civil"
+
+#: .\bookingforms\models.py:273 .\bookingforms\models.py:708
+msgid "Call Back Date"
+msgstr ""
+
+#: .\bookingforms\models.py:275 .\bookingforms\models.py:710
+msgid "Appointment Location"
+msgstr "Cita"
+
+#: .\bookingforms\models.py:277 .\bookingforms\models.py:712
+msgid "Appointment Date"
+msgstr "Cita"
+
+#: .\bookingforms\models.py:279 .\bookingforms\models.py:714
+msgid "Appointment Time"
+msgstr "Tipo de Cita"
+
+#: .\bookingforms\models.py:281 .\bookingforms\models.py:716
+msgid "Is Accept Text Messages?"
+msgstr ""
+
+#: .\bookingforms\models.py:283 .\bookingforms\models.py:718
+msgid "Text Message New Phone Number"
+msgstr ""
+
+#: .\bookingforms\models.py:285 .\bookingforms\models.py:720
+msgid "Patient Primary Language"
+msgstr "Seleccione el idioma primario"
+
+#: .\bookingforms\models.py:287 .\bookingforms\models.py:722
+msgid "Is Appointment Scheduled Patient Reminded?"
+msgstr ""
+
+#: .\bookingforms\models.py:289 .\bookingforms\models.py:724
+msgid "Appointment Created By"
+msgstr "Tipo de Cita"
+
+#: .\bookingforms\models.py:291 .\bookingforms\models.py:726
+msgid "Appointment Confirmed By"
+msgstr "Tipo de Cita"
+
+#: .\bookingforms\models.py:293 .\bookingforms\models.py:728
+#, fuzzy
+#| msgid "Appointment Confirmed By"
+msgid "Appointment Confirmed Date Time"
+msgstr "Tipo de Cita"
+
+#: .\bookingforms\models.py:295 .\bookingforms\models.py:730
+#: .\bookingforms\templates\healthplan\index.html:173
+#: .\bookingforms\templates\khs_outreach\index.html:201
+msgid "Comments"
+msgstr "Documentos"
+
+#: .\bookingforms\models.py:302
+msgid "Health Plan Patient Call Detail"
+msgstr ""
+
+#: .\bookingforms\models.py:303
+msgid "Health Plan Patient Call Details"
+msgstr ""
+
+#: .\bookingforms\models.py:335 .\bookingforms\models.py:362
+#, fuzzy
+#| msgid "Appointment Created By"
+msgid "Slot Created By"
+msgstr "Tipo de Cita"
+
+#: .\bookingforms\models.py:573
+msgid "Is Slot Created By Staff"
+msgstr ""
+
+#: .\bookingforms\models.py:576
+msgid "ID From KHS Patient Call Details Table"
+msgstr ""
+
+#: .\bookingforms\models.py:582
+#, fuzzy
+#| msgid "Appointment"
+msgid "KHSAppointment"
+msgstr "Cita"
+
+#: .\bookingforms\models.py:583
+#, fuzzy
+#| msgid "Appointments"
+msgid "KHSAppointments"
+msgstr "Equipo"
+
+#: .\bookingforms\models.py:649
+msgid "CIN"
+msgstr ""
+
+#: .\bookingforms\models.py:651
+msgid "Member Name"
+msgstr ""
+
+#: .\bookingforms\models.py:653
+msgid "DOB"
+msgstr ""
+
+#: .\bookingforms\models.py:655
+#, fuzzy
+#| msgid "I Agree"
+msgid "Age"
+msgstr "Estoy de acuerdo"
+
+#: .\bookingforms\models.py:659
+#, fuzzy
+#| msgid "Primary Language"
+msgid "Primary Phone"
+msgstr "Lenguaje primario"
+
+#: .\bookingforms\models.py:661
+msgid "Secondary Phone"
+msgstr ""
+
+#: .\bookingforms\models.py:663
+#, fuzzy
+#| msgid "Email Address"
+msgid "Address"
+msgstr "Correo electrónico"
+
+#: .\bookingforms\models.py:669
+msgid "ZIP"
+msgstr ""
+
+#: .\bookingforms\models.py:671
+msgid "PCP ID"
+msgstr ""
+
+#: .\bookingforms\models.py:673
+#, fuzzy
+#| msgid "County Name"
+msgid "PCP Name"
+msgstr "Nombre del condado"
+
+#: .\bookingforms\models.py:675
+#, fuzzy
+#| msgid "If Yes, Which Manufacturer?"
+msgid "Manufacturer"
+msgstr "Si es así, ¿qué fabricante?"
+
+#: .\bookingforms\models.py:677
+#, fuzzy
+#| msgid "Vaccine Eligibility Status"
+msgid "Vaccination Status"
+msgstr "Estado de elegibilidad de la vacuna"
+
+#: .\bookingforms\models.py:681
+msgid "Epic Phone"
+msgstr ""
+
+#: .\bookingforms\models.py:683
+msgid "Send SMS"
+msgstr ""
+
+#: .\bookingforms\models.py:685
+msgid "Test Messaging"
+msgstr ""
+
+#: .\bookingforms\models.py:687
+#: .\bookingforms\templates\khs_outreach\index.html:26
+#, fuzzy
+#| msgid "Patient Information"
+msgid "Patient Category"
+msgstr "Información del paciente"
+
+#: .\bookingforms\models.py:689
+#: .\bookingforms\templates\healthplan\index.html:167
+#: .\bookingforms\templates\khs_outreach\index.html:195
+msgid "Preferred Language"
+msgstr "Lenguaje primario"
+
+#: .\bookingforms\models.py:696
+msgid "KHS Paitent Detail"
+msgstr ""
+
+#: .\bookingforms\models.py:697
+msgid "KHS Paitent Details"
+msgstr ""
+
+#: .\bookingforms\models.py:737
+msgid "KHS Patient Call Detail"
+msgstr ""
+
+#: .\bookingforms\models.py:738
+msgid "KHS Patient Call Details"
+msgstr ""
+
+#: .\bookingforms\templates\common\base.html:32
+#: .\bookingforms\templates\healthplan\base.html:37
+msgid "Appointment Request"
+msgstr "Solicitud de cita"
+
+#: .\bookingforms\templates\common\base.html:41
+#: .\bookingforms\templates\healthplan\base.html:46
+#: .\bookingforms\templates\uploads_url\base.html:40
+#: .\bookingforms\templates\uploads_url\index.html:39
+msgid "follow us"
+msgstr "Síganos"
+
+#: .\bookingforms\templates\common\base.html:82
+#: .\bookingforms\templates\healthplan\base.html:95
+#: .\bookingforms\templates\uploads_url\base.html:81
+#: .\bookingforms\templates\uploads_url\index.html:190
+msgid "Corporate Office"
+msgstr "Oficina corporativa"
+
+#: .\bookingforms\templates\common\base.html:89
+#: .\bookingforms\templates\healthplan\base.html:102
+#: .\bookingforms\templates\uploads_url\base.html:88
+#: .\bookingforms\templates\uploads_url\index.html:197
+msgid ""
+"Clinica Sierra Vista is a Federally Qualified Health Center (FQHC) system.It "
+"receives the Department of Health and Human Services (HHS) funding and has "
+"Federal Public Health Service (PHS) deemed status with respect to certain "
+"health or health-related claims, including medical malpractice claims, for "
+"itself and its covered individuals."
+msgstr ""
+"Clinica Sierra Vista es un sistema de centro de salud calificado "
+"federalmente (FQHC) que recibe fondos del Departamento de Salud y Servicios "
+"Humanos (HHS) y tiene un estado considerado por el Servicio Federal de Salud "
+"Pública (PHS) con respecto a ciertos reclamos de salud o relacionados con la "
+"salud, incluidos reclamos por negligencia médica, para sí mismo y sus "
+"individuos cubiertos."
+
+#: .\bookingforms\templates\common\base.html:101
+#: .\bookingforms\templates\healthplan\base.html:114
+#: .\bookingforms\templates\uploads_url\base.html:100
+#: .\bookingforms\templates\uploads_url\index.html:209
+msgid "About Us"
+msgstr "Sobre nosotros"
+
+#: .\bookingforms\templates\common\base.html:104
+#: .\bookingforms\templates\healthplan\base.html:117
+#: .\bookingforms\templates\uploads_url\base.html:103
+#: .\bookingforms\templates\uploads_url\index.html:212
+msgid "Directors"
+msgstr "Directores"
+
+#: .\bookingforms\templates\common\base.html:107
+#: .\bookingforms\templates\healthplan\base.html:120
+#: .\bookingforms\templates\uploads_url\base.html:106
+#: .\bookingforms\templates\uploads_url\index.html:215
+msgid "Careers"
+msgstr "Cuidado"
+
+#: .\bookingforms\templates\common\base.html:110
+#: .\bookingforms\templates\healthplan\base.html:123
+#: .\bookingforms\templates\uploads_url\base.html:109
+#: .\bookingforms\templates\uploads_url\index.html:218
+msgid "Doctors & clinicians"
+msgstr "Doctores y clínicos"
+
+#: .\bookingforms\templates\common\base.html:115
+#: .\bookingforms\templates\healthplan\base.html:128
+#: .\bookingforms\templates\uploads_url\base.html:114
+#: .\bookingforms\templates\uploads_url\index.html:223
+msgid "Community Medical & Healthcare Services in California"
+msgstr "Servicios médicos y de salud comunitarios en California"
+
+#: .\bookingforms\templates\common\base.html:119
+#: .\bookingforms\templates\healthplan\base.html:132
+#: .\bookingforms\templates\uploads_url\base.html:118
+#: .\bookingforms\templates\uploads_url\index.html:227
+msgid "Affordable Dental Care Services"
+msgstr "Servicios de atención dental asequibles"
+
+#: .\bookingforms\templates\common\base.html:125
+#: .\bookingforms\templates\healthplan\base.html:138
+#: .\bookingforms\templates\uploads_url\base.html:124
+#: .\bookingforms\templates\uploads_url\index.html:233
+msgid "Enroll Today"
+msgstr "Inscríbase hoy"
+
+#: .\bookingforms\templates\common\base.html:128
+#: .\bookingforms\templates\healthplan\base.html:141
+#: .\bookingforms\templates\uploads_url\base.html:127
+#: .\bookingforms\templates\uploads_url\index.html:236
+msgid "Locations"
+msgstr "Seleccionar ubicación"
+
+#: .\bookingforms\templates\common\base.html:131
+#: .\bookingforms\templates\healthplan\base.html:144
+#: .\bookingforms\templates\uploads_url\base.html:130
+#: .\bookingforms\templates\uploads_url\index.html:239
+msgid "Patient Information"
+msgstr "Información del paciente"
+
+#: .\bookingforms\templates\common\base.html:134
+#: .\bookingforms\templates\healthplan\base.html:147
+#: .\bookingforms\templates\uploads_url\base.html:133
+#: .\bookingforms\templates\uploads_url\index.html:242
+msgid "Events Calender"
+msgstr "Calendario de eventos"
+
+#: .\bookingforms\templates\common\base.html:137
+#: .\bookingforms\templates\healthplan\base.html:150
+#: .\bookingforms\templates\uploads_url\base.html:136
+#: .\bookingforms\templates\uploads_url\index.html:245
+msgid "Newsroom"
+msgstr "Sala de prensa"
+
+#: .\bookingforms\templates\common\base.html:147
+#: .\bookingforms\templates\healthplan\base.html:160
+#: .\bookingforms\templates\uploads_url\base.html:146
+#: .\bookingforms\templates\uploads_url\index.html:255
+msgid "Terms of use"
+msgstr "Condiciones de uso"
+
+#: .\bookingforms\templates\common\base.html:150
+#: .\bookingforms\templates\healthplan\base.html:163
+#: .\bookingforms\templates\uploads_url\base.html:149
+#: .\bookingforms\templates\uploads_url\index.html:258
+msgid "Privacy Policy"
+msgstr "Política de privacidad"
+
+#: .\bookingforms\templates\forms\fixed-steps.html:18
+#: .\bookingforms\templates\forms\form-step-2.html:6
+#: .\bookingforms\templates\forms\steps.html:16
+msgid "Demographics"
+msgstr "Demografía"
+
+#: .\bookingforms\templates\forms\fixed-steps.html:26
+#: .\bookingforms\templates\forms\form-step-3.html:4
+#: .\bookingforms\templates\forms\steps.html:24
+msgid "Insurance"
+msgstr "Seguro"
+
+#: .\bookingforms\templates\forms\fixed-steps.html:34
+#: .\bookingforms\templates\forms\form-step-4.html:6
+#: .\bookingforms\templates\forms\steps.html:32
+msgid "Documents"
+msgstr "Documentos"
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:5
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:5
+#: .\bookingforms\templates\forms\form-step-1.html:5
+msgid ""
+"To request an appointment, please select your preferred day of week and time "
+"frame. If an appointment is available that meets the criteria provided, you "
+"will receive a text confirmation that your appointment is scheduled."
+msgstr ""
+"Para solicitar una cita, seleccione el día de la semana y el horario que "
+"prefiera. Si hay una cita disponible que cumpla con los criterios "
+"proporcionados, recibirá un mensaje de texto de confirmación de que su cita "
+"está programada."
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:30
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:90
+#: .\bookingforms\templates\forms\form-step-1.html:35
+#: .\bookingforms\templates\healthplan\index.html:137
+#: .\bookingforms\templates\khs_outreach\index.html:165
+msgid "Location"
+msgstr "Seleccionar ubicación"
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:109
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:98
+#: .\bookingforms\templates\forms\form-step-1.html:107
+#: .\bookingforms\templates\forms\form-step-1.html:114
+msgid "Preferred Day of Week"
+msgstr "Día de la semana preferido"
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:115
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:104
+msgid "Preferred Time Frame"
+msgstr "Marco de tiempo preferido"
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:140
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:171
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:129
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:160
+#: .\bookingforms\templates\forms\form-step-1.html:146
+#: .\bookingforms\templates\forms\form-step-1.html:177
+#: .\bookingforms\templates\forms\form-step-2.html:146
+#: .\bookingforms\templates\forms\form-step-2.html:246
+msgid "Yes"
+msgstr "sí"
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:152
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:183
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:141
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:172
+#: .\bookingforms\templates\forms\form-step-1.html:158
+#: .\bookingforms\templates\forms\form-step-1.html:189
+#: .\bookingforms\templates\forms\form-step-2.html:160
+#: .\bookingforms\templates\forms\form-step-2.html:260
+msgid "No"
+msgstr "No"
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:161
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:150
+#: .\bookingforms\templates\forms\form-step-1.html:167
+msgid "Have you received the first dose of the Covid vaccine?"
+msgstr "¿Ha recibido la primera dosis de la vacuna Covid?"
+
+#: .\bookingforms\templates\forms\form-step-1-eastniles.html:190
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:179
+#: .\bookingforms\templates\forms\form-step-1.html:196
+msgid "If Yes, Which Manufacturer?"
+msgstr "Si es así, ¿qué fabricante?"
+
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:7
+msgid ""
+"At this time, we are not offering  <span class=\"important-text\"> after-"
+"hours </span> appointment."
+msgstr ""
+"En este momento, no ofrecemos citas fuera del  <span class=\"important-text"
+"\">horario de atención o los sábados</span>."
+
+#: .\bookingforms\templates\forms\form-step-1-farmworker.html:22
+msgid "Vaccine Eligibility Status"
+msgstr "Estado de elegibilidad de la vacuna"
+
+#: .\bookingforms\templates\forms\form-step-1.html:7
+msgid ""
+"At this time, we are not offering  <span class=\"important-text\"> after-"
+"hours</span> appointment.<span style=\"color:blue\">  Get your Flu shot "
+"along with your COVID-19 Vaccine appointment.</span>"
+msgstr ""
+"En este momento, no ofrecemos citas fuera del  <span class=\"important-text"
+"\">horario de atención o los sábados</span>."
+
+#: .\bookingforms\templates\forms\form-step-1.html:29
+msgid "Select the Vaccine you previously administrated"
+msgstr ""
+
+#: .\bookingforms\templates\forms\form-step-1.html:120
+msgid "Select a Time"
+msgstr "Seleccione la carrera"
+
+#: .\bookingforms\templates\forms\form-step-2.html:37
+#: .\bookingforms\templates\forms\form-step-2.html:80
+msgid "Decline to Answer"
+msgstr "Declive para informar"
+
+#: .\bookingforms\templates\forms\form-step-2.html:66
+msgid "Household Income ($)"
+msgstr "Ingreso familiar"
+
+#: .\bookingforms\templates\forms\form-step-2.html:134
+msgid "Can You Accept Texts If You can’t be Reached by Phone?"
+msgstr ""
+"¿Puede aceptar mensajes de texto si no pueden comunicarse con usted por "
+"teléfono?"
+
+#: .\bookingforms\templates\forms\form-step-2.html:205
+msgid "Specify Language"
+msgstr "Seleccione el idioma primario"
+
+#: .\bookingforms\templates\forms\form-step-2.html:291
+msgid "Other Emergency Contact Relationship ? Enter Here"
+msgstr "¿Otra relación de contacto de emergencia? Entre aquí"
+
+#: .\bookingforms\templates\forms\form-step-2.html:311
+msgid "Farm Worker Status"
+msgstr "Estado de trabajador agrícola"
+
+#: .\bookingforms\templates\forms\form-step-3.html:28
+#: .\bookingforms\templates\forms\form-step-3.html:104
+msgid "Self"
+msgstr "Uno mismo"
+
+#: .\bookingforms\templates\forms\form-step-3.html:33
+msgid "Date of Birth of Guarantor"
+msgstr "Fecha de nacimiento de la garante"
+
+#: .\bookingforms\templates\forms\form-step-3.html:39
+msgid "Relationship to Patient"
+msgstr "Relación con la paciente"
+
+#: .\bookingforms\templates\forms\form-step-3.html:75
+msgid "Not insured"
+msgstr "No asegurado"
+
+#: .\bookingforms\templates\forms\form-step-3.html:87
+msgid "Group Number (if Applicable)"
+msgstr "Número de grupo (si corresponde)"
+
+#: .\bookingforms\templates\forms\form-step-3.html:116
+msgid "Other Subscriber Relationship? Enter it here"
+msgstr "¿Otra relación de suscriptor? Insértelo aquí"
+
+#: .\bookingforms\templates\forms\form-step-4.html:11
+#: .\bookingforms\templates\uploads_url\index.html:100
+msgid "Submit supporting document"
+msgstr "Presentar documento de respaldo"
+
+#: .\bookingforms\templates\forms\form-step-4.html:17
+msgid "Supported Formats (.pdf,.png,.jpg); Max-Size: 3MB"
+msgstr "Formatos admitidos (.pdf, .png, .jpg); Tamaño máximo: 3 MB"
+
+#: .\bookingforms\templates\forms\form-step-4.html:23
+#: .\bookingforms\templates\forms\form-step-4.html:40
+#: .\bookingforms\templates\forms\form-step-4.html:49
+#: .\bookingforms\templates\uploads_url\index.html:112
+#: .\bookingforms\templates\uploads_url\index.html:129
+#: .\bookingforms\templates\uploads_url\index.html:138
+msgid "Browse"
+msgstr "Navegar"
+
+#: .\bookingforms\templates\forms\form-step-4.html:32
+msgid "Insurance Card (Optional)"
+msgstr "Tarjeta de seguro (frente)"
+
+#: .\bookingforms\templates\forms\form-step-4.html:34
+msgid "Front Image (Supported Formats: (.pdf,.png,.jpg); Max-Size: 3MB)"
+msgstr ""
+"Imagen frontal (formatos admitidos: (.pdf, .png, .jpg); tamaño máximo: 3 MB)"
+
+#: .\bookingforms\templates\forms\form-step-4.html:43
+msgid "Back Image (Supported Formats (.pdf,.png,.jpg); Max-Size: 3MB)"
+msgstr ""
+"Imagen posterior (formatos admitidos (.pdf, .png, .jpg); tamaño máximo: 3 MB)"
+
+#: .\bookingforms\templates\forms\form-step-4.html:74
+msgid "Declaration"
+msgstr "Descripción"
+
+#: .\bookingforms\templates\forms\form-step-4.html:77
+msgid ""
+"I understand that by submitting this appointment request form I am only "
+"requesting an appointment and a Clinica Sierra Vista representative will "
+"call/text to discuss availability."
+msgstr ""
+"Entiendo que al enviar este formulario de solicitud de cita, solo solicito "
+"una cita y un representante de Clinica Sierra Vista llamará / enviará un "
+"mensaje de texto para discutir la disponibilidad."
+
+#: .\bookingforms\templates\healthplan\index.html:39
+msgid "Filter Type"
+msgstr ""
+
+#: .\bookingforms\templates\healthplan\index.html:144
+#: .\bookingforms\templates\khs_outreach\index.html:172
+msgid "Preferred Date"
+msgstr "Día de la semana preferido"
+
+#: .\bookingforms\templates\healthplan\index.html:150
+#: .\bookingforms\templates\khs_outreach\index.html:178
+msgid "Preferred Time"
+msgstr "Marco de tiempo preferido"
+
+#: .\bookingforms\templates\healthplan\index.html:158
+#: .\bookingforms\templates\khs_outreach\index.html:186
+msgid "Accept Text Message?"
+msgstr ""
+
+#: .\bookingforms\templates\healthplan\index.html:161
+#: .\bookingforms\templates\khs_outreach\index.html:189
+msgid "New Phone Number"
+msgstr "Número de teléfono:"
+
+#: .\bookingforms\templates\index.html:52
+msgid "Previous Step"
+msgstr "Paso anterior"
+
+#: .\bookingforms\templates\index.html:53
+msgid "Next Step"
+msgstr "Próximo paso"
+
+#: .\bookingforms\templates\khs_outreach\index.html:42
+#, fuzzy
+#| msgid "Marital Status"
+msgid "Patient Status"
+msgstr "Estado civil"
+
+#: .\bookingforms\templates\khs_outreach\index.html:52
+#, fuzzy
+#| msgid "Out Reach Status"
+msgid "Out Reach Status Filter"
+msgstr "Estado civil"
+
+#: .\bookingforms\templates\popup\vaccine-first-for-healthworker-65-above-popup.html:13
+msgid "COVID-19 Vaccine Update"
+msgstr "Vacuna para el COVID-19"
+
+#: .\bookingforms\templates\popup\vaccine-first-for-healthworker-65-above-popup.html:17
+msgid ""
+"According to Kern County guidelines, we are vaccinating Healthcare Workers, "
+"Individuals 65+, Education Workers, Food Workers, Agriculture Workers, Non-"
+"Healthcare Emergency Services, 18+ with underlying health conditions "
+"including: Cancer, Chronic Pulmonary Disease, Solid Organ Transplant, Sickle "
+"Cell Disease, Type 2 diabetes, Chronic Kidney Disease, Down Syndrome, "
+"Pregnancy, Severe Obesity, or Heart Conditions. Any requests received that "
+"do not meet current tier criteria will be scheduled when applicable tiers "
+"have opened."
+msgstr ""
+"De acuerdo con las pautas del condado de Kern, estamos vacunando a los "
+"trabajadores de la salud, a las personas mayores de 65 años y a los "
+"trabajadores esenciales de primera línea (sector educativo, alimentos, "
+"trabajadores agrícolas, servicios de emergencia). Cualquier solicitud "
+"recibida que no cumpla con los criterios de nivel actual se programará "
+"cuando se hayan abierto los niveles correspondientes."
+
+#: .\bookingforms\templates\popup\vaccine-first-for-healthworker-65-above-popup.html:21
+msgid "I Agree"
+msgstr "Estoy de acuerdo"
+
+#: .\bookingforms\templates\success.html:6
+msgid ""
+"Thank you for submitting your request for an appointment. We value your time!"
+msgstr "Gracias por enviar su solicitud de cita. ¡Valoramos su tiempo!"
+
+#: .\bookingforms\templates\success.html:9
+msgid ""
+"Your appointment request is pending confirmation and will be reviewed and "
+"scheduled as soon as possible."
+msgstr ""
+"Su solicitud de cita está pendiente de confirmación y será revisada y "
+"programada lo antes posible."
+
+#: .\bookingforms\templates\success.html:12
+msgid ""
+"If your request requires additional information, a representative may call "
+"or text to discuss"
+msgstr ""
+"Si su solicitud requiere información adicional, un representante puede "
+"llamar o enviar un mensaje de texto para discutir"
+
+#: .\bookingforms\templates\success.html:15
+msgid ""
+"Due to time sensitivity of the vaccine and our limited supply, it is "
+"important that you let us know if you will be unable to keep your "
+"appointment."
+msgstr ""
+"Debido a la sensibilidad temporal de la vacuna y nuestro suministro "
+"limitado, esEs importante que nos informe si no podrá conservar sucita."
+
+#: .\bookingforms\templates\success_timeslotbooking.html:6
+msgid "Thank you! Your appointment has been confirmed for"
+msgstr "¡Gracias! Su cita ha sido confirmada para"
+
+#: .\bookingforms\templates\success_timeslotbooking.html:7
+#: .\bookingforms\templates\success_timeslotbooking.html:8
+msgid "at "
+msgstr "a las"
+
+#: .\bookingforms\templates\success_timeslotbooking.html:15
+msgid ""
+"No further action is required. Please bring your ID and Insurance Cards. We "
+"look forward to seeing you!"
+msgstr ""
+"No se requiere ninguna acción adicional. Por favor traiga su identificación "
+"y tarjetas de seguro. ¡Esperamos verte!"
+
+#: .\bookingforms\templates\success_timeslotbooking.html:19
+msgid "Phone Number: "
+msgstr "Número de teléfono:"
+
+#: .\bookingforms\templates\uploads_url\index.html:70
+msgid "Patient First Name"
+msgstr "Nombre de pila"
+
+#: .\bookingforms\templates\uploads_url\index.html:76
+msgid "Patient Last Name"
+msgstr "Apellido"
+
+#: .\bookingforms\templates\uploads_url\index.html:90
+msgid "Primary Contact Number"
+msgstr "Número de contacto de emergencia"
+
+#: .\bookingforms\templates\uploads_url\index.html:106
+msgid "Supported Formats (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB"
+msgstr "Formatos admitidos (.pdf, .png, .jpg); Tamaño máximo: 3 MB"
+
+#: .\bookingforms\templates\uploads_url\index.html:121
+msgid "Insurance Card"
+msgstr "Tarjeta de seguro (reverso)"
+
+#: .\bookingforms\templates\uploads_url\index.html:123
+msgid "Image (Supported Formats: (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB)"
+msgstr ""
+"Imagen frontal (formatos admitidos: (.pdf, .png, .jpg); tamaño máximo: 3 MB)"
+
+#: .\bookingforms\templates\uploads_url\index.html:132
+msgid "Back Image (Supported Formats (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB)"
+msgstr ""
+"Imagen posterior (formatos admitidos (.pdf, .png, .jpg); tamaño máximo: 3 MB)"
+
+#: .\bookingforms\templates\uploads_url\index.html:144
+msgid "Extra Documents"
+msgstr "Documentos"
+
+#: .\bookingforms\templates\uploads_url\index.html:150
+msgid ""
+"Supported Formats (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB<br>Maximum 5 files "
+"can be uploaded"
+msgstr "Formatos admitidos (.pdf, .png, .jpg); Tamaño máximo: 3 MB"
+
+#: .\bookingforms\templates\uploads_url\index.html:151
+msgid "Add File"
+msgstr "Agregar archivo"
+
+#: .\bookingforms\templates\uploads_url\index.html:176
+msgid "Submit"
+msgstr "Enviar"
+
+#: .\bookingforms\templates\uploads_url\success.html:6
+msgid "Thank you for submitting. We value your time!"
+msgstr "Gracias por enviar su solicitud de cita. ¡Valoramos su tiempo!"
+
+#: .\bookingforms\views.py:94
+msgid "COVID-19 Vaccine Third Dose"
+msgstr "Vacuna para el COVID-19"
+
+#: .\bookingforms\views.py:94
+msgid "COVID-19 Vaccine Booster"
+msgstr "Vacuna para el COVID-19"
+
+#: .\bookingforms\views.py:135
+msgid "Farm Worker"
+msgstr "Trabajador agrícola"
+
+#: .\bookingforms\views.py:136
+msgid "Saturday"
+msgstr "sábado"
+
+#: .\bookingforms\views.py:139
+msgid "Early Morning (8am - 10am)"
+msgstr "Temprano en la mañana (8 am - 10 am)"
+
+#: .\bookingforms\views.py:140
+msgid "Late Morning (10am - noon)"
+msgstr "Tarde en la mañana (10 am - mediodía)"
+
+#: .\bookingforms\views.py:141
+msgid "Early Afternoon (noon - 2pm)"
+msgstr "Temprano en la tarde (mediodía - 2 pm)"
+
+#: .\bookingforms\views.py:142
+msgid "Late Afternoon (2pm - 4pm)"
+msgstr "Tarde (2pm - 4pm)"
+
+#: .\bookingforms\views.py:145
+msgid "Full Time Farm Worker"
+msgstr "Trabajador agrícola a tiempo completo"
+
+#: .\bookingforms\views.py:170
+msgid "(04/24/2021) Saturday"
+msgstr "(04/24/2021) Sábado"
+
+#: .\bookingforms\views.py:181 .\bookingforms\views.py:235
+#: .\bookingforms\views.py:241 .\bookingforms\views.py:342
+#: .\bookingforms\views.py:348 .\bookingforms\views.py:807
+#: .\bookingforms\views.py:813 .\bookingforms\views.py:1240
+#: .\bookingforms\views.py:1246
+msgid " (Slot Full)"
+msgstr " (Ranura llena)"
+
+#~ msgid "04/24/2021 (Saturday)"
+#~ msgstr "(04/04/2021) Sábado a las"
+
+#~ msgid "04/25/2021 (Sunday)"
+#~ msgstr "(04/25/2021) Domingo a las"
+
+#~ msgid "(04/25/2021) Sunday"
+#~ msgstr "(04/25/2021) Domingo"
+
+#~ msgid "04/24/2021 (Saturday) at"
+#~ msgstr "(04/04/2021) Sábado a las"
+
+#~ msgid "04/25/2021 (Sunday) at"
+#~ msgstr "(04/25/2021) Domingo a las"
+
+#~ msgid ""
+#~ "Thank you! Your appointment has been confirmed for 04/24/2021 (Saturday) "
+#~ "at Kern - East Niles, 7800 Niles St, Bakersfield, CA 93306."
+#~ msgstr ""
+#~ "¡Gracias! Su cita ha sido confirmada para el 24/04/2021 (sábado) a "
+#~ "lasKern - East Niles, 7800 Niles St, Bakersfield, CA 93306."
+
+#~ msgid ""
+#~ "According to Kern County guidelines, we are vaccinating Healthcare "
+#~ "workers, individuals 65+ years old, and Frontline essential workers "
+#~ "(Educational sector, Food, Agricultural workers, Emergency services). Any "
+#~ "requests received that do not meet current tier criteria will be "
+#~ "scheduled when applicable tiers have opened.'"
+#~ msgstr ""
+#~ "De acuerdo con las pautas del condado de Kern, estamos vacunando a los "
+#~ "trabajadores de la salud, a las personas mayores de 65 años y a los "
+#~ "trabajadores esenciales de primera línea (sector educativo, alimentos, "
+#~ "trabajadores agrícolas, servicios de emergencia). Cualquier solicitud "
+#~ "recibida que no cumpla con los criterios de nivel actual se programará "
+#~ "cuando se hayan abierto los niveles correspondientes."
+
+#~ msgid "Frontline Essential Worker"
+#~ msgstr "Trabajador esencial de primera línea"

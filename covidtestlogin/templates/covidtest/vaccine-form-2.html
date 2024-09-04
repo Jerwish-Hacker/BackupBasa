@@ -1,0 +1,432 @@
+{% load static %}
+{% load widget_tweaks %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{Vaccine.name}} Form</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href={{ titlelogo }}>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <link href="{% static 'covidtest/assets/css/fontawesome.css' %}" rel="stylesheet" />
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="{% static "grievanceapp/assets/images/favicon-16x16.png" %}"> -->
+
+    <link rel="stylesheet" href="{% static "grievanceapp/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "grievanceapp/assets/css/style.css" %}">
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: table;
+            overflow-x: clip;
+        }
+        .footer-main{
+            height: 0;
+            display: table-row;
+        }
+        .header-background{
+            padding: 0;
+            background: rgb(240, 240,240);
+            height: 50.45px;
+        }
+        @media only screen and (max-width: 767px) {
+            .header-logo-main>img {
+                width: 110px;
+            }
+        }
+        @media only screen and (min-width: 768px) {
+            .header-logo-main>img{
+                width: 110px;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="">
+        <div class="header-background row">
+            <div class="col-6">
+                <div class="">
+                    <div class="col-md-6 header-logo-main">
+                        <img src={{ logo }} width="200px" alt="logo" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="container d-none">
+                    <div class="d-flex justify-content-between">
+                        <div class="social-icons">
+                        </div>
+                    </div>
+                </div>
+               {% if user.is_authenticated %}
+                <ul class="navbar-nav ml-auto ml-md-0" style="height: 100%;">
+                    <li class="nav-item dropdown" style="height:100%;">
+                        <a style="color:#11556c;height: 100%;display: flex;align-items: center;float: right;"
+                            class="px-4 text-grey nav-link dropdown-toggle" id="userDropdown" href="#" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg></i>&nbsp;{{user.username}}</a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <div class="col-12 px-md-5">
+        <div class="container-fluid">
+            <div class="text-center my-2" style="font-size:25px;font-weight:bold">
+                {{Vaccine.title}}
+            </div>
+            <div class="container mb-3 p-3" style="background:#F5F5F5;border-radius: 25px;">
+                <div class="text-left my-2" style="font-size:20px;">
+                    <p>Hello&nbsp;{{Employeedata.payroll_name}}<p>
+                </div>
+                <div class="text-left my-2" style="font-size:16px;text-align:justify;">
+                    <p style="text-align:justify;">{{vaccine_dynamic_text}}<p>
+                </div>
+                <div class="text-left my-3" style="font-size:15px;">
+                    <p><b>DOB :</b> {{Employeedata.birth_date}}<p>
+                </div>
+                <div class="text-left my-3" style="font-size:15px;">
+                    <p><b>Employee Number :</b> {{Employeedata.position_id}}<p>
+                </div>
+                <div class="text-left my-3" style="font-size:15px;">
+                    <p><b>Date :</b> {{date}}<p>
+                </div>
+            </div>
+            <div class="text-left pt-4 pl-4" style="font-size:15px;font-weight: bold;">
+                <p>Please make a selection below<p>
+            </div>
+            <div class="container mb-3 p-3" style="background:#F5F5F5;border-radius: 25px;">
+                <div class="alert alert-danger d-none my-2" role="alert" id="errormessages">
+                </div>
+                <input type="hidden" name="file_type" value="{{Vaccine.file_type}}">
+                <input type="hidden" name="file_size" value="{{Vaccine.max_file_size}}">
+                <input type="hidden" name="max_file_upload" value="{{Vaccine.max_file_upload}}">
+                <input type="hidden" name="file_upload_one_mandatory" value="{{Vaccine.is_file_upload_one_required}}">
+                <input type="hidden" name="file_upload_two_mandatory" value="{{Vaccine.is_file_upload_two_required}}">
+                <input type="hidden" name="file_upload_three_mandatory" value="{{Vaccine.is_file_upload_three_required}}">
+                <input type="hidden" name="hidden_previous_submission" value="{% if previous_submission.is_proof_or_vaccination_copy_provided or  previous_submission.allow_csv_to_pull_record or  previous_submission.is_vaccine_declined %}True{%else%}False{% endif %}">
+                <form id="useruploadform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="vaccine_type" value="{{Vaccine.id}}">
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="checkbox" id="flexCheckDefault1" name="firstcheckbox" data-toggle="collapse" data-target="#collapseExample" {% if previous_submission.is_proof_or_vaccination_copy_provided %} aria-expanded="true" checked value="true" {%else%} value="false"{% endif %}>
+                        <label class="form-check-label" for="flexCheckDefault1">
+                            {{Vaccine.checkbox_one_text}}
+                        </label>
+                    </div>
+                    {% if Vaccine.checkbox_one_file_upload %}
+                    <div class="collapse {% if previous_submission.is_proof_or_vaccination_copy_provided %}show{% endif %}" id="collapseExample">
+                        <div class="card card-body">
+                            <div class="row justify-content-start">
+                                <div class="text-left col-md-12">
+                                    <p>Upload {{Vaccine.file_type}} files<br>Maximum file size is {{Vaccine.max_file_size}} MB<br>Maximum {{Vaccine.max_file_upload}} files can be uploaded</p>
+                                    <button type="button" class="btn btn-info addfile" style="width:10%%;background" data-filecontainer="#filesContainer1"><i class="bi bi-file-earmark-plus p-2"></i>Add File</button>
+                                </div>
+                                <div class="col-md-3 pt-2" id="filesContainer1">
+                                    <input class="fileclass" type="file" name="file_1">
+                                </div>
+                                {% if previous_submission.is_proof_or_vaccination_copy_provided %}
+                                <div class="col-md-9 pt-2">
+                                    Previous submission
+                                    <ol>
+                                        {% if previous_submission.file_1 %}
+                                            <li><a href="{{previous_submission.file_1.url}}" target="_blank">View</a></li>
+                                        {% endif %}
+                                        {% if previous_submission.file_2 %}
+                                            <li><a href="{{previous_submission.file_2.url}}" target="_blank">View</a></li>
+                                        {% endif %}
+                                        {% if previous_submission.file_3 %}
+                                            <li><a href="{{previous_submission.file_3.url}}" target="_blank">View</a></li>
+                                        {% endif %}
+                                    </ol> 
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="form-check my-3">
+                      <input class="form-check-input" type="checkbox" id="flexCheckDefault2" name="secondcheckbox" data-toggle="collapse" data-target="#collapseExample2" {% if previous_submission.allow_csv_to_pull_record %} aria-expanded="true" checked value="true" {%else%} value="false" {% endif %}>
+                      <label class="form-check-label" for="flexCheckDefault2">
+                        {{Vaccine.checkbox_two_text}}
+                      </label>
+                    </div>
+                    {% if Vaccine.checkbox_two_file_upload %}
+                    <div class="collapse {% if previous_submission.allow_csv_to_pull_record %}show{% endif %}" id="collapseExample2">
+                        <div class="card card-body">
+                            <div class="row justify-content-start">
+                                <div class="text-left col-md-12">
+                                    <p>Upload {{Vaccine.file_type}} files<br>Maximum file size is {{Vaccine.max_file_size}} MB<br>Maximum {{Vaccine.max_file_upload}} files can be uploaded</p>
+                                    <button type="button" class="btn btn-info addfile" style="width:10%%;background" data-filecontainer="#filesContainer2"><i class="bi bi-file-earmark-plus p-2"></i>Add File</button>
+                                </div>
+                                <div class="col-md-3 pt-2" id="filesContainer2">
+                                    <input class="fileclass" type="file" name="file_1">
+                                </div>
+                                {% if previous_submission.allow_csv_to_pull_record %}
+                                <div class="col-md-9 pt-2">
+                                    Previous submission
+                                    <ol>
+                                        {% if previous_submission.file_1 %}
+                                            <li><a href="{{previous_submission.file_1.url}}" target="_blank">View</a></li>
+                                        {% endif %}
+                                        {% if previous_submission.file_2 %}
+                                            <li><a href="{{previous_submission.file_2.url}}" target="_blank">View</a></li>
+                                        {% endif %}
+                                        {% if previous_submission.file_3 %}
+                                            <li><a href="{{previous_submission.file_3.url}}" target="_blank">View</a></li>
+                                        {% endif %}
+                                    </ol> 
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="form-check my-3">
+                      <input class="form-check-input" type="checkbox" id="flexCheckDefault3" name="thirdcheckbox" data-toggle="collapse" data-target="#collapsecheckbox3" {% if previous_submission.is_vaccine_declined %} aria-expanded="true" checked value="true" {%else%} value="false"{% endif %}>
+                      <label class="form-check-label" for="flexCheckDefault3">
+                        {{Vaccine.checkbox_three_text}}
+                      </label>
+                    </div>
+                    <div class="collapse {% if previous_submission.is_vaccine_declined %}show{% endif %}" id="collapsecheckbox3">
+                        <div class="card card-body">
+                            {% if Vaccine.checkbox_three_file_upload %}
+                            <div class="col-12" style="background-color:#fafafa;border:1px solid black">
+                                <div class="row justify-content-start p-2">
+                                    <div class="text-left col-md-12">
+                                        <p>Upload {{Vaccine.file_type}} files<br>Maximum file size is {{Vaccine.max_file_size}} MB<br>Maximum {{Vaccine.max_file_upload}} files can be uploaded</p>
+                                        <button type="button" class="btn btn-info addfile" style="width:10%%;background" data-filecontainer="#filesContainer3"><i class="bi bi-file-earmark-plus p-2"></i>Add File</button>
+                                    </div>
+                                    <div class="col-md-3 pt-2" id="filesContainer3">
+                                        <input class="fileclass" type="file" name="file_1">
+                                    </div>
+                                    {% if previous_submission.is_vaccine_declined %}
+                                    <div class="col-md-9 pt-2">
+                                        Previous submission
+                                        <ol>
+                                            {% if previous_submission.file_1 %}
+                                                <li><a href="{{previous_submission.file_1.url}}" target="_blank">View</a></li>
+                                            {% endif %}
+                                            {% if previous_submission.file_2 %}
+                                                <li><a href="{{previous_submission.file_2.url}}" target="_blank">View</a></li>
+                                            {% endif %}
+                                            {% if previous_submission.file_3 %}
+                                                <li><a href="{{previous_submission.file_3.url}}" target="_blank">View</a></li>
+                                            {% endif %}
+                                        </ol> 
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-12 text-center">&nbsp;</div>
+                                <div class="col-12 text-center"><img class="logoimg mx-3" src={{ logo }} alt="Logo" style="width:80px;height:90px;"></div>
+                                <div class="col-12 text-center">&nbsp;</div>
+                                <div class="col-12 text-center text-uppercase font-weight-bold">{{ Vaccine.acknowledgement_title }}</div>
+                                <div class="col-12 text-center">&nbsp;</div>
+                                <div class="col-12 text-center">&nbsp;</div>
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12 mx-auto">
+                                        <div class="row mx-auto">
+                                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                                <div class="row mx-auto">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">DATE:</div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{date}}</div>
+                                                </div>
+                                                <div class="col-12 text-center">&nbsp;</div>
+                                                <div class="row mx-auto">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">NAME:</div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.payroll_name}}</div>
+                                                </div>
+                                                <div class="col-12 text-center">&nbsp;</div>
+                                                <div class="row mx-auto">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">EMPLOYEE #:</div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.position_id}}</div>
+                                                </div>
+                                                <div class="col-12 text-center">&nbsp;</div>
+                                                <div class="row mx-auto">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">LOCATION/SITE:</div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.region}}</div>
+                                                </div>
+                                                <div class="col-12 text-center">&nbsp;</div>
+                                                <div class="row mx-auto">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">SUPERVISORS NAME:</div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.reports_to_name}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                                                <div class="row mx-auto">
+                                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 " >
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left" >
+                                                        &nbsp;
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-center">&nbsp;</div>
+                                        <!-- <div class="row mx-auto">
+                                            <div class="col-12 mx-auto">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col-12 ">
+                                                        <div class="col-12 text-center border  border-dark h-100 p-2 font-weight-bold">STATE of CALIFORNIA MANDATORY COVID-19 REQUIREMENTS</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-12 text-left">&nbsp;</div>
+                                        <!-- <div class="row mx-auto">
+                                            <div class="col-12 ">
+                                                <p style="text-align:justify;">On July 26, 2021, the California Department of Public Health (“CDPH”) issued a State Public Health Officer Order Mandating Health Care Clinics, which includes {{ title|title }}, to the following:</p>
+                                                <ul style="padding-left:5px;">
+                                                    <li class="list-unstyled">I.&emsp;Verify COVID-19 vaccination status of all workers</li>
+                                                    <li class="list-unstyled">II.&emsp;Strictly adhere to CDPH Masking Guidance</li>
+                                                    <li class="list-unstyled">III.&emsp;Weekly mandatory NOVEL CORONOVIRUS (COVID-19) testing for unvaccinated workers</li>
+                                                </ul>
+                                            </div>
+                                        </div> -->
+                                        <div class="row mx-auto">
+                                            <div class="col-12 mx-auto">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col-12 ">
+                                                        <div class="col-12 text-center border  border-dark h-100 p-2 font-weight-bold">EMPLOYEE ACKNOWLEDGEMENT</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-auto">
+                                            <div class="col-12 p-2">
+                                            <p>{{ acknowledgement_text|linebreaks }}</p>    
+                                            </div>
+                                        </div>
+                                        <hr class="" />
+                                        <div class="row mx-auto">
+                                            <div class="col-md-12" id="to_be_canvased">
+                                                <canvas id="can" width="300" height="100" class="col-md-4" style="border:2px solid;"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-auto justify-content-start">
+                                            <div class="col-md-2 text-left">
+                                                <button type="button" id="clear" value="Clear" class="btn btn-info">Clear</button>
+                                            </div>
+                                            <input type="hidden" value="" id="sigantureurlinput" name="signatureurl">
+                                            <div class="col-sm-10 text-left">
+                                                <p>Employee Signature</p>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-4">
+                                            <div class="col-md-12" >
+                                               <p><b>Date :</b> {{date}}<p> 
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-12">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="text-right alert alert-danger col-md-12 d-none pt-2" role="alert" id="submitmessages">
+            </div>
+            <div class="row justify-content-between p-1">
+                <div class="text-right col-md-12 pb-3">
+                     <button type="button" class="btn btn-info" id="id_form_submit_button" style="background:#11556c">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="submit-popup-model" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">You have successfully submitted</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group text-center">
+                    <i class="fa fa-check fa-5x text-success" aria-hidden="true"></i>
+                    <p id="submit-popup-model-text"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="error-model" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">You submission failed. Please try again</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group text-center">
+                    <i class="fa fa-times fa-5x text-danger" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="resubmit-model" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Remainder</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <h5>You had already submitted your form. Do you want to resubmit it again?<h5>
+                    <h6>Note: Resubmission will replace your existing submission</h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="footer-main mt-3">
+        <div class="col-12">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+                  <img src={{ logo }} width="60" height="30" alt="">
+                </a>
+                <span class="mb-3 mb-md-0 text-muted">© 2023 Basa. All Rights Reserved.</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script src="{% static "grievanceapp/assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="{% static 'grievanceapp/assets/js/vendor/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'grievanceapp/assets/js/vendor/inputmask.min.js' %}"></script>
+    <script src="{% static 'grievanceapp/assets/js/vendor/inputmask.binding.js' %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{% static "covidtest/assets/js/es6/vaccine-form.js" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+</body>
+</html>

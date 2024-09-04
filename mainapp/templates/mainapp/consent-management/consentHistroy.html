@@ -1,0 +1,66 @@
+<div class="user-details p-3">
+    {%for element in consenthistory%}
+        <div class="container mb-3" style="background:#F5F5F5;border-radius: 25px;">
+            <div class="container-fluid p-3">
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Consent Status :</label> {%if element.consent_status == True %}
+                         Given
+                         {% else %}
+                         Revoked
+                         {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Consent Duration : </label> {{ element.duration|default_if_none:"" }} Days ({{element.consent_duration}})
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Sharing with provider :</label> {{ element.sharing_with_provider|default_if_none:"" }}
+                    </div>
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Sharing for research :</label> {%if element.sharing_for_research == True %}
+                        Yes
+                        {% else %}
+                        No
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Notify patient :</label> {%if element.consent_notify == True %}
+                        Yes
+                        {% else %}
+                        No
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Created By :</label> {{ element.created_by|default_if_none:"" }}
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <label  style="font-weight:600;font-size:14px;" >Purpose of data sharing :</label> {{ element.purpose_of_data_sharing|default_if_none:"" }}
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Created Datetime :</label> {{ element.created_datetime|default_if_none:"" }}
+                    </div>
+                    {% if element.consent_status == False%}
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Revoked Datetime :</label> {{ element.modified_datetime|default_if_none:"" }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row mb-2">
+                    {% if element.consent_status == False%}
+                    <div class="col-md-6">
+                        <label  style="font-weight:600;font-size:14px;" >Revoked By :</label> {{ element.revoked_by|default_if_none:"" }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

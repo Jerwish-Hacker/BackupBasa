@@ -1,0 +1,109 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yetti | Healthcare</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/images/yettititle.png' %}">
+    <link rel="stylesheet" href="{% static "assets/css/basa_index.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/tenant.css" %}">
+</head>
+<body>
+  <header class="header">
+    {% csrf_token %}
+    <nav class="navbar navbar-expand py-3">
+        <div class="container col-12 m-0 border-bottom">
+            <a href="/" title="Home" class="navbar-brand text-uppercase font-weight-bold">
+              <img src="{% static "assets/images/yettipng.png" %}" width="120" height="60" alt="">
+            </a>
+            <div id="navbarSupportedContent mr-auto" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            <div id="mr-auto">
+              <ul class="navbar-nav">
+                  {% if user.is_authenticated %}
+                  <li class="nav-item signin_logo dropdown nav-link" style="cursor:pointer">
+                    <i class="far fa-user-circle mx-2"></i>
+                    {{user.username}}
+                    <div class="dropdown-content">
+                      <a href="{% url 'account_logout' %}" style="text-decoration: none;">Logout</a>
+                    </div>
+                  </li>
+                  {% endif %}
+              </ul>
+          </div>
+        </div>
+    </nav>
+  </header>
+  <div class="container body-wrapper position-relative px-md-5  mt-5" style="color: #11556c">
+    <div class="flex text-center col-12 pb-2">
+      <h3 class="text-center head-style">Organization Registration Form</h3>
+    <small class="text-center text-secondary">Please fill out this form with the required information</small>
+    </div>
+      <form id="id_tenant_registration_form_add row" class="flex text-center col-12" >
+        <fieldset class="w-full col text-left">
+          <div class="row">
+            <div class="col w-50">
+              <label for="id_organisation_name" style="color: #11556c">Organization Name</label>
+              <input type="text" id="id_organisation_name" required style="color: #11556c" />  
+            </div>
+            <div class="col w-50">
+              <label for="id_organisation_domain_name" style="color: #11556c">Organization Domain Name<input type="text" id="id_organisation_domain_name" disabled style="color: #11556c" /></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col w-50">
+              <label for="id_service_plan" style="color: #11556c">Service Plan</label>
+              <select id="id_service_plan" required style="color: #11556c">
+                <option value="">Select a Plan</option>
+                <option value="0">Free</option>
+                <option value="1">Basic</option>
+                <option value="2">Premium</option>
+                <option value="3">Ultra</option>
+              </select>
+            </div>
+            <div class="col w-50">
+              <label for="id_organisation_admin" style="color: #11556c">Organization Admin Email</label>
+              <input type="email" id="id_organisation_admin" required style="color: #11556c" />  
+            </div>
+          </div>
+          <div class="text-right w-100 mb-2">
+            <small id="server-alert" class="form-text"></small>
+          </div>
+          <div class="w-25 float-right">
+            <input type="button" value="Create Tenant" id="addTenant" class="btn btn-pill text-white btn-block btn-primary">
+          </div>
+        </fieldset>
+      </form> 
+<!--    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">-->
+<!--      <div class="col-md-4 d-flex align-items-center">-->
+<!--        <a href="#" class="navbar-brand text-uppercase font-weight-bold">-->
+<!--          <img src="{% static "assets/images/basa.png" %}" width="60" height="30" alt="">-->
+<!--        </a>-->
+<!--        <span class="mb-3 mb-md-0 text-muted">© 2022 Basa, Inc</span>-->
+<!--      </div>-->
+<!--    </footer>-->
+  </div>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center border-top p-2 mt-2 footer">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+          <img src="{% static "assets/images/yettipng.png" %}" width="60" height="30" alt="">
+        </a>
+        <span class="mb-3 mb-md-0 text-muted">© 2023 Yetti Healthcare. All Rights Reserved.</span>
+      </div>
+    </footer>
+  <script src="{% static "assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+  <script src="{% static 'assets/js/vendor/jquery-ui.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="{% static "assets/js/es6/tenant.js" %}"></script>
+</body>
+</html>

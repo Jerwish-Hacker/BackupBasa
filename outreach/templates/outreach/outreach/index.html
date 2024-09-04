@@ -1,0 +1,274 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/dashboard.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+{% endblock %}
+{% block body %}
+    {% csrf_token %}
+    <input type="hidden" id="id_outreach_type" value="{{ outreach }}" />
+    <div class="header-healthplan">
+        <div class="d-flex justify-content-end">
+            <div class="col-auto my-1" style="background-color: #e6e7e9;">
+                <input type="text" id="searchBooking" placeholder="Search MRN" />
+                <i class="fa fa-search" style="font-weight: 100;"></i>
+            </div>
+            <div class="col-auto my-1 d-none" style="border-radius: 3px;">
+                <div id="reportrange">
+                    <img src="{% static 'appointment/assets/images/calendar.svg' %}" alt="calenderimage">&nbsp;<span></span>
+                    <input type="hidden" id="date_start" value="" />
+                    <input type="hidden" id="date_end" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="row boxrow pt-2 ">
+            <div class="col-2 countbox border-active justify-content-center" data-active=""><b id="totalCount"></b>
+                <p>Total</p>
+            </div>
+            <div class="col-2 countbox" data-active="True"><b id="activeCount"></b>
+                <p>Active</p>
+            </div>
+            <div class="col-2 countbox" data-active="False"><b id="inactiveCount"></b>
+                <p>Inactive</p>
+            </div>
+        </div>
+        {% comment %} <div class="d-flex justify-content-start mb-2">
+            <div class="col-md-3 mb-2">
+                <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Appointment Type" %}</label>
+                <div class="single_form">
+                    <select name="appointment_type" id="id_appointment_type">
+                        <option value="Cervical Cancer Screening">Cervical Cancer Screening</option>
+                        <option value="Breast Cancer Screening">Breast Cancer Screening</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 mb-2">
+                <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Filter Type" %}</label>
+                <div class="single_form">
+                    <select name="filter_appointment_call_back"id="id_filter_appointment_call_back">
+                        <option value="">Select a Filter</option>
+                        <option value="appointment">Appointment</option>
+                        <option value="callback">Call Back</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+        {% endcomment %}
+            <div class="step-form">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 page-alerts">
+                        <div id="error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                        <div id="success-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table storebookTable noborder">
+                                <thead>
+                                    <tr class="dynamic_table_headers">
+                                    </tr>
+                                </thead>
+                                <tbody id="storebookingData">
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                        <div class="row justify-content-between m-0">
+                            <div id="holder"> </div>
+                            <select name="limit" id="limit">
+                                <option value="50" selected>50</option>
+                                <option value="100">100</option>
+                                <option value="150">150</option>
+                                <option value="200">200</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="notification-popup-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Click 'View' to show the appointments requested for cancelation</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'outreach:outreach_notification_list' outreach=outreach%}"><button type="button" class="btn btn-primary">View</button></a>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="modal" id="cancel-appointment-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Do you want to cancel this appointment?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="reasonforcancel">Reason for cancelation</label>
+                    <textarea class="form-control" id="id_reason_for_cancel_text" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Confirm</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal" id="confirm-cancel-appointment-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm cancelation?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Confirm</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal" id="archive-model" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Did you remind the patient?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Confirm</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="outreach_history-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-view-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-view-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="view-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-view-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-view-body">
+                   <body style="background-color: #F2F3F4;">
+                    <div class="row justify-content-start">
+                        <div class="col-md-12 form-group">
+                            <div class="card card-body" style="background:#fafafa">
+                                <div class="row justify-content-start">
+                                    <div class="col-md-6">
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "OutReach Status" %}</label>
+                                        <div class="single_form">
+                                            <select name="outreach" required id="id_outreach_status">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Location" %}</label>
+                                        <div class="single_form">
+                                            <select name="location" required id="id_location">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Preferred Date" %}</label>
+                                        <div class="single_form">
+                                            <input type="text" name="date" id="id_date" placeholder="MM/DD/YYYY">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Preferred Time" %}</label>
+                                        <div class="single_form">
+                                            <select name="time" id="id_time">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt-5">
+                                        <input name="" type="checkbox" name="accept_text_message" id="id_accept_text_message"> 
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Accept Text Message?" %}</label>
+                                    </div>
+                                    <div class="col-md-6 pt-4 d-none optional-text">
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "New Phone Number" %}</label>
+                                        <div class="single_form">
+                                            <input type="text" name="new_phone_number" id="id_new_phone_number">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt-4 d-none optional-text">
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Preferred Language" %}</label>
+                                        <div class="single_form">
+                                            <input type="text" name="preferred_language" id="id_preferred_language">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 pt-4">
+                                        <label for="" style="color: #11556c;font-weight: 600;font-size: 16px;">{% trans "Comments" %}</label>
+                                        <div class="single_form">
+                                            <textarea rows="4" cols="50" name="comments" id="id_comments"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 alert alert-danger d-none form-group" role="alert" id="errormessagessubmit">
+                                errormessage
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group text-right">
+                            <button id="patient-save" class="btn btn-info">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="{{outreach}}" name="outreach_name">
+{% endblock %}
+{% block script%}
+    <script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+    <script src="{% static "outreach/assets/js/es6/customoutreach.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+{% endblock %}

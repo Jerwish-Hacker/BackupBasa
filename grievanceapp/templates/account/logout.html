@@ -1,0 +1,81 @@
+{% extends './admin-base.html'%}
+
+{% block body %}
+<div class="wrapper">
+
+    <div class="form-signin">
+        <h1>Sign Out</h1>
+        <p>Are you sure you want to sign out?</p>
+        <form method="post" action="/logout" id="myForm">
+            {% csrf_token %}
+            <!-- <button type="submit">Sign Out</button>  -->
+        </form>
+        <button id="logoutButton" class="btn btn-danger">Sign out</button>
+    </div>
+    <script>
+        async function fetchData() {
+            try {
+                // const csrfToken = "12345";
+                const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+                console.log("CSRF Token:", csrfToken);
+
+                var formData = new FormData();
+                formData.append("csrfmiddlewaretoken", csrfToken);
+
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function () {
+                    console.log(xmlHttp.readyState)
+                    console.log(xmlHttp.status)
+                    // if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    if (xmlHttp.readyState == 4) {
+                        // window.location.href = "http://yettihealth.com";
+                        var currentUrl = window.location.href;
+                        var remainingUrl = currentUrl.replace('/accounts/logout/', '');
+                        window.location.href = remainingUrl;
+                    }
+                }
+                var currentUrl = window.location.href;
+                var remainingUrl = currentUrl.replace('/accounts/logout/', '');
+                xmlHttp.open("post", remainingUrl+"/logout");
+                xmlHttp.send(formData);
+                console.log("after sending data to server")
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        document.getElementById("logoutButton").addEventListener("click", function () {
+            fetchData()
+                .then(data => {
+                    console.log("get this")
+                    var cookies = document.cookie.split(";");
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i];
+                        var eqPos = cookie.indexOf("=");
+                        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+                    }
+                    // document.cookie = 'csrftoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    // document.cookie = 'nginx_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    // document.cookie = 'nginx_session_2=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    // document.cookie = 'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    // clearCookies()
+                    console.log("cookies clear");
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+        function clearCookies() {
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf("=");
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            }
+        }
+
+
+    </script>
+</div>
+{% endblock body %}

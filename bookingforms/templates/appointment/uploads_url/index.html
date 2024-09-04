@@ -1,0 +1,269 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Medical, Vision, Dental & Behavioral Health Services | {{ title|title }</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href={{ titlelogo }}>
+
+    <link rel="stylesheet" href="{% static "appointment/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "appointment/assets/css/style.css" %}">
+</head>
+<style>
+    .language-row{
+        background: #60a6a2;
+    }
+    .language-row .col-md-2{
+        flex: 0 0 9.667rem;
+    }
+    .language-row .active-link{
+        background: #d0ae7d;
+    }
+    .language-selector{
+        padding: 0;
+    }
+    .language-selector a{
+        display: block;
+    }
+    html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: table;
+            overflow-x: clip;
+        }
+        .footer-main{
+            height: 0;
+            display: table-row;
+        }
+        .header-background{
+            padding: 0;
+            background: rgb(240, 240,240);
+            height: 50.45px;
+        }
+        .burger-icon.menu-bar{
+
+        }
+
+        @media only screen and (max-width: 767px) {
+            .header-logo-main>img {
+                width: 110px;
+            }
+        }
+        @media only screen and (min-width: 768px) {
+            .header-logo-main>img{
+                width: 110px;
+                height: 100%;
+            }
+        }
+</style>
+
+<body>
+    <section>
+        <div class="header-background row">
+            <div class="col-6">
+            <div class="">
+                <div class="col-6 header-logo-main">
+                    <img src={{ logo }} alt="logo" />
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </div>
+            <div class="col-6">
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div class="social-icons">{% comment %}
+                            <span>{% trans "follow us" %}</span>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/facebook.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/instagram.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/twitter.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/youtube.png" %}" alt="" width="32">
+                            </a>{% endcomment %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="burger-icon menu-bar d-none">
+                    <div class="burger">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <div class="col-12 px-md-5  mt-5 pt-3">
+        {% get_current_language as LANGUAGE_CODE %}
+        <div class="row language-row mx-3 mb-md-4">
+            {% comment %} https://github.com/lipis/flag-icon-css/tree/master/flags/1x1 {% endcomment %} 
+            <div class="col-md-3 col-6 text-center social-icons language-selector {% if LANGUAGE_CODE == 'es' %}active-link{% endif %}">
+                <a href="{{ spanish_url }}">
+                    <span class="text-white pr-2">Spanish</span>
+                </a>
+            </div>
+            <div class="col-md-3 col-6 text-center social-icons language-selector {% if LANGUAGE_CODE != 'es' %}active-link{% endif %}">
+                <a href="{{ english_url }}">
+                    <span class="text-white pr-2">English</span>
+                </a>
+            </div>
+            <div class="col-md-6" style="background-color:white;"></div>
+        </div>
+        <form id="upload_save_form" action="" method="POST" enctype="multipart/form-data" class="pl-3 pt-3 pr-3">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label for="patientfirstname">{% trans "Patient First Name" %}</label>
+                    <div class="single_form">
+                        {% render_field form.patient_first_name %}
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="patientlastname">{% trans "Patient Last Name" %}</label>
+                    <div class="single_form">
+                        {% render_field form.patient_last_name %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label for="dateofbirth">{% trans "Date of Birth" %}</label>
+                    <div class="single_form">
+                        {% render_field form.date_of_birth class="date-input datepicker" readonly="readonly" placeholder="MM/DD/YYYY" data-inputmask-mask="99/99/9999"  data-inputmask-inputFormat="MM/DD/YYYY" %}
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="phonenumber">{% trans "Primary Contact Number" %}</label>
+                    <div class="single_form">
+                        {% render_field form.phone_number %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="preffered day">{% trans "Submit supporting document" %}</label>
+                            <div class="single_form">
+                                {% render_field form.identification_document class="document-select" data-target="#document-button" %}
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <label for="" style="font-weight: 500;font-size: 14px;">{% trans "Supported Formats (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB" %}</label>
+                            <div class="input-group file-hidden">
+                                {% render_field form.attachment_support %}
+                                <input type="text" class="form-control" name="temp_2" placeholder= "Nothing selected"
+                                    aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
+                                <div class="input-group-append">
+                                    <button id="document-button" class="btn btn-outline-secondary" type="button" disabled>{% trans "Browse" %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label for="preffered day">{% trans "Insurance Card" %}</label>
+                    <br>
+                    {% trans "Image (Supported Formats: (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB)" %}
+                    <div class="input-group file-hidden">
+                        {% render_field form.insurance_card %}
+                        <input type="text" class="form-control" name="temp_2" placeholder="Nothing selected"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">{% trans "Browse" %}</button>
+                        </div>
+                    </div>
+                    {% trans "Back Image (Supported Formats (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB)" %}
+                    <div class="input-group file-hidden mt-3">
+                        {% render_field form.insurance_card_back %}
+                        <input type="text" class="form-control" name="temp_2" placeholder="Nothing selected"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">{% trans "Browse" %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 pl-3">
+                <label for="extradocument">{% trans "Extra Documents" %}</label>
+                 <div class="col-md-12 mb-2">
+                    <div class="collapse show">
+                        <div class="card card-body">
+                            <div class="row justify-content-start">
+                                <div class="text-left col-md-12">
+                                    <p>{% trans "Supported Formats (.pdf,.png,.jpg,.jpeg); Max-Size: 20MB<br>Maximum 5 files can be uploaded" %}</p>
+                                    <button type="button" class="btn btn-info" style="width:10%%;background" id="addfile"><i class="bi bi-file-earmark-plus p-2"></i>{% trans "Add File" %}</button>
+                                </div>
+                                <div class="col-md-3 pt-2" id="filesContainer">
+                                   {% render_field form.file_1 class="fileclass" %}
+                                   {% render_field form.file_2 class="fileclass pt-2 d-none" %}
+                                   {% render_field form.file_3 class="fileclass pt-2 d-none" %}
+                                   {% render_field form.file_4 class="fileclass pt-2 d-none" %}
+                                   {% render_field form.file_5 class="fileclass pt-2 d-none" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="captcha-in-submit-page" class="mb-1 col-sm-3">
+                    {% if google_recaptcha_site_key %}
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    <div id="captcha-widget-id" class="g-recaptcha" data-sitekey="{{google_recaptcha_site_key}}"></div>
+                    {% endif %}
+                </div>
+                <div class="text-right footer col-sm-12 mt-3">
+                    <div id="error-display-near-submit" class="alert alert-danger d-none" role="alert">
+                        {{ form.errors }} {{ form.non_field_errors }}
+                    </div>
+                    <button id="submitbuttongform" type="submit" class="main-btn">{% trans "Submit" %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer class="mt-3 footer-main">
+        <div class="col-12">
+          <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+            <img src="{{ logo }}" width="60" height="30" alt="">
+          </a>
+          <span class="mb-3 mb-md-0 text-muted">© 2023 Basa. All Rights Reserved.</span>
+        </div>
+    </footer>
+    <script src="{% static "appointment/assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{% static "appointment/assets/js/build/uploadmain.js" %}"></script>
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+    <script>
+        $(document).ready(function () {
+             $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:2100',
+                defaultDate: "-26y",
+            });
+        })
+    </script>
+</body>
+</html>

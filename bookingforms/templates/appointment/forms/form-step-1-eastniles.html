@@ -1,0 +1,217 @@
+{% load widget_tweaks %}
+{% load i18n %}
+<div class="step-form d-none" data-step="0">
+    <p>
+        {% blocktranslate %}To request an appointment, please select your preferred day of week and time frame. If an appointment is available that meets the criteria provided, you will receive a text confirmation that your appointment is scheduled.{% endblocktranslate %}
+    </p>
+    {% comment %} <p>{% blocktranslate %}At this time, we are not offering  <span class="important-text"> after-hours or Saturday</span> appointment.{% endblocktranslate %}</p> {% endcomment %}
+    <h3 class="mb-3">{% trans "Appointment" %}</h3>
+    <div id="alert-for-patient-submit" class="alert alert-danger p-2 d-none">
+        You should be a healthcare worker or 65+ years old to request a COVID-19 vaccine appointment at this time.
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="">{% trans "Appointment Type" %}</label>
+            <div class="single_form">
+                {% render_field form.appointment_type %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% comment %} <div class="col-md-6 mb-3">
+            <label for="vaccine eligibility status?">{% trans "Vaccine Eligibility Status" %}</label>
+            <div class="single_form">
+                {% render_field form.vaccine_eligibility_status %}
+            </div>
+        </div> {% endcomment %}
+        <div class="col-md-6 mb-3">
+            <label for="preffered day">{%trans "Location" %}</label>
+            <div class="single_form">
+                <input type="hidden" id="vaccinate_location" value="{{ vaccinate_location }}">
+                <input type="hidden" id="testing_location" value="{{ testing_location }}">
+                {% render_field form.county data-vaccinate_location="vaccinate_location" data-testing_location="testing_location" %}
+            </div>
+        </div>
+        {% comment %} <div class="col-md-6 mb-3">
+            <label for="">{% trans "Job Role" %}</label>
+            <div class="single_form">
+                {% render_field form.job_role %}
+            </div>
+        </div> {% endcomment %}
+    </div>
+    <!-- <div class="row mb-3 js-healthworker-or-65-years">
+        <div class="col-md-6">
+            <label for="">Are you a healthcare worker?</label>
+            <div class="row is-validation-needed">
+                <div class="col-md-3 radio">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <input name="is_healthworker" type="radio" value="true">
+                        </div>
+                        <div class="ml-2">
+                            Yes
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 radio">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <input name="is_healthworker" type="radio" value="false">
+                        </div>
+                        <div class="ml-2">
+                            No
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 d-none is-65-years-old-and-over">
+            <label for="">Are you 65 years old and over ?</label>
+            <div class="row is-validation-needed">
+                <div class="col-md-3 radio">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <input name="is_above_age_65" type="radio" value="true">
+                        </div>
+                        <div class="ml-2">
+                            Yes
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 radio">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <input name="is_above_age_65" type="radio" value="false">
+                        </div>
+                        <div class="ml-2">
+                            No
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        {% comment %} <div class="col-md-6 mb-3">
+            <label for="preffered day">{%trans "Location" %}</label>
+            <div class="single_form">
+                <input type="hidden" id="vaccinate_location" value="{{ vaccinate_location }}">
+                <input type="hidden" id="testing_location" value="{{ testing_location }}">
+                {% render_field form.county data-vaccinate_location="vaccinate_location" data-testing_location="testing_location" %}
+            </div>
+        </div> {% endcomment %}
+        <div class="col-md-6 mb-3">
+            <label for="preffered day">{%trans "Preferred Day of Week" %}</label>
+            <div class="single_form">
+                {% render_field form.preferred_date readonly="readonly"%}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="preffered day">{%trans "Preferred Time Frame" %}</label>
+            <div class="single_form">
+                {% render_field form.preferred_time_frame %}
+            </div>
+        </div>
+        {% comment %}
+        <div class="col-md-6 mb-3">
+            <label for="">Employer</label>
+            <div class="single_form">
+                {% render_field form.employer %}
+            </div>
+        </div>
+        {% endcomment %}
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Are you a current patient of Basa?" %}</label>
+            <div class="row input_height">
+                <div class="col-md-3 radio">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <input name="is_a_patient_of_clinic" type="radio" value="true" 
+                                {% if form.is_a_patient_of_clinic.value %}checked{% endif %}
+                                > 
+                            </div>
+                            <div class="ml-2">
+                                {% trans "Yes" %}
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-3 radio">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <input name="is_a_patient_of_clinic" type="radio" value="false"
+                                {% if not form.is_a_patient_of_clinic.value %}checked{% endif %}
+                                > 
+                            </div>
+                            <div class="ml-2">
+                                {% trans "No" %}
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="">{% trans "Have you received the first dose of the Covid vaccine?" %}</label>
+            <div class="row">
+                <div class="col-md-3 radio">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <input name="{{ form.is_previously_vaccinated.html_name }}" type="radio" value="true" 
+                                {% if form.is_previously_vaccinated.value %}checked{% endif %}
+                                > 
+                            </div>
+                            <div class="ml-2">
+                                {% trans "Yes" %}
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-3 radio">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <input name="{{ form.is_previously_vaccinated.html_name }}" type="radio" value="false"
+                                {% if not form.is_previously_vaccinated.value %}checked{% endif %}
+                                > 
+                            </div>
+                            <div class="ml-2">
+                                {% trans "No" %}
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 removed-col-vaccine d-none">
+            <label for="">{% trans "If Yes, Which Manufacturer?" %}</label>
+            <div class="row">
+                <div class="col-md-3 radio">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <input type="radio" name="{{ form.covid_vaccine_manufacturer.html_name }}" value="Pfizer" 
+                                {% if form.covid_vaccine_manufacturer.value == 'Pfizer' %}checked{% endif %}
+                                > 
+                            </div>
+                            <div class="ml-2">
+                                Pfizer
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-3 radio">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <input type="radio" name="{{ form.covid_vaccine_manufacturer.html_name }}" value="Moderna"
+                                {% if form.covid_vaccine_manufacturer.value == 'Moderna' %}checked{% endif %}
+                                >
+                            </div>
+                            <div class="ml-2">
+                                Moderna
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        
+    </div>
+</div>

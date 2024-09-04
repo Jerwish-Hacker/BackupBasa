@@ -1,0 +1,93 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/dashboard.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+{% endblock %}
+{% block table-header%}
+{% endblock %}
+{% block body %}
+    {% csrf_token %}
+    <div class="header-healthplan">
+            <div class="step-form">
+                <div class="row justify-content-center">
+                        <div class="table-responsive">
+                            <table class="table storebookTable noborder">
+                                <thead>
+                                    <tr>
+                                        <td>MRN</td>
+                                        <td>First&nbsp;Name</td>
+                                        <td>Last&nbsp;Name</td>
+                                        <td>Phone&nbsp;Number</td>
+                                        <td>Outreach Status</td>
+                                        <td>Date Time</td>
+                                        <td style="width: 11%;">Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="storebookingData">
+                                </tbody>
+                            </table>
+                            <div class="row justify-content-between m-0">
+                                <div id="holder"> </div>
+                                <select name="limit" id="limit">
+                                    <option value="50" selected>50</option>
+                                    <option value="100">100</option>
+                                    <option value="150">150</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="confirm-cancel-appointment-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm cancelation?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Confirm</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal" id="outreach_history-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-view-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-view-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="{{outreach}}" name="outreach_name">
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block script%}
+    <script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+    <script src="{% static "outreach/assets/js/es6/outreach-notification-main.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+{% endblock %}

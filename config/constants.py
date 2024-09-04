@@ -1,0 +1,16 @@
+grievance = 0
+sob = 0
+complaint = 0
+patientDocUpload = 0
+onlinePatientAppointments = 0
+patientSatisfactionSurvey = 1
+employeeVaccineTracker = 1
+patientSecureDocShare = 1
+memberPortal = 1
+patientGIC = 1
+staffReportingPortal = 1
+memberDataManagement =2
+providerDataManagement = 2
+patientOutreachmanagement =2
+healthplanOutreachIntegration = 2
+outreach = 2

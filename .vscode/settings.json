@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/dfd3a338-788f-470c-9e83-2a2bbcc2ccee/AppServices/subscriptions/dfd3a338-788f-470c-9e83-2a2bbcc2ccee/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/basa-systems",
+    "appService.deploySubpath": "."
+}

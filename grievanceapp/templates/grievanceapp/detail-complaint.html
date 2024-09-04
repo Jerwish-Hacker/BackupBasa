@@ -1,0 +1,157 @@
+<div class="user-details p-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12  text-right">
+                    <button type="button" class="addcomment btn btn-success" data-toggle="collapse" data-target="#collapseExample">Add Comment</button>
+                    {% if compliance.is_resolved %}
+                        <button type="button" class="archive btn btn-secondary">Resolved</button>
+                    {% else %}
+                        <button data-id="{{ compliance.id }}" data-toggle="modal" data-target="#archive-model" type="button" class="archive btn btn-primary">Resolve</button>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4 pt-3">
+        <div class="collapse col-md-12" id="collapseExample">
+            <div class="card card-body">
+                <h6 style="font-family:font-family: Arial, Helvetica, sans-serif">Add Comment</h6>
+                <textarea class="control-group col-md-12" id="extracomments" name="extracommentsid" rows="5"></textarea>
+                <div class="col-md-12 text-right pt-3">
+                    <button type="button" class="addcomment btn btn-primary" data-id="{{ compliance.id }}" id="addcommentbutton">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mb-3" style="background:#F5F5F5;border-radius: 25px;">
+        <div class="container-fluid p-3">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Patient First Name :</label> {{ compliance.patient_first_name|default_if_none:"" }}
+                </div>
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Patient Last Name : </label>{{ compliance.patient_last_name|default_if_none:"" }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Date of Event :</label> {{ compliance.date_of_event|default_if_none:"" }}
+                </div>
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Date of Birth :</label> {{ compliance.date_of_birth|default_if_none:"" }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Phone Number :</label> {{ compliance.phone_number|default_if_none:"" }}
+                </div>
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Who was Involved :</label> {{ compliance.who_was_involoved|default_if_none:"" }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Provider Mentioned :</label> {{ compliance.provider_mentioned|default_if_none:"" }}
+                </div>
+                <div class="col-md-6">
+                    <label  style="font-weight:600;font-size:14px;" >Created By :</label> {{ compliance.created_by|default_if_none:"" }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >Steps Taken to Resolve This Issue :</label> {{ compliance.steps_taken_to_resolve_this_issue|default_if_none:"" }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >Outcome/Resolution :</label> {{ compliance.outcome_resolution|default_if_none:"" }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >Details :</label> {{ compliance.comments|default_if_none:"" }}
+                </div>
+            </div>
+            <h4 class="pt-1" style="color:#11556c;font-weight:600;font-size:14px;">Files Attached</h4>
+            <div class="row mb-2">
+                {% if compliance.file_1 %}
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >File 1 :</label> <a href="{{ compliance.file_1.url|urlencode }}">{{ compliance.file_1.name }}</a>
+                </div>
+                {% endif %}
+                {% if compliance.file_2 %}
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >File 2 :</label> <a href="{{ compliance.file_2.url|urlencode }}">{{ compliance.file_2.name }}</a>
+                </div>
+                {% endif %}
+                {% if compliance.file_3 %}
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >File 3 :</label> <a href="{{ compliance.file_3.url|urlencode }}">{{ compliance.file_3.name }}</a>
+                </div>
+                {% endif %}
+                {% if compliance.file_4 %}
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >File 4 :</label> <a href="{{ compliance.file_4.url|urlencode }}">{{ compliance.file_4.name }}</a>
+                </div>
+                {% endif %}
+                {% if compliance.file_5 %}
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >File 5 :</label> <a href="{{ compliance.file_5.url|urlencode }}">{{ compliance.file_5.name }}</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background:#F5F5F5;border-radius: 25px;">
+        <div class="container p-3">
+            <h4 style="color:#11556c;font-weight:600;font-size:16px;">Resolution</h4>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <label  style="font-weight:600;font-size:14px;" >Resolution Statement :</label> {{ compliance.resolving_comments|default_if_none:"" }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    {% if compliance.is_resolved%}
+                        <label  style="font-weight:600;font-size:14px;" >Resolution Time :</label>{{ compliance.modified_datetime|default_if_none:"" }}
+                    {%else %}
+                        <label  style="font-weight:600;font-size:14px;" >Resolution Time :</label>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    {% if compliance.is_resolved%}
+                        <label  style="font-weight:600;font-size:14px;" >Resolved By :</label> {{ compliance.resolved_by|default_if_none:"" }}
+                    {%else %}
+                        <label  style="font-weight:600;font-size:14px;" >Resolved By :</label>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-md-12">
+            <p style="color:#11556c;font-weight:600;font-size:18px;">Comments</p>
+        </div>
+        {%for element in commentslist%}
+        <div class="col-md-12 pb-3">
+           <div class="card w-100" style="background:#Fdfcfa;border-radius: 25px;">
+              <div class="card-body">
+                <div class="d-flex">
+                    <div class="col-md-6">
+                        <label>Created By :</label> {{element.staff}}
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <span><i class="fa fa-trash text-danger commentdelete" data-toggle="modal" data-target="#delete-model" title="Delete" data-id="{{element.id}}" style="width: 18px;height: 18px;cursor:pointer;"></i></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <p class="card-text" style="font-family:font-family: Arial, Helvetica, sans-serif text-align:justify;">{{element.multiple_comments}}</p>
+                </div>
+                <div class="col-md-12 pt-2">
+                    <p>Created Date Time : {{element.created_datetime}}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,8 @@
+*.pyc
+.env
+db.sqlite3
+/staticfiles
+/media
+/node_modules/
+venv
+myproject.sock

@@ -1,0 +1,171 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'staffplanning/assets/css/dashboard.css' %}" />
+        <link rel="stylesheet" href="{% static 'staffplanning/assets/css/jquery-ui.css' %}">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <style>
+            .card{
+                transition: all 0.2s ease-out;
+                box-shadow: 0px 2px 4px rgba(38, 38, 38, 0.2);
+              }
+              .card:hover {
+                  transition: all 0.5s ease-out;
+                  box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+                  transform: scale(1.02);
+              }
+              .canvasjs-chart-credit{
+                display: none;
+              }
+        </style>
+    {% endblock css %}
+{% block body %}
+    {% csrf_token %}
+    <div class="row justify-content-start p-3">
+        <input type="hidden" value="{{site}}" name="hidden_site">
+        <input type="hidden" value="{{operations_type}}" name="hidden_operation_type">
+        <div class="col-auto" style="border-radius: 3px;">
+            <div id="reportrange">
+                <img src="{% static 'staffplanning/assets/images/calendar.svg' %}" alt="calenderimage">&nbsp;<span></span>
+                <input type="hidden" id="date_start" value="" />
+                <input type="hidden" id="date_end" value="" />
+            </div>
+        </div>
+        <div class="col-md-12 pb-2 pt-2">
+            <div class="row justify-content-start average_cards pt-2" style="background-color:white;min-height:100px;min-width:250px;resize:both;overflow:auto;">
+            </div>
+        </div>
+        <div class="col-md-12 pb-2 pt-2">
+            <div id="vcu_chart_Container" style="background-color:white;height: 200px; width: 100%;">
+            </div>
+        </div>
+        <div class="col-md-6 pb-2 pt-2">
+            <div id="qvc_chart_Container" style="background-color:white;height: 200px; width: 100%;">
+            </div>
+        </div>
+        <div class="col-md-6 pb-2 pt-2">
+            <div id="co_chart_Container" style="background-color:white;height: 200px; width: 100%;">
+            </div>
+        </div>
+        </div>
+        <div class="col-auto text-right all_sites_hidden">
+            <button id="export-button" class="btn btn-success">Export</button>
+        </div>
+        <div class="col-md-12 medical_table pt-2">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td>Date</td>
+                            <td>MD</td>
+                            <td>Walk-in</td>
+                            <td>Specialist</td>
+                            <td>Total<br/>Providers</td>
+                            <td>Reception</td>
+                            <td>Reception/Provider<br/>Ratio</td>
+                            <td>MA's</td>
+                            <td>MA's/Provider<br/>Ratio</td>
+                            <td>Nurses</td>
+                            <td>Nurses/Provider<br/>Ratio</td>
+                            <td>CallOuts</td>
+                            <td>Appointment<br/>Scheduled</td>
+                            <td>Qualified<br/>Visits</td>
+                            <td>Visit<br/>Capacity<br/>Utilization</td>
+                        </tr>
+                    </thead>
+                    <tbody id="storebookingData">
+                    </tbody>
+                </table>
+                <div class="row justify-content-between m-0 pb-2">
+                    <div id="holder"> </div>
+                    <select name="limit" id="limit">
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 dental_table pt-2">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td>Date</td>
+                            <td>MD</td>
+                            <td>Registered Dental<br/>Hygienist</td>
+                            <td>Total<br/>Providers</td>
+                            <td>Dental Hygienist<br/>Provider Ratio</td>
+                            <td>Reception</td>
+                            <td>Reception/Provider<br/>Ratio</td>
+                            <td>Registered Dental<br>Assistants present</td>
+                            <td>Dental Assistants<br/>Present</td>
+                            <td>Registered Dental Assistant<br/>Provider Ratio</td>
+                            <td>CallOuts</td>
+                            <td>Appointment<br/>Scheduled</td>
+                            <td>Total Qualified<br/>Visits</td>
+                            <td>Visit<br/>Capacity<br/>Utilization</td>
+                        </tr>
+                    </thead>
+                    <tbody id="dentalData">
+                    </tbody>
+                </table>
+                <div class="row justify-content-between m-0 pb-2">
+                    <div id="dentalHolder"> </div>
+                    <select name="limit" id="dentallimit">
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 optometry_table pt-2">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td>Site</td>
+                            <td>MD</td>
+                            <td>Optomtry MA<br>Present</td>
+                            <td>MA / Optometrist Ratio</td>
+                            <td>Receptionist<br>Present</td>
+                            <td>Receptionist/<br>Optometrist</td>
+                            <td>Optician</td>
+                            <td>Optician/Optometrist<br>Ratio</td>
+                            <td>CallOuts</td>
+                            <td>Appointment<br/>Scheduled</td>
+                            <td>Qualified<br/>Visits</td>
+                            <td>Visit<br/>Capacity<br/>Utilization</td>
+                        </tr>
+                    </thead>
+                    <tbody id="optometryData">
+                    </tbody>
+                </table>
+                <div class="row justify-content-between m-0 pb-2">
+                    <div id="optometryHolder"> </div>
+                    <select name="limit" id="optometrylimit">
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'staffplanning/assets/js/vendor/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/vendor/moment.min.js' %}" ></script>
+    <script src="{% static 'staffplanning/assets/js/es6/detaildashboard.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+{% endblock %}

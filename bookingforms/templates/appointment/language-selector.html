@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %}
+<style>
+.language-row{
+    background: #60a6a2;
+}
+.language-row .col-md-2{
+    flex: 0 0 9.667rem;
+}
+.language-row .active-link{
+    background: #d0ae7d;
+}
+.language-selector{
+    padding: 0;
+}
+.language-selector a{
+    display: block;
+}
+</style>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <div class="row language-row mx-3">
+                        {% comment %} https://github.com/lipis/flag-icon-css/tree/master/flags/1x1 {% endcomment %} 
+                        <div class="col-md-3 col-6 text-center social-icons language-selector {% if LANGUAGE_CODE == 'es' %}active-link{% endif %}">
+                            <a href="{{ spanish_url }}">
+                                <span class="text-white pr-2">Spanish</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-6 text-center social-icons language-selector {% if LANGUAGE_CODE != 'es' %}active-link{% endif %}">
+                            <a href="{{ english_url }}">
+                                <span class="text-white pr-2">English</span>
+                            </a>
+                        </div>
+                        <div class="col-md-6" style="background-color:white;"></div>
+                    </div>

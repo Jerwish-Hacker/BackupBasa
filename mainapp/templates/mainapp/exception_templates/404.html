@@ -1,0 +1,53 @@
+{% extends './admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+  <section>
+    <div class="nav-bar pt-2 pb-1" style="height:50.45px;">
+        <div class="col-2 text-center header-logo-main ml-3">
+            <img src={{ logo }} alt="logo" />
+        </div>
+        {% if user.is_authenticated %}
+         <ul class="navbar-nav ml-auto mr-md-0">
+             <li class="nav-item dropdown">
+                 <a style="color:white;"
+                     class="px-4 text-grey nav-link dropdown-toggle" id="userDropdown" href="#" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                     </svg></i>&nbsp;{{user.username}}</a>
+
+                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                     <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                 </div>
+             </li>
+         </ul>
+         {% endif %}
+    </div>
+</section>
+<div class="p-5">
+  <form class="login form-signin">
+      <div class="d-flex justify-content-center">
+      <img src="{{ logo }}" alt="logo" style="width: 120px;">
+      </div>
+     <h2 class="form-signin-heading text-center">404</h2> 
+     <h6 class="text-center">The requested URL not found on the server</h6>
+     <div class="pt-2 pb-2">
+    </div>
+  </form>
+</div>
+<div class="footer-secondary mt-0" style="height: 0;display: table-row;">
+  <div class="col-12 py-2">
+      <div class="row">
+          <div class="col-md-7" style="align-self: center;">
+              <div >
+                <span style="color:#007bff;">©2023 Yetti Healthcare. All Rights Reserved.</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock body %}

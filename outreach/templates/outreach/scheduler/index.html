@@ -1,0 +1,119 @@
+{% extends './layout.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'appointment/assets/css/dashboard.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+<link href="{% static 'appointment/assets/css/fontawesome.css' %}" rel="stylesheet" />
+<style>
+
+.error {
+  border-color: red!important;
+}
+
+.dashsidebarcls {
+    position: absolute;
+    top: 0;
+    z-index: 10001;
+    transition: width 0.8s;
+    right: 0;
+    width: 0px;
+}
+.span_font {
+    text-align: left;
+    font-weight: 400;
+    font-family: 'Open Sans';
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #FD6200;
+    opacity: 0.8;
+}
+#archive-model{
+    z-index: 20000000;
+}
+#view-model{
+    z-index: 100000;
+}
+.weekDays-selector input {
+  display: none!important;
+}
+
+.weekDays-selector input[type=checkbox] + label {
+  display: inline-block;
+  border-radius: 25px;
+  background: #dddddd;
+  height: 3.0em;
+  width: 3.0em;
+  margin-right: 3px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  
+}
+
+.weekDays-selector input[type=checkbox]:checked + label {
+  background: #4285F4;
+  color: #ffffff;
+  font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.timeslotrendercolor-even{
+  background-color: #F0F0F0;
+}
+.timeslotrendercolor-odd{
+  background-color: ##FFFFFF;
+}
+.card{
+  transition: all 0.2s ease-out;
+  box-shadow: 0px 2px 4px rgba(38, 38, 38, 0.2);
+}
+.card:hover {
+    transition: all 0.5s ease-out;
+    box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+    transform: scale(1.05);
+}
+.card-header{
+  background:#4285F4;
+}
+
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    {% csrf_token %}
+    <div class="d-flex">
+        <h5 class="my-4 mr-auto">Scheduler</h5>
+    </div>
+    <div class="col-md-12">
+        <div class="row justify-content-start apprender">
+          {% for portal in portals%}
+          <div class="col-md-4 {{ portal.name }}">
+            <div class="card" style="width: 18rem;">
+              <a href="{% url 'outreach:outreach_scheduler' outreach=portal.name%}"><img class="card-img-top" src="{% static "appointment/assets/images/calendar.png" %}" alt="Calendar">
+              <div class="card-body" style="background:#e4e8e5">
+                <p class="card-text text-center" style="font-weight:600;font-size:16px;color:#11556c;">{{portal.name|title}} Outreach</p>
+              </div></a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% block appointment_type %}
+{% endblock appointment_type %}
+<script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+<script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+<script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+    integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+    crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+<script src="{% static 'appointment/assets/js/vendor/idle-timer.min.js' %}"></script>
+{% endblock %}

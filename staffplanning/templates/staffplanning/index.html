@@ -1,0 +1,64 @@
+{% load static %}
+{% load widget_tweaks %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ title|title }}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href={{ titlelogo }}>
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="{% static "staffplanning/assets/images/favicon-16x16.png" %}"> -->
+
+    <link rel="stylesheet" href="{% static "staffplanning/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "staffplanning/assets/css/style.css" %}">
+</head>
+
+<body>
+    <section>
+        <div class="header-background">
+            <div class="container">
+            <div class="row">
+                <div class="col-md-6 logo-main">
+                    <img src={{ logo }} alt="logo" />
+                </div>
+                <div class="col-md-6">
+                    <h1 style="color:white">{{ title|title }}<h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="footer-main mt-3">
+        <div class="container pt-2 pb-2">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+                  <img src={{ logo }} width="60" height="30" alt="">
+                </a>
+                <span class="mb-3 mb-md-0 text-muted">© 2023 Basa. All Rights Reserved.</span>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "staffplanning/assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="{% static 'staffplanning/assets/js/vendor/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/vendor/inputmask.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/vendor/inputmask.binding.js' %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- <script src="{% static "assets/js/main-babel.js" %}"></script> -->
+    <script src="{% static "staffplanning/assets/js/es6/main.js" %}"></script>
+    <link rel="stylesheet" href="{% static 'staffplanning/assets/css/jquery-ui.css' %}">
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                yearRange: '1900:2100',
+                changeMonth: true,
+                changeYear: true,
+            });
+        })
+    </script>
+</body>
+</html>

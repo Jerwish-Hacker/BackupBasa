@@ -1,0 +1,138 @@
+<body style="background-color: #F2F3F4;">
+    <div class="row justify-content-start">
+        <div class="col-md-6 form-group">
+            <label>Position ID</label>
+            <input type="text" class="form-control" name="position_id" value="{{employee.position_id}}">
+            <div class="invalid-feedback">
+                Required.
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Work Contact: Work Email</label>
+            <input type="email" class="form-control" name="email" value="{{employee.email}}">
+            <div class="invalid-feedback">
+                Required.Please check email is in correct format.
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Reports To Name</label>
+            <input type="text" class="form-control" name="reports_to_name" placeholder="LastName, FirstName" value="{{employee.reports_to_name}}">
+            <div class="invalid-feedback">
+                Required.
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Payroll  Name</label>
+            <input type="text" class="form-control" name="payroll_name" placeholder="LastName, FirstName" value="{{employee.payroll_name}}">
+            <div class="invalid-feedback">
+                Required.
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Date of Birth</label>
+            <input type="text" class="form-control datepickeredit" name="date_of_birth" placeholder="MM/DD/YYYY">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Position Status</label>
+            <input type="text" class="form-control" name="position_status" value="{{employee.position_status}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Worker Category Description</label>
+            <input type="text" class="form-control" name="worker_category_description" value="{{employee.worker_category_description}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Job Title Description</label>
+            <input type="text" class="form-control" name="job_title_description" value="{{employee.job_title_description}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Hire Date</label>
+            <input type="text" class="form-control datepickeredit" name="hire_date" placeholder="MM/DD/YYYY">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Region</label>
+            <input type="text" class="form-control" name="region" value="{{employee.region}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+         <div class="col-md-6 form-group">
+            <label>EEO Establishment</label>
+            <input type="text" class="form-control" name="eeo_establishment" value="{{employee.eeo_establishment}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+         <div class="col-md-6 form-group">
+            <label>Job Function Description</label>
+            <input type="text" class="form-control" name="job_function_description" value="{{employee.job_function_description}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Home Department Description</label>
+            <input type="text" class="form-control" name="home_department_description" value="{{employee.home_department_description}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Union Code</label>
+            <input type="text" class="form-control" name="union_code" value="{{employee.union_code_description}}">
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Status</label>
+            <select type="text" class="form-control" name="emp_status">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Is Staff</label>
+            <input class="form-control" type="checkbox" name="is_staff" style="width: 18px;height: 18px;" {%if user.is_staff %} checked {%endif%}>
+            <div class="invalid-feedback">
+                Required
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="{{employee.birth_date}}" id="hidden_dob">
+    <input type="hidden" value="{{employee.hire_date}}" id="hidden_hire">
+    <input type="hidden" value="{{employee.is_active}}" id="hidden_emp_status">
+    <script>
+        $('.datepickeredit').datepicker({
+            changeMonth: true, 
+            changeYear: true,
+            yearRange: "-90:+00"
+        })
+        var dob=$('#hidden_dob').val()
+        var hire =$('#hidden_hire').val()
+        $('input[name="date_of_birth"]').val(moment(new Date(dob)).format("MM/DD/YYYY"))
+        $('input[name="hire_date"]').val(moment(new Date(hire)).format("MM/DD/YYYY"))  
+        var status = 'inactive'
+        if($('#hidden_emp_status').val()=='True'){
+            status = 'active'
+        }
+        $('select[name="emp_status"]').val(status)
+    </script>
+    </div>

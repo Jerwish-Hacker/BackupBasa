@@ -1,0 +1,214 @@
+{% extends './layout.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'appointment/assets/css/dashboard.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<style>
+.dashsidebarcls {
+    position: absolute;
+    top: 0;
+    z-index: 10001;
+    transition: width 0.8s;
+    right: 0;
+    width: 0px;
+}
+.span_font {
+    text-align: left;
+    font-weight: 400;
+    font-family: 'Open Sans';
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #FD6200;
+    opacity: 0.8;
+}
+#archive-model{
+    z-index: 20000000;
+}
+#view-model{
+    z-index: 100000;
+}
+.error{
+    border-color: red!important;
+}
+{% block notificationcss %}
+.icon-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    color: #333333;
+    background: #dddddd;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+  }
+  
+  .icon-button:hover {
+    cursor: pointer;
+  }
+  
+  .icon-button:active {
+    background: #cccccc;
+    border: none;
+  }
+  
+  .icon-button__badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background: red;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+{% endblock%}
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    {% csrf_token %}
+    <div class="d-flex">
+        <h5 class="my-4 mr-auto">Appointment cancelation requests</h5>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12 page-alerts">
+            <div id="error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+            <div id="success-alert" class="alert alert-success p-2 d-none">Confirmed successfully</div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td>MRN</td>
+                            <td>Location</td>
+                            <td>Preferred&nbsp;Date</td>
+                            <td>Preferred&nbsp;Time</td>
+                            <td>First&nbsp;Name</td>
+                            <td>Last&nbsp;Name</td>
+                            <td>Phone&nbsp;Number</td>
+                            <td>Created&nbsp;DateTime</td>
+                            <td style="width: 11%;">Action</td>
+                        </tr>
+                    </thead>
+                    <tbody id="storebookingData">
+                    </tbody>
+                </table>
+                <div class="row justify-content-between m-0">
+                    <div id="holder"> </div>
+                    <select name="limit" id="limit">
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dash_sidebar" class="dashsidebarcls card card-custom card-stretch clearfix formWall">
+        <div class="d-flex align-items-center justify-content-between p-2 extension_header" style="background-color: #EDEDED; width: 100%;">
+            <h4 class="pt-1 pl-3 extension_header" id="extension_header">9999999999</h4>
+            <button id="dashboard_ext_close" class="btn close" style="font-size: 30px;">×</button>
+        </div>
+        <div class="card-body pt-0">
+            <div class="py-9"><div class="table_div_inside">
+                <table id="subscription_table_overview" class="table" style="margin-bottom: 0rem;">
+                    
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="confirm-cancel-appointment-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm cancelation?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal" id="cancel-appointment-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Request for cancelation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="reasonforcancel">Reason for cancelation</label>
+                <textarea class="form-control" id="id_reason_for_cancel_text" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal" id="archive-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Do you want to confirm this appointment?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal" id="view-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-view-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-view-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+    {% block script %}
+    {% block appointment_type %}
+    {% endblock appointment_type %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- <script src="{% static 'assets/js/dashboard.js' %}"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+    <script src="{% static 'appointment/assets/js/build/healthplan-admin-notification.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/vendor/idle-timer.min.js' %}"></script>
+    {% endblock %}

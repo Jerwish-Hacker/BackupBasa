@@ -1,0 +1,129 @@
+<div class="user-details p-3">
+        <div class="text-center" style="font-size:25px;color:#247266;font-weight: bold;">
+        {{ vaccineexemption.type_of_exemption }}
+        </div>
+        <h5>Uploaded Files</h5>
+        <div class="table-responsive">
+            <table class="table storebookTable table-hover ">
+                <thead>
+                    <tr style="background:#Fdfcfa;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2)">
+                        <td>Files</td>
+                        <td>View</td>
+                        <td>Status</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr>
+                    {% if vaccineexemption.file_1 %}
+                        <td>File 1</td>
+                        <td><a href="{{vaccineexemption.file_1.url}}" target="_blank">View</a></td>
+                        <td>{% if vaccineexemption.file_1_status == none %}
+                               <span class="badge badge-warning" style="width:50%;height:20px;font-size:12px">Pending</span>
+                            {% elif vaccineexemption.file_1_status %}
+                                <span class="badge badge-success" style="width:50%;height:20px;font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="width:50%;height:20px;font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td><button type="button" class="btn btn-success fileapprovebutton" style="width:15%"  data-filename="file_1">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" style="width:15%"  data-toggle="modal" data-target="#archive-model"  data-filename="file_1">Reject</button></td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if vaccineexemption.file_2 %}
+                        <td>File 2</td>
+                        <td><a href="{{vaccineexemption.file_2.url}}" target="_blank">View</a></td>
+                        <td>{% if vaccineexemption.file_2_status == none %}
+                               <span class="badge badge-warning" style="width:50%;height:20px;font-size:12px">Pending</span>
+                            {% elif vaccineexemption.file_2_status %}
+                                <span class="badge badge-success" style="width:50%;height:20px;font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="width:50%;height:20px;font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td><button type="button" class="btn btn-success fileapprovebutton" style="width:15%"  data-filename="file_2">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" style="width:15%" data-toggle="modal" data-target="#archive-model" data-filename="file_2">Reject</button></td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if vaccineexemption.file_3 %}
+                        <td>File 3</td>
+                        <td><a href="{{vaccineexemption.file_3.url}}" target="_blank">View</a></td>
+                        <td>{% if vaccineexemption.file_3_status == none %}
+                               <span class="badge badge-warning" style="width:50%;height:20px;font-size:12px">Pending</span>
+                            {% elif vaccineexemption.file_3_status %}
+                                <span class="badge badge-success" style="width:50%;height:20px;font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="width:50%;height:20px;font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td><button type="button" class="btn btn-success fileapprovebutton" style="width:15%" data-filename="file_3">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" style="width:15%" data-toggle="modal" data-target="#archive-model" data-filename="file_3">Reject</button></td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if vaccineexemption.file_4 %}
+                        <td>File 4</td>
+                        <td><a href="{{vaccineexemption.file_4.url}}" target="_blank">View</a></td>
+                        <td>{% if vaccineexemption.file_4_status == none %}
+                               <span class="badge badge-warning" style="width:50%;height:20px;font-size:12px">Pending</span>
+                            {% elif vaccineexemption.file_4_status %}
+                                <span class="badge badge-success" style="width:50%;height:20px;font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="width:50%;height:20px;font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                       <td><button type="button" class="btn btn-success fileapprovebutton" style="width:15%" data-filename="file_4">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" style="width:15%" data-toggle="modal" data-target="#archive-model" data-filename="file_4">Reject</button></td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if vaccineexemption.file_5 %}
+                        <td>File 5</td>
+                        <td><a href="{{vaccineexemption.file_5.url}}" target="_blank">View</a></td>
+                        <td>{% if vaccineexemption.file_5_status == none %}
+                               <span class="badge badge-warning" style="width:50%;height:20px;font-size:12px">Pending</span>
+                            {% elif vaccineexemption.file_5_status %}
+                                <span class="badge badge-success" style="width:50%;height:20px;font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="width:50%;height:20px;font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td><button type="button" class="btn btn-success fileapprovebutton" style="width:15%" data-filename="file_5">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" style="width:15%" data-toggle="modal" data-target="#archive-model" data-filename="file_5">Reject</button></td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if vaccineexemption.file_6 %}
+                        <td>File 6</td>
+                        <td><a href="{{vaccineexemption.file_6.url}}" target="_blank">View</a></td>
+                        <td>{% if vaccineexemption.file_6_status == none %}
+                               <span class="badge badge-warning" style="width:50%;height:20px;font-size:12px">Pending</span>
+                            {% elif vaccineexemption.file_6_status %}
+                                <span class="badge badge-success" style="width:50%;height:20px;font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="width:50%;height:20px;font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td><button type="button" class="btn btn-success fileapprovebutton" style="width:15%" data-filename="file_6">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" style="width:15%" data-toggle="modal" data-target="#archive-model" data-filename="file_6">Reject</button></td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if vaccineexemption.file_7 %}
+                        <td>File 7</td>
+                        <td><a href="{{vaccineexemption.file_7.url}}" target="_blank">View</a></td>
+                        <td>{% if vaccineexemption.file_7_status == none %}
+                               <span class="badge badge-warning" style="width:50%;height:20px;font-size:12px">Pending</span>
+                            {% elif vaccineexemption.file_7_status %}
+                                <span class="badge badge-success" style="width:50%;height:20px;font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="width:50%;height:20px;font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                       <td><button type="button" class="btn btn-success fileapprovebutton" style="width:15%" data-filename="file_7">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" style="width:15%" data-toggle="modal" data-target="#archive-model" data-filename="file_7">Reject</button></td>
+                    {% endif %}
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        {% if vaccineexemption.type_of_exemption == 'religion' %}
+        <div class="text-left" style="">
+            Comment: {{ vaccineexemption.religious_exemption_text }}
+        </div>
+        {% endif %}
+    </div>
+</div>

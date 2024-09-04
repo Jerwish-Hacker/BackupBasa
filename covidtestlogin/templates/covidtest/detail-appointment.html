@@ -1,0 +1,263 @@
+<div class="user-details p-3">
+    {% if employeevaccination.is_proof_or_vaccination_copy_provided %}
+        <div class="text-center" style="font-size:18px;font-weight: bold;">
+        Vaccine Card
+        </div>
+        <h5>Uploaded Files</h5>
+        <div class="table-responsive">
+            <table class="table storebookTable table-hover ">
+                <thead>
+                    <tr style="background:#Fdfcfa;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2)">
+                        <td>Files</td>
+                        <td>View</td>
+                        <td>Status</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr>
+                    {% if employeevaccination.file_1 %}
+                        <td>File 1</td>
+                        <td><a href="{{employeevaccination.file_1.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_1_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_1_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_1_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_1">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model"  data-filename="file_1">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if employeevaccination.file_2 %}
+                        <td>File 2</td>
+                        <td><a href="{{employeevaccination.file_2.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_2_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_2_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_2_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_2">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model" data-filename="file_2">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                    <tr>
+                    {% if employeevaccination.file_3 %}
+                        <td>File 3</td>
+                        <td><a href="{{employeevaccination.file_3.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_3_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_3_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_3_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_3">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model" data-filename="file_3">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    {% elif employeevaccination.allow_csv_to_pull_record %}
+        <div class="text-center" style="font-size:18px;font-weight: bold;">
+        Medical Record Review & Approval
+        </div>
+        <div class="table-responsive">
+            <table class="table storebookTable table-hover ">
+                <thead>
+                    <tr style="background:#Fdfcfa;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2)">
+                        <td>Files</td>
+                        <td>View</td>
+                        <td>Status</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr>
+                    {% if employeevaccination.file_1 %}
+                        <td>File 1</td>
+                        <td><a href="{{employeevaccination.file_1.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_1_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_1_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_1_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_1">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model"  data-filename="file_1">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if employeevaccination.file_2 %}
+                        <td>File 2</td>
+                        <td><a href="{{employeevaccination.file_2.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_2_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_2_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_2_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_2">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model" data-filename="file_2">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                    <tr>
+                    {% if employeevaccination.file_3 %}
+                        <td>File 3</td>
+                        <td><a href="{{employeevaccination.file_3.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_3_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_3_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_3_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_3">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model" data-filename="file_3">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-12 pt-3 pl-0 pr-0">
+            <label  style="font-size:15px;font-weight:500">Approve or reject medical records</label>
+            {% if employeevaccination.is_approved_by_staff %}
+                <span class="badge badge-success" style="font-size:12px">Approved</span>
+            {% elif employeevaccination.is_approved_by_staff == False %}
+                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+            {%else%}
+                <button type="button" class="btn btn-success ml-2" id="epic_medical_record_approve">Approve</button>
+                <button type="button" class="btn btn-danger" id="epic_medical_record" data-toggle="collapse" data-target="#collapseExample">Reject</button>
+            {% endif %}
+        </div>
+        <div class="col-12 pt-4">
+            <div class="collapse" id="collapseExample">
+                <div class="col-md-12 pt-2">
+                    <label for="rejecttextepicrecord"  style="font-size:15px;font-weight:500">Reason For Rejection</label>
+                    <textarea class="form-control" id="rejecttextepicrecord" rows="3"></textarea>
+                </div>
+                <div class="col-md-12 pt-2 text-right">
+                    <button type="button" class="btn btn-primary pt-2" style="width:10%%;background" id="epic_medical_record_reject_proceed">Proceed</button>
+                </div>
+            </div>
+        </div>
+    {% elif  employeevaccination.is_vaccine_declined %}
+       <div class="text-center" style="font-size:18px;font-weight: bold;">
+        Vaccine Declined
+        </div>
+        <div class="table-responsive">
+            <table class="table storebookTable table-hover ">
+                <thead>
+                    <tr style="background:#Fdfcfa;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2)">
+                        <td>Files</td>
+                        <td>View</td>
+                        <td>Status</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr>
+                    {% if employeevaccination.file_1 %}
+                        <td>File 1</td>
+                        <td><a href="{{employeevaccination.file_1.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_1_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_1_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_1_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_1">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model"  data-filename="file_1">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                     <tr>
+                    {% if employeevaccination.file_2 %}
+                        <td>File 2</td>
+                        <td><a href="{{employeevaccination.file_2.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_2_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_2_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_2_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_2">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model" data-filename="file_2">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                    <tr>
+                    {% if employeevaccination.file_3 %}
+                        <td>File 3</td>
+                        <td><a href="{{employeevaccination.file_3.url}}" target="_blank">View</a></td>
+                        <td>{% if employeevaccination.file_3_status == None %}
+                               <span class="badge badge-warning" style="font-size:12px">Pending</span>
+                            {% elif employeevaccination.file_3_status %}
+                                <span class="badge badge-success" style="font-size:12px">Approved</span>
+                            {% else %}
+                                <span class="badge badge-danger" style="font-size:12px">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                        {% if employeevaccination.file_3_status == None %}
+                            <button type="button" class="btn btn-success fileapprovebutton" data-filename="file_3">Approve</button><button type="button" class="btn btn-danger mx-2 filerejectbutton" data-toggle="modal" data-target="#archive-model" data-filename="file_3">Reject</button>
+                        {% endif %}
+                        </td>
+                    {% endif %}
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="row justify-content-start pt-3">
+            <div class="col-md-12">
+            <input type="hidden" value="{{employeevaccination.signature_data}}" id="signaturevalue">
+                Signature :
+                <div class="col-md-4 my-3" id="displaySignature" style="border:2px solid;">
+                </div>
+            </div>
+            {% block script %}
+                <script>
+                    $(document).ready(function(){
+                        var i = new Image()
+                        var signature = $('#signaturevalue').val();
+                        i.src = 'data:' + signature;
+                        $(i).appendTo('#displaySignature')
+                    })
+                </script>
+            {% endblock %}
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,43 @@
+{% extends './admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+<div class="wrapper">
+  <form class="login form-signin"  method="POST" action="/outreach/login/auth/?next={{outreach}}">
+    {% for message in messages %}
+      <div class="alert alert-danger p-1">
+          {{ message }}
+      </div>
+    {% endfor %}
+  
+    {% csrf_token %}
+      <div class="d-flex justify-content-center">
+      <img src="{{ logo }}" alt="logo" style="width: 120px;">
+      </div>
+     <h4 class="form-signin-heading text-center">Outreach Login</h4> 
+     <input class="form-control mb-2" type="text" name="login" placeholder="Email"
+     autocomplete="username" maxlength="150" required="" id="id_login">
+     <input class="form-control" type="password" name="password" placeholder="Password"
+     autocomplete="current-password" required="" id="id_password">    
+     <button class="btn btn-lg btn-primary btn-block" type="submit" style="background: #034694;border: #034694;">Login</button>   
+     <div class="pt-2 pb-2">
+      <a style="text-decoration: none"href="{% url 'account_sso_login' %}?next={{outreach}}"><img class="logoimg mx-1" src="{% static 'appointment/assets/images/ms.png' %}" alt="ms" width="20">Login with Microsoft</a>
+    </div>
+  </form>
+</div>
+
+{% endblock body %}
+
+
+{% block script %}
+  <script>
+    var list_in_errors = $('.form-signin>ul>li>ul>li')
+    var error_html = ''
+    for(var i=0;i<list_in_errors.length;i++){
+      error_html+= `<div class="alert alert-danger p-1">${$(list_in_errors[i]).text()}</div>`
+    }
+    $('.form-error').html(error_html)
+  </script>
+{% endblock %}

@@ -1,0 +1,257 @@
+{% extends './index.html'%}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'mainapp/assets/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+    <div class="px-4">
+        <div class="row d-flex justify-content-start header_filters">
+            <div class="col-md-0.5 add_app_button p-1">
+                <div class="dropdown-adminpanel">
+                  <i class="fa fa-bars dropbtn" aria-hidden="true" style="font-size:45px;"></i>
+                  <div class="dropdown-adminpanel-content" style="position:absolute; top:46px;left:15px;z-index:20;">
+                    <a href="#" name="add_app_button" data-toggle="modal" data-target="#edit-model"><i class="fa fa-plus" aria-hidden="true"></i> Add App</a>
+                    <a href="{% url 'tenant:settings_page' %}" ><i class="fa fa-cog text-primary" style="width:18px;height:18px;" aria-hidden="true"></i> Settings</a>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3 mr-auto p-2">
+                <select class="form-control" id="id_apps_type" name="apps_type" style="border-radius:25px;font-family: Source Sans Pro;">
+                    <option value="all">All</option>
+                    <option value="administration">Administration</option>
+                    <option value="frontoffice">Front Office</option>
+                    <option value="humanresources">Human Resources</option>
+                    <option value="myfavorites">My Favorites</option>
+                    <option value="operations">Operations</option>
+                    <option value="outreach">Outreach</option>
+                    <option value="quality">Quality</option>
+                </select>
+            </div>
+            <div class="col-md-3 p-2">
+                <input class="form-control" type="text" name="apps_search" placeholder="Search" style="border-radius:25px;font-family: Source Sans Pro;"><i class="fa fa-search" style="position: absolute;color: #000;right: 22px;top: 20px;"></i>
+            </div>
+        </div>
+        <div class="col-md-12 page-alerts">
+            <div id="server-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+        </div>
+        {% csrf_token %}
+        <hr>
+        <div class="all-cards-content-division">
+            <div class="row d-flex justify-content-start render_cards" id="sortable">
+            </div>
+        </div>
+        <div class="site-admin-division d-none">
+            <div class="row d-flex justify-content-end">
+                <div class="col-auto mr-auto my-1">
+                    <button class="btn btn-outline-primary getapps_back_button" style="font-size:14px" title="Back"><i class="fa fa-arrow-left" aria-hidden="true" style="font-size:14px;cursor:pointer"></i>  Back</button>
+                  </div>
+                <div class="col-auto my-1">
+                    <select class="form-control" name="type_of_apps_site_admin" style="border-radius:25px;font-family: Source Sans Pro;">
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <input class="form-control" id="id_search_site_admin" name="search_site_admin" type="text" placeholder="Search" style="border-radius:25px;font-family: Source Sans Pro;">
+                </div>
+                <div class="col-auto my-1" style="border-radius: 3px;">
+                    <div id="reportrange">
+                        <img src="{% static 'mainapp/assets/images/calendar.svg' %}" alt="calenderimage">&nbsp;<span></span>
+                        <input type="hidden" id="date_start" value="" />
+                        <input type="hidden" id="date_end" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="row boxrow">
+                <div class="col-2 countbox" data-archive=""><b id="status_all"></b>
+                    <p style="border-radius:18px;font-family: Source Sans Pro;">Total Visits</p>
+                </div>
+            </div>
+            <div class="step-form">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 page-alerts">
+                        <div id="error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                        <div id="success-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table storebookTable noborder">
+                                <thead>
+                                    <tr>
+                                        <td class="text-left">App Name</td>
+                                        <td class="text-left">Page&nbsp;Name</td>
+                                        <td class="text-left">User</td>
+                                        <td class="text-left">Date Time</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="storebookingData">
+                                </tbody>
+                            </table>
+                            <div class="row justify-content-between m-0">
+                                <div id="holder"> </div>
+                                <select name="limit" id="limit">
+                                    <option value="50" selected>50</option>
+                                    <option value="100">100</option>
+                                    <option value="150">150</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-start">
+            </div>
+        </div>
+        <div class="modal" id="edit-model" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document" style="height:100%;">
+              <div class="modal-content" style="min-height:100%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="id_app_form" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row justify-content-around p-2">
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App Name</span>
+                                <input class="form-control" type="text" name="app_name" value="" id="id_app_name"> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App Owner</span>
+                                <input class="form-control" type="text" name="point_of_contact" value="" id="id_point_of_contact"> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App domain (Example: apps.basa.org)</span>
+                                <input class="form-control" type="text" name="app_domain" value="" id="id_app_domain"> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App Type</span>
+                                <select  class="form-control" name="app_type" id="id_app_type">
+                                    <option value="">Select App Type</option>
+                                    <option value="quality">Quality</option>
+                                    <option value="outreach">Outreach</option>
+                                    <option value="frontoffice">Front Office</option>
+                                    <option value="humanresources">Human Resources</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="administration">Administration</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Groups (Eg:Grievance, Grievance dashboard)</span>
+                                <textarea class="form-control" name="required_groups" value="" id="id_required_groups" style="height:38px;"></textarea>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Required Subscription</span>
+                                <select id="id_service_type" class="form-control" name="service_type">
+                                    <option value="">Select a Plan</option>
+                                    <option value="0">Free</option>
+                                    <option value="1">Basic</option>
+                                    <option value="2">Premium</option>
+                                    <option value="3">Ultra</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 pt-2" style="padding:2px">
+                                <span>Info Text</span>
+                                <textarea class="form-control" name="info_text" value="" id="id_info_text" style="height:50px;"></textarea>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <div class="col-md-4 pt-2" style="padding:2px">
+                                    <span class="pr-2">Hide App</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="id_hide_app">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-8 pt-2" style="padding:2px">
+                                    <span class="pr-2">App Logo</span>
+                                    <p>(Supported .PNG, Max Size 500KB)</p>
+                                    <input class="fileClass" type="file" id="id_app_logo" name="app_logo">
+                                </div>
+                            </div>
+                            <div class="col-md-6 pt-2">
+                                <img class="d-none" style="border:1px solid grey" id="app_image_preview" src="#" alt="your image" width="90" height="90"/>
+                            </div>
+                        </div>
+                        <hr>
+                        <span>Button</span>
+                        <div class="d-flex justify-content-between" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <span>Name</span>
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <span>URL (Example: https://apps.basa.org)</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <input class="form-control" type="hidden" name="button_id_1" value="" id="id_button_id_1">
+                                <input class="form-control" type="text" name="button_name_1" value="" id="id_button_name_1"> 
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <input class="form-control" type="text" name="button_url_1" value="" id="id_button_url_1"> 
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <input class="form-control" type="hidden" name="button_id_2" value="" id="id_button_id_2">
+                                <input class="form-control" type="text" name="button_name_2" value="" id="id_button_name_2"> 
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <input class="form-control" type="text" name="button_url_2" value="" id="id_button_url_2"> 
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <input class="form-control" type="hidden" name="button_id_3" value="" id="id_button_id_3">
+                                <input class="form-control" type="text"  name="button_name_3" value="" id="id_button_name_3"> 
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <input class="form-control" type="text" name="button_url_3" value="" id="id_button_url_3"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div id="error-display-near-save" class="alert alert-danger d-none col-md-12 pt-2" role="alert">
+                        Error info is displayed here. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger app_delete" data-toggle="modal" data-target="#delete-app-model">Delete</button>
+                        <button type="submit" class="btn btn-primary update_button"><i class="fa fa-spinner fa-spin d-none"></i>Update</button>
+                        <button type="submit" class="btn btn-success add_button d-none"><i class="fa fa-spinner fa-spin d-none"></i>Add</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="delete-app-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete App</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p style="font-size:14px;" id="delete_app_text"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger"><i class="fa fa-spinner fa-spin d-none"></i>Delete</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{% static 'assets/js/es6/apps.js' %}"></script>
+{% endblock %}

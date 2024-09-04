@@ -1,0 +1,114 @@
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    color: #f5f6f7;
+    font-family: Tahoma;
+    font-size: 16px;
+  }
+  *{
+  font-family:Segoe UI;
+  }
+
+  h1{
+    font-size : 34px;
+  }
+  
+  h1, p {
+    margin: 0.1em auto;
+    text-align: center;
+    color: #395ccd;
+  }
+
+  form {
+    width: 400px;
+    max-width: 500px;
+    min-width: 300px;
+    margin: 25px auto;
+  }
+  
+  fieldset {
+    border: none;
+    padding: 0.1rem 0;
+  }
+  
+  label {
+    display: block;
+    margin: 0.1rem 0;
+    color: #3A63B0;
+    font-size: 18px;
+  }
+
+  input{
+    margin: 0 0 20px 0;
+    width: 100%;
+    min-height: 1em;
+    border: 1px solid #c1c1c1;
+  }
+
+  textarea,
+  select {
+    margin: 10px 0 0 0;
+    width: 100%;
+    min-height: 1em;
+  }
+    select{
+        color: #395ccd;
+        margin: 0px 0 20px 0;
+        font-size: 14px;
+        height: 35px;
+        border-radius: 5px;
+        border: 1px solid #c1c1c1;
+        outline: none;
+        padding: 5px;
+    }
+    input, select{
+    height:40px;
+    }
+  option{
+    color: #3A63B0;
+    border: 1px solid #0a0a23;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  input, textarea {
+    border: 1px solid #0a0a23;
+    color: #395ccd;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  input{
+    color: #395ccd;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #c1c1c1;
+  }
+  
+  a {
+    color: #395ccd;
+  }
+  .container.col-12{
+    margin-top: 60px;
+  }
+
+  .body-wrapper{
+  position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    }
+
+  footer{
+  position:absolute;
+  bottom:0;
+  height: 53px;
+  }
+  
+
+  @media (max-width: 991.98px) {
+    h1{
+     font-size: 24px;
+    }
+  }

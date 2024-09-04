@@ -1,0 +1,14 @@
+{% extends 'appointment/common/admin-base-1.html'%}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+<div>
+    <form action="" method="POST" enctype="multipart/form-data" class="mt-5 pl-3 pr-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form.errors }}
+        <button type="submit">Save County</button>
+    </form>
+</div>
+{% endblock %}

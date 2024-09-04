@@ -1,0 +1,156 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+    <link rel="stylesheet" href="{% static 'staffplanning/assets/css/jquery-ui.css' %}">
+{% block body %}
+    <style>
+    .radio-button-error{
+        border: 1px solid red;
+    }
+    #productivity-model{
+        z-index: 10000;
+    }
+    #comment-model{
+        z-index: 100000;
+    }
+    </style>
+    <div class="row justify-content-between p-2">
+        <form id="id_staffplanning_form" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="row mb-3 update-disable">
+                <div class="col-md-3 update-disable">
+                    <label for="servicetype" style="color: #11556c;font-weight: 600;font-size: 14px;">Site</label>
+                    <div class="single_form">
+                        {% render_field form.site style="width:100%" %}
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid mb-2 update-disable" style="background-color:#FFFFFF;border: 0.5px solid #e3f5fb;border-radius: 15px;box-shadow: 1px 3px 10px #888888;">
+                <div class="row">
+                    <div class="col-md-3 ml-2 mt-2 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label for="grievancereporttype">Total Appointment Scheduled Today</label>
+                                <div class="single_form">
+                                    {% render_field form.total_appointment_scheduled_today_comment.as_hidden %}
+                                    {% render_field form.total_appointment_scheduled_today class="number_input"%}
+                                    <span class="comment_modal_toggle_icon"><i class="fa fa-comment text-info" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid mb-2 editable-section" style="background-color:#FFFFFF;border: 0.5px solid #e3f5fb;border-radius: 15px;box-shadow: 1px 3px 10px #888888;">
+                <label for="otherproviders" style="color: #11556c;font-weight: 700;font-size: 16px;padding-top:10px">Productivity</label>
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Qualified Visits Conducted</label>
+                        <div class="single_form">
+                            {% render_field form.new_qualified_visits_conducted_comment.as_hidden %}
+                            {% render_field form.new_qualified_visits_conducted class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="new_qualified_visits_conducted_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Total Number of Walk-in Patients Today</label>
+                        <div class="single_form">
+                            {% render_field form.total_number_of_walkin_patients_today_comment.as_hidden %}
+                            {% render_field form.total_number_of_walkin_patients_today class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="total_number_of_walkin_patients_today_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Registered Dental Assistant On Leave</label>
+                        <div class="single_form">
+                            {% render_field form.registered_dental_assistant_on_leave_comment.as_hidden %}
+                            {% render_field form.registered_dental_assistant_on_leave class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="registered_dental_assistant_on_leave_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Dental Assistant On Leave</label>
+                        <div class="single_form">
+                            {% render_field form.dental_assistant_on_leave_comment.as_hidden %}
+                            {% render_field form.dental_assistant_on_leave class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="dental_assistant_on_leave_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Number of Providers Who Met Productivity at End of Day</label>
+                        <div class="single_form">
+                            {% render_field form.no_of_providers_who_met_productivity_at_end_of_day_comment.as_hidden %}
+                            {% render_field form.no_of_providers_who_met_productivity_at_end_of_day class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="no_of_providers_who_met_productivity_at_end_of_day_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="grievancereporttype">Number of Providers Who Did Not Meet Productivity at End of Day</label>
+                        <div class="single_form">
+                            {% render_field form.no_of_pds_who_did_not_meet_pdty_at_end_of_day_comment.as_hidden %}
+                            {% render_field form.no_of_pds_who_did_not_meet_pdty_at_end_of_day class="number_input"%}
+                            <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="no_of_pds_who_did_not_meet_pdty_at_end_of_day_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-2" style="background-color:#e3f5fb;border: 1px solid #e3f5fb;border-radius: 15px;">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label for="grievancereporttype">Total Qualified Visits Conducted</label>
+                                <div class="single_form">
+                                    {% render_field form.qualified_visits_conducted_comment.as_hidden %}
+                                    {% render_field form.qualified_visits_conducted class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="qualified_visits_conducted_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="grievancereporttype">Visit Capacity Utilization Percentage</label>
+                                <div class="single_form">
+                                    {% render_field form.visit_capacity_utilization_percentage_comment.as_hidden %}
+                                    {% render_field form.visit_capacity_utilization_percentage class="number_input"%}
+                                    <span class="comment_modal_toggle_icon" data-toggle="modal" data-target="#comment-model" data-name="visit_capacity_utilization_percentage_comment"><i class="fa fa-comment text-info" title="Add Comment" style="cursor:pointer;width: 16px;height: 16px" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %} Productivity Status to check every productivity input field is filled or not if not we can fill it on tomorrow{% endcomment %}
+            {% render_field form.productivity_status.as_hidden %}
+            <div class="col-md-12 pt-5 text-right">
+                <button id="id_close_productivity_button_submit" type="submit" class="main-btn">Close Productivity</button>
+            </div>
+        </form>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">{{form.errors}}
+            </div>
+        {% endif %}
+    </div>
+    <div class="modal" id="comment-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="resolvingtext">Add Comments</label>
+                    <textarea class="form-control" id="modelcommenttext" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'staffplanning/assets/js/vendor/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'staffplanning/assets/js/es6/staff-planning-dental-update.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+{% endblock %}

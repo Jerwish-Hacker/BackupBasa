@@ -1,0 +1,317 @@
+{% extends './layout.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/dashboard.css' %}" />
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="{% static 'covidtest/assets/css/userdashboardstyle.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+   {% csrf_token %}
+   <div class="d-flex justify-content-end">
+        <div class="col-auto my-4">
+            <button class="btn btn-primary" id="id_vaccine_add_button" data-toggle="modal" data-target="#vaccine-add-edit-model">Add</button>
+        </div>
+       <div class="col-auto my-4" style="background-color: #e6e7e9;">
+           <input type="text" id="searchKey" placeholder="Search ID" />
+           <i class="fas fa-search" style="font-weight: 100;"></i>
+       </div>
+   </div>
+   <div class="row justify-content-center">
+       <div class="col-md-12 page-alerts">
+           <div id="server-alerts" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+       </div>
+       <div class="col-md-12">
+           <div class="table-responsive">
+               <table class="table storebookTable noborder">
+                   <thead>
+                       <tr>
+                           <td>Name</td>
+                           <td>Status</td>
+                           <td>Created&nbsp;By</td>
+                           <td>Created&nbsp;DateTime</td>
+                           <td>Action</td>
+                       </tr>
+                   </thead>
+                   <tbody id="storebookingData">
+                   </tbody>
+               </table>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal" id="vaccine-add-edit-model" tabindex="-1" role="dialog" style="font-family:Helvetica">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="vaccine-add-edit-model-title">Add Vaccine</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12" style="padding:0">
+                    <input type="radio" value="published" name="vaccine_status" id="id_vaccine_status_published" style="width:16px;height:16px" checked>
+                    <label class="mx-2" style="font-family: Helvetica;font-size:16px;font-weight:600;padding:0">Published</label>
+                    <input type="radio" value="not_published" name="vaccine_status" id="id_vaccine_status_not_published" style="width:16px;height:16px">
+                    <label class="mx-2" style="font-family: Helvetica;font-size:16px;font-weight:600;padding:0">Not Published</label>
+                </div>
+                <div class="row justify-content-start pt-2">
+                    <div class="col-md-6 form-group">
+                      <label style="font-size:14px;font-weight:600">Name</label>
+                      <input type="text" class="form-control" name="vaccine_name" value="">
+                        <div class="invalid-feedback">
+                           Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label style="font-size:14px;font-weight:600">Title Text</label>
+                        <input type="email" class="form-control" name="vaccine_title" value="">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <div class="alert alert-info d-none" id="id_vaccine_text_info" role="alert" >
+                            <i class="fas fa-info-circle"></i>
+                            Please utilize the placeholders provided in the list below to populate the corresponding user details.
+                          </div>
+                        <label style="font-size:14px;font-weight:600">About Vaccination</label>
+                        <textarea type="text" class="form-control" id="id_vaccine_text" name="vaccine_text" value="" rows="5"></textarea>
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card" id="checkbox_format">
+                            <a class="card-header" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse_checkbox_format" aria-expanded="false" aria-controls="collapse_checkbox_format" >  
+                                <label style="font-size:14px;font-weight:600">Checkbox Edit</label> 
+                            </a>
+                            <div class="collapse" id="collapse_checkbox_format">
+                                <div class="row justify-content-start p-1">
+                                    <div class="col-md-6">
+                                        <label>Checkbox one text <span style="font-size:14px"> ( Vaccinated )</span></label>
+                                        <div class="form-group p-2">
+                                            <input type="text" class="form-control" name="checkbox_one" value="">
+                                            <div class="invalid-feedback">
+                                                Required
+                                            </div>
+                                            <div class="form-check my-1">
+                                                <input class="form-check-input" type="checkbox" value="false" id="id_file_upload_enable_checkbox_one" name="file_upload_enable_checkbox_one">
+                                                <label class="form-check-label" for="id_file_upload_enable_checkbox_one">
+                                                    Support file upload
+                                                </label>
+                                            </div>
+                                            <div class="form-check my-1">
+                                                <input class="form-check-input" type="checkbox" value="false" id="id_file_upload_required_checkbox_one" name="file_upload_required_checkbox_one">
+                                                <label class="form-check-label" for="id_file_upload_required_checkbox_one">
+                                                    Required
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Checkbox two text<span style="font-size:14px"> ( Fetch vaccine details )</span></label>
+                                        <div class="form-group p-2">
+                                            <input type="text" class="form-control" name="checkbox_two" value="">
+                                            <div class="invalid-feedback">
+                                                Required
+                                            </div>
+                                            <div class="form-check my-1">
+                                                <input class="form-check-input" type="checkbox" value="false" id="id_file_upload_enable_checkbox_two" name="file_upload_enable_checkbox_two">
+                                                <label class="form-check-label" for="id_file_upload_enable_checkbox_two">
+                                                    Support file upload
+                                                </label>
+                                            </div>
+                                            <div class="form-check my-1">
+                                                <input class="form-check-input" type="checkbox" value="true" id="id_file_upload_required_checkbox_two" name="file_upload_required_checkbox_two">
+                                                <label class="form-check-label" for="id_file_upload_required_checkbox_two">
+                                                    Required
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Checkbox three text<span style="font-size:14px"> ( Decline vaccine )</span></label>
+                                        <div class="form-group p-2">
+                                            <input type="text" class="form-control" name="checkbox_three" value="">
+                                            <div class="invalid-feedback">
+                                                Required
+                                            </div>
+                                            <div class="form-check my-1">
+                                                <input class="form-check-input" type="checkbox" value="true" id="id_file_upload_enable_checkbox_three" name="file_upload_enable_checkbox_three">
+                                                <label class="form-check-label" for="id_file_upload_enable_checkbox_three">
+                                                    Support file upload
+                                                </label>
+                                            </div>
+                                            <div class="form-check my-1">
+                                                <input class="form-check-input" type="checkbox" value="true" id="id_file_upload_required_checkbox_three" name="file_upload_required_checkbox_three">
+                                                <label class="form-check-label" for="id_file_upload_required_checkbox_three">
+                                                    Required
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pt-2">
+                        <div class="card" id="file_format">
+                            <a class="card-header" style="cursor: pointer;" data-toggle="collapse" data-target="#collapse_file_format" aria-expanded="false" aria-controls="collapse_file_format" >  
+                                <label style="font-size:14px;font-weight:600">File upload config</label> 
+                            </a>
+                            <div class="collapse" id="collapse_file_format">
+                                <div class="row justify-content-start p-0">
+                                    <ul class="col-md-4 col-sm-12" >
+                                        <li class="list-group-item" style="border:0;">
+                                            <label class="my-1">File type</label>
+                                            <div class="row justify-content-start ml-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="pdf" name="pdf_file">
+                                                    <label class="form-check-label">
+                                                    PDF
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ml-3">
+                                                    <input class="form-check-input" type="checkbox" value="jpg" name="jpg_file">
+                                                    <label class="form-check-label">
+                                                    JPG
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ml-3" >
+                                                    <input class="form-check-input" type="checkbox" value="png" name="png_file">
+                                                    <label class="form-check-label">
+                                                    PNG
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul class="col-md-4 col-sm-12">
+                                        <li class="list-group-item" style="border:0;">
+                                            <label class="my-1">Maximum file size</label>
+                                            <div class="row justify-content-start ml-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" value="1" name="file_size_checkbox"checked>
+                                                    <label class="form-check-label">
+                                                    1 MB
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ml-3">
+                                                    <input class="form-check-input" type="radio" value="2" name="file_size_checkbox">
+                                                    <label class="form-check-label">
+                                                    2 MB
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ml-3" >
+                                                    <input class="form-check-input" type="radio" value="3" name="file_size_checkbox">
+                                                    <label class="form-check-label">
+                                                    3 MB
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul class="col-md-4 col-sm-12" >
+                                        <li class="list-group-item" style="border:0;">
+                                            <label class="my-1">Maximum file upload</label>
+                                            <div class="row justify-content-start ml-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" value="1" name="maximum_file_upload" checked>
+                                                    <label class="form-check-label">
+                                                    1
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ml-3">
+                                                    <input class="form-check-input" type="radio" value="2" name="maximum_file_upload">
+                                                    <label class="form-check-label">
+                                                    2
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ml-3" >
+                                                    <input class="form-check-input" type="radio" value="3" name="maximum_file_upload">
+                                                    <label class="form-check-label">
+                                                    3
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pt-2">
+                        <div class="card" id="acknowledgement">
+                            <a class="card-header" style="cursor: pointer;" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm" >  
+                                <label style="font-size:14px;font-weight:600">Unvaccinated Employee Acknowledgement Form</label> 
+                            </a>
+                            <div class="form-check form-switch p-0">
+                                <ul class="collapse list-group list-group-flush" id="collapseForm" aria-labelledby="headingOne" data-parent="#acknowledgement">
+                                <li class="list-group-item">
+                                    <div class="col-md-6 form-group">
+                                        <label style="font-size:16px">Acknowledgement Form Title</label>
+                                        <input type="text" class="form-control" name="acknowledgement_title" value="">
+                                        <div class="invalid-feedback">
+                                            Required
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="col-md-12 form-group">
+                                        <div class="alert alert-info d-none" id="id_acknowledgement_text_info" role="alert">
+                                            <i class="fas fa-info-circle"></i>
+                                            Please utilize the placeholders provided in the list below to populate the corresponding user details.
+                                          </div>
+                                        <label for="id_acknowledgement_text" style="font-size:16px">Acknowledgement Form Text</label>
+                                        <textarea type="text" class="form-control" id="id_acknowledgement_text" name="acknowledgement_text" value="" rows="5" ></textarea>
+                                        <div class="invalid-feedback">
+                                            Required
+                                        </div>
+                                    </div>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-danger d-none" role="alert" id="vaccine-add-edit-model-error">
+                    errormessage
+                </div>
+                <div class="form-group text-right pt-2">
+                    <button id="id_vaccine_crud" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="delete-vaccine-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Vaccine</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <label id="id_delete_vaccine_text" style="font-size:14px;font-weight:600"></label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"><i class="fa fa-spinner fa-spin d-none"></i> Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static "covidtest/assets/js/es6/vaccine-management.js" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+{% endblock %}

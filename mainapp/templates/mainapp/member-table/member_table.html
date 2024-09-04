@@ -1,0 +1,454 @@
+{% extends './index.html'%}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="../../" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    {% block body %}
+    {% csrf_token %}
+        <div class="d-flex justify-content-start">
+            <div class="col-auto">
+              <div class="dropdown-adminpanel">
+                <i class="fa fa-bars dropbtn" aria-hidden="true" style="font-size:28px"></i>
+                <div class="dropdown-adminpanel-content">
+                  <a href="#" class="add_member" data-toggle="modal" data-target="#edit-model"><i class="fa fa-user-plus text-primary" aria-hidden="true"></i> Add Member</a>
+                  <a href="#" class="upload_member" data-toggle="modal" data-target="#ingress-model"><i class="fa fa-users text-primary" aria-hidden="true"></i> Upload Members</a>
+                  <a href="{% url 'mainapp:index' %}"><i class="fa fa-th" aria-hidden="true"></i> Apps</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 mr-auto p-0">
+                <select class="form-control" id="id_member_status" name="member_status" style="border-radius:25px;font-family: Source Sans Pro;">
+                  <option value="all">All</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" type="text" id="searchBooking" placeholder="Search" style="border-radius:25px;font-family: Source Sans Pro;">
+            </div>
+        </div>
+        <div class="col-md-12 page-alerts">
+            <div id="error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+            <div id="success-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+        </div>
+        <div class="col-md-12 pt-4">
+            <div class="table-responsive">
+                <table class="table storebookTable">
+                    <thead>
+                        <tr class="dynamic_table_headers">
+                           <!-- <td>ID</td>
+                            <td>ID System</td> -->
+                            <td>First Name</td>
+                            <td>Last Name</td>
+                            <td>Prefix Name</td>
+                            <td>Suffix Name</td>
+                            <td>Phone</td>
+                            <td>Phone Type</td>
+                            <td>Gender</td>
+                            <td>Birth Date</td>
+                            <!--<td>Address Use</td>
+                            <td>Address Line</td>
+                            <td>City</td>
+                            <td>District</td>
+                            <td>State</td>
+                            <td>Zip Code</td>
+                            <td>Country</td>
+                            <td>Photo</td>-->
+                            <td>Email</td>
+                            <td>Status</td>
+                            <td >Action</td>
+                        </tr>
+                    </thead>
+                    <tbody id="storebookingData">
+                    </tbody>
+                </table>
+            </div>
+            <div class="row justify-content-between m-0">
+                <div id="holder"> </div>
+                <select name="limit" id="limit">
+                    <option value="50" selected>50</option>
+                    <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal" id="edit-model" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title justify-content-center" id="patient-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="id_patient_form" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row justify-content-start p-2">
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>ID</span>
+                                <input class="form-control" type="text" name="patient_id" value="" id="id_patient" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>ID System</span>
+                                <input class="form-control" type="text" name="patient_id_system" value="" id="id_patient_system"> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>First Name</span>
+                                <input class="form-control" type="text" name="patient_given_name" value="" id="id_patient_given_name" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Last Name</span>
+                                <input class="form-control" type="text" name="patient_family_name" value="" id="id_patient_family_name" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Prefix</span>
+                                <select class="form-control" name="patient_name_prefix" value="" id="id_patient_name_prefix">
+                                    <option value="">Select Prefix </option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Ms.">Ms.</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Dr.">Dr.</option>
+                                    <option value="Prof.">Prof.</option>
+                                    <option value="Rev.">Rev.</option>
+                                    <option value="Hon.">Hon.</option>
+                                </select>    
+                                <!--<input class="form-control" type="text" name="patient_name_prefix" value="" id="id_patient_name_prefix"> --> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Suffix</span>
+                                <select class="form-control" type="text" name="patient_name_suffix" value="" id="id_patient_name_suffix">
+                                    <option value="">Select Suffix </option>
+                                    <option value="Jr.">Jr.</option>
+                                    <option value="Sr.">Sr.</option>
+                                    <option value="II, III, IV, etc.">II, III, IV, etc.</option>
+                                    <option value="Esq.">Esq.</option>
+                                    <option value="Ph.D.">Ph.D.</option>
+                                    <option value="M.D.">M.D.</option>
+                                    <option value="D.D.S.">D.D.S.</option>
+                                    <option value="R.N.">R.N.</option>
+                                    <option value="C.P.A.">C.P.A.</option>
+                                    <option value="M.B.A.">M.B.A.</option>
+                                    <option value="Esq.">Esq.</option>
+                                </select>
+                                <!--<input class="form-control" type="text" name="patient_name_suffix" value="" id="id_patient_name_suffix"> --> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Phone</span>
+                                <input class="form-control" type="text" name="patient_contact" value="" id="id_patient_contact" >
+                                <small id="phoneError" style="color: red;"></small> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Phone Type</span>
+                                <select  class="form-control" name="patient_contact_use" id="id_patient_contact_use" >
+                                    <option value="">Select Contact Use</option>
+                                    <option value="work">Work</option>
+                                    <option value="home">Home</option>
+                                    <option value="temp">Temp</option>
+                                    <option value="old">Old</option>
+                                    <option value="mobile">Mobile</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Gender</span>
+                                <select  class="form-control" name="patient_gender" id="id_patient_gender" >
+                                    <option value="">Select Patient Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="unknown">Unknown</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Date of Birth</span>
+                                <input class="form-control" type="date" name="patient_dob" value="" id="id_patient_dob" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Email</span>
+                                <input class="form-control" type="text" name="email" value="" id="id_email" > 
+                                <small id="emailError" style="color: red;"></small> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Preferred Language</span>
+                                <select  class="form-control" name="preferred_language" id="id_preferred_language" >
+                                    <option value="">Select Preferred Language</option>
+                                    <option value="english">English</option>
+                                    <option value="spanish">Spanish</option>
+                                </select>
+                                <!--<input class="form-control" type="text" name="preferred_language" value="" id="id_preferred_language" > -->
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Address Use</span>
+                                <select  class="form-control" name="patient_address_use" id="id_patient_address_use" >
+                                    <option value="">Select Address Use</option>
+                                    <option value="work">Work</option>
+                                    <option value="home">Home</option>
+                                    <option value="temp">Temp</option>
+                                    <option value="old">Old</option>
+                                    <option value="billing">Billing</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Street</span>
+                                <input class="form-control" type="text" name="patient_line" value="" id="id_patient_Line" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>City</span>
+                                <input class="form-control" type="text" name="patient_city" value="" id="id_patient_city" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>County</span>
+                                <input class="form-control" type="text" name="patient_district" value="" id="id_patient_district" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Country</span>
+                                <select  class="form-control" name="patient_country" id="id_patient_country" onchange="updateStates()" >
+                                    <option value="US">USA</option>
+                                    <option value="CA">Canada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>State</span>
+                                <select  class="form-control" name="patient_state" id="id_patient_state" >
+                                    <option value="">Select State</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Zip Code</span>
+                                <input class="form-control" type="text" name="patient_postalcode" value="" id="id_patient_postalcode" > 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Photo</span>
+                                <input class="fileClass" type="file" id="id_patient_photo" name="patient_photo">
+                                <p>(Supported .PNG, Max Size 500KB)</p>
+                                <img id="id_patient_photo_view" style="width:10rem;">
+                                <!-- <input class="form-control" type="text" name="patient_photo" value="" id="id_patient_photo">  -->
+                            </div>
+                            <!-- <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>Patient Status</span>
+                                <select  class="form-control" name="patient_active" id="id_patient_active" >
+                                    <option value="">Select Patient Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div> -->
+                            <div class="col-md-6 pt-2" style="padding: 2px">
+                                <span style="display: block; margin-bottom: 5px;">Patient Status</span>
+                                <div>
+                                  <label style="display: inline-block; margin-right: 15px;">
+                                    <input type="radio" name="patient_active" value="active" >
+                                    Active
+                                  </label>
+                                  <label style="display: inline-block;">
+                                    <input type="radio" name="patient_active" value="inactive" >
+                                    Inactive
+                                  </label>
+                                </div>
+                              </div>
+
+                            <div  class="col-md-4 pt-2" style="padding:2px;">
+                                <span for="patient_create_user">Create User Login? :</span>
+                                <input type="checkbox" id="id_create_patient_user" name="patient_create_user">
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div id="error-display-near-save" class="alert alert-danger d-none col-md-12 pt-2" role="alert">
+                        Error info is displayed here. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary update_button"><i class="fa fa-spinner fa-spin d-none"></i>Update</button>
+                        <button type="submit" class="btn btn-success add_button"><i class="fa fa-spinner fa-spin d-none"></i>Add</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+        <div class="modal" id="activatelogin-model" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Activate Login</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <form id="id_patient_activate_user_form" enctype="multipart/form-data">
+                    <input type="hidden" name="patient_login_email" value="" id="id_patient_login_email"> 
+                    <div class="modal-body">
+                        
+                        <div class="row justify-content-start p-2">
+                            <div class="col-md-12 pt-2 font-weight-bold" style="padding:2px">
+                                Are you sure to create user for email <span id="active_login_email"></span>?
+                            </div>
+                        </div>
+                    </div>
+                    <div id="error-display-near-save-activate" class="alert alert-danger d-none col-md-12 pt-2" role="alert">
+                        Error info is displayed here. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning confirm_button"><i class="fa fa-spinner fa-spin d-none"></i>Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="delete-model" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Delete Member</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <form id="id_patient_delete_form" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row justify-content-start p-2">
+                            <div class="col-md-6 pt-2 font-weight-bold" style="padding:2px">
+                                Are you sure to delete <span id="delete_patient_name"></span>?
+                            </div>
+                        </div>
+                    </div>
+                    <div id="error-display-near-save-delete" class="alert alert-danger d-none col-md-12 pt-2" role="alert">
+                        Error info is displayed here. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning delete_button"><i class="fa fa-spinner fa-spin d-none"></i>Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="ingress-model" tabindex="-1" role="dialog">
+            <div class="modal-dialog " role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Member Upload</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="col-md-12 pt-2 pb-2" method="post" id="id_ingress_form" enctype="multipart/form-data">
+                    <div class="col-md-12">
+                      {% csrf_token %}
+                      <input type="file" id="id_ingress" name="ingress">
+                    </div>
+                    <div class="col-md-12 pt-2">
+                        <input style="width:16px;height:16px" type="checkbox" id="id_auto_id" name="auto_id" value="false"><span class="mx-2"  style="font-size:16px;font-weight:500;">Auto generate identifier ?</span>
+                        <p style="font-size:14px;font-weight:500;color:#36454F;">Supported file format : csv,xlsx. Max file size : 5 MB</p>
+                        <p><a href="{% static "mainapp/assets/DocTemplates/bulkUpload.xlsx" %}">Upload Template</a></p>
+                        <button type="submit" class="btn btn-primary" disabled><i class="fa fa-spinner fa-spin d-none mx-2"></i>Upload</button>
+                        <p style="font-size:14px;font-weight:500;color:#36454F;" class="upload_text d-none">It takes time depends on the number of records</p>
+                        
+                    </div>
+                  </form>
+                  <div class="col-md-12 pt-2">
+                    <span class="error_notify d-none alert alert-danger"></span>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div id="ingress-error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                </div>
+                <div class="modal-footer">
+      
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}
+{% block script%}
+<script>
+
+
+document.getElementById('id_patient_contact').addEventListener('input', function () {
+      var phoneInput = this.value;
+      var phoneError = document.getElementById('phoneError');
+
+      var phonePattern = /^\d{10}$/;
+
+      if (phonePattern.test(phoneInput)) {
+        phoneError.textContent = ''; // Clear any previous error message
+      } else {
+        phoneError.textContent = 'Please enter a valid 10-digit mobile number.';
+      }
+    });
+
+
+
+    document.getElementById('id_email').addEventListener('input', function () {
+      var emailInput = this.value;
+      var emailError = document.getElementById('emailError');
+
+      var gmailPattern =  /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; ///^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+      if (gmailPattern.test(emailInput)) {
+        emailError.textContent = ''; // Clear any previous error message
+      } else {
+        emailError.textContent = 'Please enter a valid Email address.';
+      }
+    });
+
+
+    var statesData = {
+        'US': ['Alabama', 'Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia',
+                'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland',
+                'Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire',
+                'New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania',
+                'Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington',
+                'West Virginia','Wisconsin','Wyoming'],
+        'CA': ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland','Labrador', 'Nova Scotia', 'Ontario', 'Prince Edward Island', 'Quebec','Saskatchewan']
+        // Add more countries and their states as needed
+    };
+
+    function updateStates() {
+        var countrySelect = document.getElementById('id_patient_country');
+        var stateSelect = document.getElementById('id_patient_state');
+
+        // Clear existing options
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+        // Check the selected country
+        var selectedCountry = countrySelect.value;
+
+        // Add states based on the selected country
+        if (statesData[selectedCountry]) {
+            statesData[selectedCountry].forEach(function (state) {
+                addStateOption(state, state);
+            });
+        }
+    }
+
+
+    function addStateOption(stateName, stateCode) {
+        var stateSelect = document.getElementById('id_patient_state');
+        var option = document.createElement('option');
+        option.value = stateCode;
+        option.textContent = stateName;
+        stateSelect.appendChild(option);
+    }
+
+    // Initial update when the page loads
+    updateStates();
+</script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+    <script src="{% static "mainapp/assets/js/es6/member-table.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+{% endblock %}

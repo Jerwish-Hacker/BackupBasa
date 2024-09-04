@@ -1,0 +1,24 @@
+<style>
+  #logout-after-inactive{
+    z-index: 20000000;
+  }
+</style>
+<form method="POST">
+    {% csrf_token %}
+    <div class="modal" data-backdrop="static" id="logout-after-inactive" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger">Your session is about to expire</h5>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Please click on 'Stay Online' to continue the session</p>
+            </div>
+            <div class="modal-footer">
+              <button id ="sessiontimeout"type="button" class="btn btn-primary">Stay Online</button>
+            </div>
+          </div>
+        </div>
+  </div>
+</form>

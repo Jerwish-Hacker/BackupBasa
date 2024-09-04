@@ -1,0 +1,48 @@
+{% extends 'covidtest/common/admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+<div class="wrapper">
+  <div class="login form-signin">
+    {% csrf_token %}
+    <div class="d-flex justify-content-center">
+    <img src={{ logo }} alt="logo" style="width: 80px;">
+    </div>
+    <h3 class="form-signin-heading text-center">Login</h3> 
+    <p style="font-size:13px;font-family:font-family: Arial, Helvetica, sans-serif;text-align:justify;" >Apply the prefix YHD00 to your employee badge ID. (For example, if your badge ID is 1245 then your employee ID would be YHD001245)</P>
+    <input class="form-control mb-2" type="text" name="login" placeholder="Employee ID"
+    autocomplete="Member ID" maxlength="150" required="" id="memeberidvalue">
+    <button class="btn btn-lg btn-primary btn-block" id="otpgeneratebutton" type="button" style="background: #60a6a2;border: #60a6a2;"><i class="fa fa-spinner fa-spin d-none"></i> Generate OTP</button>
+    <div class="alert alert-danger d-none my-2" role="alert" id="memberiderror">
+      Member ID is required
+    </div>   
+  </div>
+  <div class="login form-signin d-none">
+   {% csrf_token %}
+   <div class="d-flex justify-content-center">
+   <img src={{ logo }} alt="logo" style="width: 80px;">
+   </div>
+   <h3 class="form-signin-heading text-center">Enter OTP</h3> 
+    <input class="form-control mb-2" type="text" name="login" placeholder="Enter 9 digit OTP"
+   autocomplete="OTP " maxlength="9" required="" id="otpvalue">
+   <button class="btn btn-lg btn-primary btn-block" id="loginbutton" type="button" style="background: #60a6a2;border: #60a6a2;">Login</button> 
+   <button style="font-family:font-family: Arial, Helvetica, sans-serif;" type="button" class="btn btn-link" id="resendotp">Resend OTP</button>
+   <div class="text-center text-success my-3" style="font-family:font-family: Arial, Helvetica, sans-serif;font-weight: bold;text-align:justify;" id="countdown"></div> 
+   <div class="alert alert-danger d-none my-2" role="alert" id="memberotperror">
+      Enter OTP
+    </div>
+    <div style="font-size:13px;font-family:font-family: Arial, Helvetica, sans-serif;font-weight: bold;color:#11556c;text-align:justify;" id="textmessageregardingmail">
+    </div>
+  </div>
+
+  
+</div>
+
+{% endblock body %}
+
+
+{% block script %}
+  <script src="{% static "covidtest/assets/js/es6/userlogin.js" %}"></script>
+{% endblock %}

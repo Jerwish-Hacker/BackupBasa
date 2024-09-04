@@ -1,0 +1,85 @@
+{% extends 'appointment/common/base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block body %}
+<div class="p-step-form">
+{% if google_recaptcha_site_key %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endif %}
+
+    <style>
+    .radio-button-error{
+        border: 1px solid red;
+    }
+    </style>
+    {% include "appointment/forms/steps.html" %}
+    {% block language-selector %}
+    {% endblock language-selector %}
+    {% include "appointment/forms/fixed-steps.html" %}
+    
+    <form id="appointment_save_form" 
+    action="" method="POST" 
+    enctype="multipart/form-data" 
+    class="mt-5 pl-3 pr-3"
+    >
+        {% csrf_token %}
+
+        {% block form-step-1-include %}
+        {% include 'appointment/forms/form-step-1.html' %}
+        {% endblock form-step-1-include %}
+        {% include 'appointment/forms/form-step-2.html' %}
+        {% include 'appointment/forms/form-step-3.html' %}
+        {% block form-step-4-include %}
+        {% include 'appointment/forms/form-step-4.html' %}
+        {% endblock form-step-4-include %}
+
+        <div id="captcha-in-submit-page" class="d-none mb-5">
+        {% if google_recaptcha_site_key %}
+        <div id="captcha-widget-id" class="g-recaptcha" data-sitekey="{{google_recaptcha_site_key}}"></div>
+        {% endif %}
+        </div>
+
+        <div class="text-right footer mt-3">
+            {% if form.preferred_time_frame.errors %}
+            <input id="preferred_time_frame" type="hidden" value="{{ form.preferred_time_frame.errors.0 }}" />
+            {% endif %}
+            {{ form.errors }}
+            {{ form.non_field_errors }} 
+            <div id="error-display-near-submit" class="alert alert-danger d-none" role="alert">
+                Error info is displayed here. 
+            </div>
+            <button type="button" class="cancel-btn d-none">{% trans "Previous Step" %}</button>
+            <button type="button" class="main-btn">{% trans "Next Step" %}</button>
+        </div>
+    </form>
+
+    {% comment %} {% include 'appointment/popup/main-pop.html' %} {% endcomment %}
+    {% include 'appointment/popup/vaccine-first-for-healthworker-65-above-popup.html' %}
+</div>
+
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+<script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:2100',
+                defaultDate: "-26y",
+            });
+        })
+    // $('#main-pop-modal').modal('show')
+        $('#vaccine-first-for-health-or-65-modal').modal({
+    		backdrop: 'static',
+            keyboard: false,
+            show: false,
+    	});
+    // $('body').css('overflow','hidden')
+</script>
+    {% endblock %}

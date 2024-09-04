@@ -1,0 +1,102 @@
+{% load static %}
+{% load i18n %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Medical, Vision, Dental & Behavioral Health Services | {{ title|title }}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="icon" type="image/png" href={{ titlelogo }}>
+
+    <link rel="stylesheet" href="{% static "appointment/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "appointment/assets/css/style.css" %}">
+
+</head>
+
+<body>
+    <section>
+        <div class="header-background">
+            <div class="container">
+            <div class="row">
+                <div class="col-md-6 logo-main">
+                    <img src={{ logo }} alt="logo" />
+                </div>
+                <div class="col-md-6">
+                    <h3 class="main-header">{% translate "Appointment Requesttt" %}</h3>
+                </div>
+            </div>
+        </div>
+
+            <div class="nav-bar pt-4 pb-4">
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div class="social-icons">{% comment %}
+                            <span>{% trans "follow us" %}</span>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/facebook.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/instagram.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/twitter.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/youtube.png" %}" alt="" width="32">
+                            </a>{% endcomment %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="burger-icon">
+                    <div class="burger">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+            <img src="{{ logo }}" width="60" height="30" alt="">
+          </a>
+          <span class="mb-3 mb-md-0 text-muted">© 2023 Basa. All Rights Reserved.</span>
+        </div>
+    </footer>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" /> -->
+    
+
+    <script src="{% static "appointment/assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- <script src="{% static "assets/js/main-babel.js" %}"></script> -->
+    {% if is_khs_url %}
+        <script src="{% static "appointment/assets/js/build/khsmain.js" %}"></script>
+    {% else %}
+        <script src="{% static "appointment/assets/js/build/main.js" %}"></script>
+    {% endif %}
+    <!-- <script src="{% static "assets/js/build/main.js" %}"></script> -->
+
+    {% comment %} This is for testing only {% endcomment %}
+    {% comment %} <script src="{% static "appointment/assets/js/main.js" %}"></script> {% endcomment %}
+
+    {% block script%}
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+
+{% extends 'appointment/common/admin-base-1.html' %}
+
+{% block body %}
+<h3 class="mb-5">
+    List of Appointments
+</h3>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for county in object_list %}
+        <tr>
+            <td>{{ county.id }}</td>
+            <td>{{ county.first_name }}</td>
+            <td>
+                <a href="{% url 'bookingforms:update_county' county.pk %}">View</a>
+                <a href="{% url 'bookingforms:update_county' county.pk %}">Update</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {{object_list.has_previous}}
+  {{object_list.number}}
+
+  {% if page_obj.paginator.num_pages <= 1 %}
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        {% for page in page_obj.paginator.page_range %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+        {% endif %}
+    </ul>
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+  </nav>
+  {% endif %}
+
+{% endblock body %}

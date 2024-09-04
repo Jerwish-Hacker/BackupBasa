@@ -1,0 +1,31 @@
+<div id="main-pop-modal" class="modal fade bd-example-modal-lg show" tabindex="-1" role="dialog" style="display: block!important;"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger font-weight-bold">COVID-19 Vaccine Update</h5>
+            </div>
+            <div class="modal-body">
+                <p>{{ title|title }} has been notified by the Kern County Public Health Department
+                    of a recall of the Moderna COVID-19 Vaccine.
+                    <span class="font-weight-bold"> The state of California has recalled LOT #041L20A.</span>
+                    This recall has currently depleted the current supply of Moderna COVID-19 vaccines
+                    left to be administered by Kern County Public Health to {{ title|title }}.
+                </p>
+                <p>
+                    {{ title|title }} wants to assure patients who received a Moderna COVID Vaccine on January 18th and earlier did
+                    not
+                    receive a recalled vaccine.
+                    However, this has created a supply issue.
+                </p>
+                <p class="font-weight-bold">
+                    Effective 1/19/2021, {{ title|title }} is not taking new vaccine appointment requests.
+                    CSV staff is closely working with the Public Health Department on vaccine stock supply,
+                    and the appointment system will be back online once the supply is available.
+                    Please come back later, visit our website for live updates.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade show"></div>

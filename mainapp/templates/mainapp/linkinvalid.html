@@ -1,0 +1,65 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ title|title }}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href={{ titlelogo }}>
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="{% static "mainapp/assets/images/favicon-16x16.png" %}"> -->
+
+    <link rel="stylesheet" href="{% static "mainapp/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "mainapp/assets/css/permissiondenied.css" %}">
+</head>
+
+<body>
+    <section>
+        <div class="pt-2 header-background">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 text-center logo-main">
+                        <img src={{ logo }} alt="logo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <div class="container pt-5">
+        <div class="thank-page mt-5 text-center">
+            <p>
+                <span style="color: #11556c;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: 30px;"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#FF0000" class="bi bi-exclamation-circle " viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>  Invalid URL !</span>
+            </p>
+            <p>Sorry, it looks like you have an expired/invalid URL. Please contact administrator for queries.</p>
+        </div>
+    </div>
+    <div class="footer-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 text-white" style="align-self: center;">
+                    <div >
+                        ©2023 Basa. All Rights Reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "mainapp/assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="{% static 'mainapp/assets/js/vendor/jquery-ui.min.js' %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- <script src="{% static "assets/js/main-babel.js" %}"></script> -->
+    {% comment %} <script src="{% static "mainapp/assets/js/es6/main.js" %}"></script> {% endcomment %}
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

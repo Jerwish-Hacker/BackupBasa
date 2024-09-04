@@ -1,0 +1,124 @@
+<div class="user-details p-3">
+    <div class="row mb-4">
+        {%for data in outreach_history%}
+        <div class="col-md-12 pb-2">
+           <div class="card w-100">
+              <div class="card-body">
+                <h6 class="card-title" style="color: #11556c;font-weight: 600;font-size: 15px;">{{data.out_reach_status}}</h6>
+                {% if data.out_reach_status == 'Other' or data.out_reach_status == 'Patient refused service' or data.out_reach_status == 'Patient completed else where' %}
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            Comments : {{data.comments}}
+                        </div>
+                    </div>
+                {% elif data.out_reach_status == 'Patient requested to call back' %}
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            DateTime : {{data.call_back_date_time}}
+                        </div>
+                    </div>
+                {% elif data.out_reach_status == 'Unable to contact patient' or data.out_reach_status == 'Incorrect phone number' or data.out_reach_status == 'No longer a CSV patient' or data.out_reach_status == 'Patient is not due' or data.out_reach_status == 'Patient phone is not reachable' %}
+                     <div class="row mb-2">
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+                {% elif data.out_reach_status == 'Appointment scheduled' or data.out_reach_status == 'Appointment confirmed' or data.out_reach_status == 'Appointment canceled' or data.out_reach_status == 'Appointment cancelation requested' %}
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            Appointment location : {{data.appointment_location}}
+                        </div>
+                        <div class="col-md-6">
+                            Appointment date : {{data.appointment_date}}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            Appointment time : {{data.appointment_time}}
+                        </div>
+                        <div class="col-md-6">
+                            Is accept text message? : {{data.is_accept_text_messages}}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            New phone number : {{data.text_message_new_phone_number}}
+                        </div>
+                        <div class="col-md-6">
+                            Primary language : {{data.patient_primary_language}}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            Comments : {{data.comments}}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                Record Created Date Time : {{data.created_datetime}}
+                            </div>
+                            <div class="col-md-6">
+                                Record Created By : {{data.appointment_created_by}}
+                            </div>
+                        </div>
+                    </div>
+                    {%if data.appointment_confirmed_datetime != None %}
+                        <div class="col-md-12">
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    Appointment Confirmed Date Time : {{data.modified_datetime}}
+                                </div>
+                                <div class="col-md-6">
+                                    Appointment Confirmed By : {{data.appointment_confirmed_by}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if data.out_reach_status == 'Appointment canceled' or data.out_reach_status == 'Appointment cancelation requested' %}
+                        {%if data.appointment_cancelation_requested_datetime != None %}
+                            <div class="col-md-12">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        Appointment Cancelation Requested Date Time : {{data.appointment_cancelation_requested_datetime}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        Appointment Cancelation Requested By : {{data.appointment_cancelation_requested_by}}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {%if data.appointment_canceled_datetime != None %}
+                            <div class="col-md-12">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        Appointment Canceled Date Time : {{data.appointment_canceled_datetime}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        Appointment Canceled By : {{data.appointment_canceled_by}}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-md-12">
+                            Reason for Cancelation : {{data.reason_for_cancelation}}
+                        </div>
+                        {%if data.is_cancelation_requested_by_csv %}
+                            <div class="col-md-12">
+                                <p style="color: red;font-weight: 500;font-size: 15px;">Canceled By  : {{title}}</p>
+                            </div>
+                        {% else %}
+                            <div class="col-md-12">
+                                <p style="color: red;font-weight: 500;font-size: 15px;">Canceled By  : {{ outreach }}</p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<input type="hidden" value="{{outreach}}" name="outreach_name">

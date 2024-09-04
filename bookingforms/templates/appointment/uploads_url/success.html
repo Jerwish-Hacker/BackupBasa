@@ -1,0 +1,11 @@
+{% extends './base.html'%}
+{% load i18n %}
+{% block body %}
+<div class="thank-page mt-5 mb-5" style="display: flex; align-items: center; ">
+    <a href="/" style="width: 50%; max-width: 500px; height: auto; text-align: right;"><img src="{{ logo }}" alt="Medical Image" style="width: 100%; max-width: 350px; height: auto;" ></a>
+    <p style="margin-left: 10%; text-align: left;">
+      <span class="success-tick">&#x2713;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Thank you for submitting. We value your time!" %}
+    </p>
+  </div>
+  
+{% endblock body %}

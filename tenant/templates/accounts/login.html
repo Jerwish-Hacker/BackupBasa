@@ -1,0 +1,32 @@
+{% extends './admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+<div class="wrapper">
+  <form class="login form-signin"  method="POST" action="/accounts/v1/login/">
+    {% for message in messages %}
+        <div class="alert alert-danger p-1">
+            {{ message }}
+        </div>
+    {% endfor %}
+  
+    {% csrf_token %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{redirect_field_value}}">
+      <div class="d-flex justify-content-center">
+      <img src="{% static "assets/images/yettipng.png" %}" alt="logo" style="width: 200px;">
+      </div>
+     <h2 class="form-signin-heading text-center">Login</h2> 
+     <input class="form-control mb-2" type="text" name="login" placeholder="Email"
+     autocomplete="username" maxlength="150" required="" id="id_login">
+     <input class="form-control" type="password" name="password" placeholder="Password"
+     autocomplete="current-password" required="" id="id_password">    
+    <div class="pb-2">
+      <a href="{% url "account_reset_password" %}">Forgot Password/Create Password</a>
+    </div>
+     <button class="btn btn-lg btn-primary btn-block" type="submit" style="background: #034694;border: #034694;">Login</button>
+  </form>
+</div>
+
+{% endblock body %}

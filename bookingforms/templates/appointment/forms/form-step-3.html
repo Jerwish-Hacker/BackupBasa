@@ -1,0 +1,127 @@
+{% load widget_tweaks %}
+{% load i18n %}
+<div class="step-form d-none" data-step="2">
+    <h3 class="mb-3">{% trans "Insurance" %}</h3>
+
+    <div class="row mb-3">
+        <div class="col-md-6  mb-3">
+            <label for="">{% trans "Guarantor Name" %}</label>
+            <div class="single_form">
+                {% render_field form.guarantor_name %}
+            </div>
+            <div class="checkbox d-flex mt-1 align-items-center">
+                <div>
+                    <input 
+                        type="hidden" 
+                        value="false"
+                        name="is_guarantor_details_declined"
+                        />
+                    <input type="checkbox" 
+                            name="is_guarantor_details_declined"
+                            value="true"
+                            {% if form.is_guarantor_details_declined.value %}checked{% endif %}
+                            data-input="guarantor_name" 
+                            class="decline_checkbox" 
+                            data-trigger=".guarantor-trigger" />
+                </div>
+                <div class="ml-2">
+                    {% trans "Self" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6  mb-3 guarantor-trigger">
+            <label for="">{% trans "Date of Birth of Guarantor" %}</label>
+            <div class="single_form">
+                {% render_field form.guarantor_date_of_birth class="date-input datepicker" readonly="readonly" placeholder="MM/DD/YYYY" data-inputmask-mask="99/99/9999" %}
+            </div>
+        </div>
+        <div class="col-md-6  mb-3 guarantor-trigger">
+            <label for="">{% trans "Relationship to Patient" %}</label>
+            <div class="single_form">
+
+                {% render_field form.guarantor_relationship class="other-select" data-trigger=".patient-trigger"  %}
+            </div>
+            <div class="d-none mt-1 patient-trigger">
+                <label for="" style="font-size: 12px;margin-bottom: 5px;">{% trans "Other Guarantor Relationship ? Enter it here" %}</label>
+                <div class="single_form">
+                    {% render_field form.guarantor_relationship_entered placeholder="Enter Relationship" %}
+                </div>
+            </div>
+        </div>
+       
+        
+        <div class="col-md-12 mb-3">
+            <label for="">{% trans "Primary Insurance Carrier" %}</label>
+            <div class="single_form">
+                {% render_field form.primary_insurance_carrier %}
+            </div>
+            <div class="checkbox d-flex mt-1 align-items-center">
+                <div>
+                    <input
+                        type="hidden"
+                        name="is_not_insured"
+                        value="false"
+                        />
+                    <input 
+                    type="checkbox" 
+                    name="is_not_insured"
+                    value="true"
+                    {% if form.is_not_insured.value %}checked{% endif %}
+                    data-input="primary_insurance_carrier" 
+                    class="decline_checkbox" 
+                    data-trigger=".insurance-trigger" />
+                </div>
+                <div class="ml-2">
+                    {% trans "Not insured" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6  mb-3 insurance-trigger">
+            <label for="">{% trans "Subscriber ID" %}</label>
+            <div class="single_form">
+                {% render_field form.subscriber_id %}
+            </div>
+        </div>
+        <div class="col-md-6 insurance-trigger mb-3">
+            <label for="">{% trans "Group Number (if Applicable)" %}</label>
+            <div class="single_form">
+                {% render_field form.group_number %}
+            </div>
+        </div>
+
+        <div class="col-md-6  mb-3 insurance-trigger">
+            <label for="">{% trans "Subscriber Name (First and Last)" %}</label>
+            <div class="single_form">
+                {% render_field form.subscriber_name %}
+            </div>
+
+            <div class="checkbox d-flex mt-1 align-items-center">
+                <div>
+                    <input type="checkbox" data-input="subscriber_name" class="decline_checkbox" data-trigger=".subscriber-name-trigger" />
+                </div>
+                <div class="ml-2">
+                    {% trans "Self" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6  mb-3 insurance-trigger">
+            <div class="subscriber-name-trigger">
+                <label for="">{% trans "Subscriber Relationship" %}</label>
+                <div class="single_form">
+                    {% render_field form.subscriber_relationship  class="other-select" data-trigger=".subscriber-trigger" %}
+                </div>
+                <div class="mt-1 insurance-trigger">
+                    <div class="d-none subscriber-trigger">
+                        <label for="" style="font-size: 12px;margin-bottom: 5px;" >{% trans "Other Subscriber Relationship? Enter it here" %}</label>
+                        <div class="single_form">
+                            {% render_field form.subscriber_relationship_entered placeholder="Enter Relationship" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>

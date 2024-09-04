@@ -1,0 +1,92 @@
+
+{% load widget_tweaks %}
+{% load i18n %}
+{% block body %}
+<div class="step-form d-none" data-step="3">
+    <h3 class="mb-3">{% trans "Documents" %}</h3>
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="preffered day">{% trans "Submit supporting document" %}</label>
+                    <div class="single_form">
+                        {% render_field form.identification_document class="document-select" data-target="#document-button" %}
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <label for="" style="font-weight: 500;font-size: 14px;">{% trans "Supported Formats (.pdf,.png,.jpg); Max-Size: 3MB" %}</label>
+                    <div class="input-group file-hidden">
+                        {% render_field form.attachment_support %}
+                        <input type="text" class="form-control" name="temp_2" placeholder="Nothing selected"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
+                        <div class="input-group-append">
+                            <button id="document-button" class="btn btn-outline-secondary" type="button" disabled>{% trans "Browse" %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <label for="preffered day">{% trans "Insurance Card (Optional)" %}</label>
+            <br>
+            {% trans "Front Image (Supported Formats: (.pdf,.png,.jpg); Max-Size: 3MB)" %}
+            <div class="input-group file-hidden">
+                {% render_field form.insurance_card %}
+                <input type="text" class="form-control" name="temp_2" placeholder="Nothing selected"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">{% trans "Browse" %}</button>
+                </div>
+            </div>
+            {% trans "Back Image (Supported Formats (.pdf,.png,.jpg); Max-Size: 3MB)" %}
+            <div class="input-group file-hidden mt-3">
+                {% render_field form.insurance_card_back %}
+                <input type="text" class="form-control" name="temp_2" placeholder="Nothing selected"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">{% trans "Browse" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row mb-3">
+        <div class="col-md-8">
+            <label for="preffered day">Description</label>
+            <div class="single_form">
+                {% render_field form.description %}
+            </div>
+        </div>
+    </div> -->
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="text-danger">
+
+            </div>
+            <div class="d-flex declaration">
+                <div>
+                    <input name="is_declaration_accepted" type="hidden" value="false">
+                    <input id="id_is_declaration_accepted" name="is_declaration_accepted" type="checkbox" value="true">
+                </div>
+                <div class="ml-2">
+                    <div>
+                        {% trans "Declaration" %}
+                    </div>
+                    <div>
+                        {% trans "I understand that by submitting this appointment request form I am only requesting an appointment and a " %}{{ title|title }} {% trans "representative will call/text to discuss availability." %}
+                        {% block declaration-text %}
+                            {% comment %} <div class="text-danger">
+                                <b>{% trans "According to Kern County guidelines, we are vaccinating Healthcare Workers, Individuals 65+, Education Workers, Food Workers, Agriculture Workers, Non-Healthcare Emergency Services, 18+ with underlying health conditions including: Cancer, Chronic Pulmonary Disease, Solid Organ Transplant, Sickle Cell Disease, Type 2 diabetes, Chronic Kidney Disease, Down Syndrome, Pregnancy, Severe Obesity, or Heart Conditions. Any requests received that do not meet current tier criteria will be scheduled when applicable tiers have opened." %}</b>
+                            </div> {% endcomment %}
+                        {% endblock declaration-text %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+{% endblock %}

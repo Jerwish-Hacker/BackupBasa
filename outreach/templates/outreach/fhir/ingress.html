@@ -1,0 +1,28 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block body %}
+<div>
+    <form class="col-md-12 pt-2" method="post" id="id_ingress_form" enctype="multipart/form-data">
+        <div class="col-md-6">
+          <p style="font-weight:600;color:#385bcb;">Member Upload</p>
+          {% csrf_token %}
+          <input type="file" id="id_ingress" name="ingress">
+        </div>
+        <div class="col-md-6 pt-2">
+            <input style="width:16px;height:16px" type="checkbox" id="id_auto_id" name="auto_id" value="false"><span class="mx-2"  style="font-size:16px;font-weight:500;color:#4s85ds;">Auto generate identifier ?</span>
+            <p style="font-size:16px;font-weight:500;color:#385bcb;">Supported file format : csv,xlsx. Max file size : 5 MB</p>
+            <button type="submit" class="btn btn-primary" disabled><i class="fa fa-spinner fa-spin d-none mx-2"></i>Upload</button>
+            <p style="font-size:16px;font-weight:500;color:#385bcb;" class="upload_text d-none">It takes time depends on the number of records</p>
+        </div>
+      </form>
+      <div class="col-md-12 pt-2">
+        <span class="error_notify d-none alert alert-danger"></span>
+      </div>
+      
+</div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'outreach/assets/js/es6/ingress.js' %}"></script>
+{% endblock %}

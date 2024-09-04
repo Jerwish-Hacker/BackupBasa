@@ -1,0 +1,226 @@
+{% extends 'covidtest/common/layout.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/dashboard.css' %}" />
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="{% static 'covidtest/assets/css/userdashboardstyle.css' %}" rel="stylesheet" />
+<style>
+    hr {
+        border: none;
+        height: 2px;
+        background: black;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <input type="hidden" value="{{Employeedata.is_proof_or_vaccination_copy_provided}}"name="is_proof_or_vaccination_copy_provided">
+    <input type="hidden" value="{{Employeedata.allow_csv_to_pull_record}}" name="allow_csv_to_pull_record">
+    <input type="hidden" value="{{Employeedata.is_vaccine_declined}}" name="is_vaccine_declined">
+    <div class="col-md-12 text-center my-2"><img class="logoimg" src={{ logo }} alt="Logo" style="width:80px;height:90px;"></div>
+    <div class="text-center my-2" style="font-size:25px;font-weight:bold">
+        COVID-19 EMPLOYEE INFORMATION GATHERING
+    </div>
+    <div class="text-left my-2" style="font-size:20px;">
+        <p>Hello&nbsp;{{Employeedata.payroll_name}}<p>
+    </div>
+    <div class="text-left my-2" style="font-size:16px;text-align:justify;">
+        <p style="text-align:justify;">Due to the recent and rapid increase in cases of COVID-19 across our region we here at {{ title|title }} want to ensure the safety of everyone. The California Department of Public Health (“CDPH”) s mandating that Healthcare employees who are not vaccinated or who do not have proof of a vaccine will need to have weekly COVID testing. Due to this, starting the week of August 16th {{ title|title }} will begin weekly testing of those employees who are not vaccinated or who have not provided proof of vaccine. Our first step is to make sure we have the most current and accurate vaccination information in your Employee Health file. We ask all employees to complete the following form. Thank you for your patience and cooperation as we implement this next step to comply with the CDPH mandate.<p>
+    </div>
+    <div class="text-left my-3" style="font-size:15px;">
+        <p><b>DOB :</b> {{Employeedata.birth_date}}<p>
+    </div>
+    <div class="text-left my-3" style="font-size:15px;">
+        <p><b>Employee Number :</b> {{Employeedata.position_id}}<p>
+    </div>
+    <div class="text-left my-3" style="font-size:15px;">
+        <p><b>Date :</b> {{date}}<p>
+    </div>
+    <div class="text-left pt-4" style="font-size:15px;font-weight: bold;">
+        <p>Please check one of the boxes<p>
+    </div>
+    <div class="alert alert-danger d-none my-2" role="alert" id="errormessages">
+    </div>
+    <form id="useruploadform" method="post" enctype="multipart/form-data" action="/covidtest/api/v1/userupload/">
+        {% csrf_token %}
+        <div class="form-check my-3">
+            <input class="form-check-input" type="checkbox" value="False" id="flexCheckDefault1" name="firstcheckbox" data-toggle="collapse" data-target="#collapseExample">
+            <label class="form-check-label" for="flexCheckDefault1">
+                I have been vaccinated and will provide a copy of my vaccine card / proof of vaccine by Aug 13, 2021.
+            </label>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <div class="row justify-content-start">
+                    <div class="text-left col-md-12">
+                        <p>Upload PDF or JPG Files<br>Maximum file size is 2.5 MB<br>Maximum 7 files can be uploaded</p>
+                        <button type="button" class="btn btn-info" style="width:10%%;background" id="addfile"><i class="bi bi-file-earmark-plus p-2"></i>Add File</button>
+                    </div>
+                    <div class="col-md-3 pt-2" id="filesContainer">
+                        <input class="fileclass" type="file" name="file_1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-check my-3">
+          <input class="form-check-input" type="checkbox" value="False" id="flexCheckDefault2" name="secondcheckbox">
+          <label class="form-check-label" for="flexCheckDefault2">
+                I allow {{ title|title }} to pull my data from my EPIC medical Record, or CAIR record to gather proof of vaccine.
+          </label>
+        </div>
+        <div class="form-check my-3">
+          <input class="form-check-input" type="checkbox" value="False" id="flexCheckDefault3" name="thirdcheckbox" data-toggle="collapse" data-target="#collapsecheckbox3">
+          <label class="form-check-label" for="flexCheckDefault3">
+                I decline the vaccine. With my declination I realize that I will soon be required to receive a COVID test once a week.
+          </label>
+        </div>
+        <div class="collapse" id="collapsecheckbox3">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-12 text-center">&nbsp;</div>
+                    <div class="col-12 text-center"><img class="logoimg mx-3" src={{ logo }} alt="Logo" style="width:80px;height:90px;"></div>
+                    <div class="col-12 text-center">&nbsp;</div>
+                    <div class="col-12 text-center text-uppercase font-weight-bold">NOVEL CORONOVIRUS (COVID-19) MANDATORY REQUIREMENTS UNVACCINATED EMPLOYEE ACKNOWLEDGEMENT</div>
+                    <div class="col-12 text-center">&nbsp;</div>
+                    <div class="col-12 text-center">&nbsp;</div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12 mx-auto">
+                            <div class="row mx-auto">
+                                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                    <div class="row mx-auto">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">DATE:</div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{date}}</div>
+                                    </div>
+                                    <div class="col-12 text-center">&nbsp;</div>
+                                    <div class="row mx-auto">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">NAME:</div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.payroll_name}}</div>
+                                    </div>
+                                    <div class="col-12 text-center">&nbsp;</div>
+                                    <div class="row mx-auto">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">EMPLOYEE #:</div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.position_id}}</div>
+                                    </div>
+                                    <div class="col-12 text-center">&nbsp;</div>
+                                    <div class="row mx-auto">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">LOCATION/SITE:</div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.region}}</div>
+                                    </div>
+                                    <div class="col-12 text-center">&nbsp;</div>
+                                    <div class="row mx-auto">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">SUPERVISORS NAME:</div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 ">{{Employeedata.reports_to_name}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                                    <div class="row mx-auto">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 " >
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left" >
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">&nbsp;</div>
+                            <div class="row mx-auto">
+                                <div class="col-12 mx-auto">
+                                    <div class="row d-flex justify-content-center ">
+                                        <div class="col-12 ">
+                                            <div class="col-12 text-center border  border-dark h-100 p-2 font-weight-bold">STATE of CALIFORNIA MANDATORY COVID-19 REQUIREMENTS</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-left">&nbsp;</div>
+                            <div class="row mx-auto">
+                                <div class="col-12 ">
+                                    <p style="text-align:justify;">On July 26, 2021, the California Department of Public Health (“CDPH”) issued a State Public Health Officer Order Mandating Health Care Clinics, which includes {{ title|title }}, to the following:</p>
+                                    <ul style="padding-left:5px;">
+                                        <li class="list-unstyled">I.&emsp;Verify COVID-19 vaccination status of all workers</li>
+                                        <li class="list-unstyled">II.&emsp;Strictly adhere to CDPH Masking Guidance</li>
+                                        <li class="list-unstyled">III.&emsp;Weekly mandatory NOVEL CORONOVIRUS (COVID-19) testing for unvaccinated workers</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row mx-auto">
+                                <div class="col-12 mx-auto">
+                                    <div class="row d-flex justify-content-center ">
+                                        <div class="col-12 ">
+                                            <div class="col-12 text-center border  border-dark h-100 p-2 font-weight-bold">EMPLOYEE ACKNOWLEDGEMENT</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mx-auto">
+                                <div class="col-12 p-2">
+                                    <p style="text-align:justify;">As an unvaccinated employee, by signing and submitting this acknowledgement, I understand and agree that I have been informed that if I elect to remain unvaccinated against COVID-19, I will be REQUIRED to test for COVID-19 no less than once per week and will be required to wear required PPE while I am working for and on {{ title|title }}’s premises.  This includes when offsite performing work on behalf of {{ title|title }}.</p>
+                                    <p style="text-align:justify;">Should I violate this mandatory COVID-19 testing obligation, I acknowledge and understand that I will be subject to disciplinary action and may be placed on immediate unpaid suspension until the time in which the required test is administered. </p>
+                                    <p style="text-align:justify;">If I fail to test within five (5) days past my mandatory testing obligation date, my employment with {{ title|title }} will be terminated.  Additionally, if I am delinquent on my mandatory COVID-19 testing obligation on more than one occasion, I will be subject to disciplinary action, up to, and, including termination of employment. </p>
+                                </div>
+                            </div>
+                            <hr class="" />
+                            <div class="row mx-auto">
+                                <div class="col-md-12" id="to_be_canvased">
+                                    <canvas id="can" width="300" height="100" class="col-md-4" style="border:2px solid;"></canvas>
+                                </div>
+                            </div>
+                            <div class="row mx-auto justify-content-start">
+                                <div class="col-md-2 text-left">
+                                    <button type="button" id="clear" value="Clear" class="btn btn-info">Clear</button>
+                                </div>
+                                <input type="hidden" value="" id="sigantureurlinput" name="signatureurl">
+                                <div class="col-sm-10 text-left">
+                                    <p>Employee Signature</p>
+                                </div>
+                            </div>
+                            <div class="row pt-4">
+                                <div class="col-md-12" >
+                                   <p><b>Date :</b> {{date}}<p> 
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-12">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right alert alert-danger col-md-12 d-none" role="alert" id="submitmessages">
+        </div>
+        <div class="row justify-content-between pt-4">
+            <div class="text-left col-md-6">
+                 <p>Please contact +1 661-635-3050 with any queries<p>
+            </div>
+            <div class="text-right col-md-3 pb-3">
+                 <button type="submit" class="btn btn-info" style="width:50%;background:#11556c">Submit</button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="modal fade" id="overrightmodal" tabindex="-1" role="dialog" aria-labelledby="overrightmodalLabel" aria-hidden="true" style="font-family: Arial, Helvetica, sans-serif;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="overrightmodalLabel">Warning</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="overrightmessage">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" id="overrightenabled">Yes</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static "covidtest/assets/js/es6/userdashboard.js" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+{% endblock %}

@@ -1,0 +1,286 @@
+{% extends "../common/layout.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'grievanceapp/assets/css/dashboard.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<style>
+.dashsidebarcls {
+    position: absolute;
+    top: 0;
+    z-index: 10001;
+    transition: width 0.8s;
+    right: 0;
+    width: 0px;
+}
+.span_font {
+    text-align: left;
+    font-weight: 400;
+    font-family: 'Open Sans';
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #FD6200;
+    opacity: 0.8;
+}
+#archive-model{
+    z-index: 20000000;
+}
+#view-model{
+    z-index: 100000;
+}
+#delete-model{
+    z-index: 10000000;
+}
+.countbox {
+    cursor:pointer;
+}
+.consent-selector input {
+    display: none!important;
+  }
+
+  .consent-selector input[type=checkbox] + label {
+    display: inline-block;
+    border-radius: 25px;
+    border: solid 1px;
+    border-color: grey;
+    background: #ffffff;
+    margin-right: 3px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+  .consent-selector input[type=checkbox]:checked + label {
+    background: #4285F4;
+    color: #ffffff;
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(15px);
+    -ms-transform: translateX(15px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    {% csrf_token %}
+    <div class="d-flex justify-content-end">
+        <div class="col-auto my-4" style="background-color: #e6e7e9;">
+            <input type="text" id="searchKey" placeholder="Search" />
+            <i class="fas fa-search" style="font-weight: 100;"></i>
+        </div>
+    </div>
+    {% comment %} <div class="row boxrow">
+        <div class="col-2 countbox border-active" data-status=""><b id="status_all"></b>
+            <p>All</p>
+        </div>
+        <div class="col-2 countbox" data-status="False"><b id="status_consent_given"></b>
+            <p>Consent Given</p>
+        </div>
+        <div class="col-2 countbox" data-status="True"><b id="status_consent_rivoked"></b>
+            <p>Consent Revoked</p>
+        </div>
+    </div> {% endcomment %}
+    <div class="row justify-content-center">
+        <div class="col-md-12 page-alerts">
+            <div id="error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+            <div id="success-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table storebookTable noborder">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Date&nbsp;of&nbsp;Birth</td>
+                            <td>Email</td>
+                            <td>Phone</td>
+                            <td>Preferred&nbsp;Language</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody id="storeMemberData">
+                    </tbody>
+                </table>
+            </div>
+            <div class="row justify-content-between mt-2">
+                <div id="holder"> </div>
+                <select name="limit" id="limit">
+                    <option value="50" selected>50</option>
+                    <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="view-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-view-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-view-body" style="overflow-y: auto;height: 80vh; ">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="edit-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit consent</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-start p-2">
+                    <div class="w-50 row justify-content-around align-items-baseline pt-2" style="padding:2px">
+                        <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Allow Consent</p>
+                        <label class="switch">
+                            <input type="checkbox" id="id_consent_status" name="consent_status" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="ml-2" id="id_consent_status_radio_text">Yes</span>
+                    </div>
+                </div>
+                <div class="consent-form">
+                    <hr>
+                    <div class="row mb-2" style="padding:0;">
+                        <div class="col-md-12">
+                          <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Consent type<p>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="consent-selector justify-content-center row" id="consent_type_selector" style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:12px;font-weight:500;">
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-1 align-items-center justify-content-center" style="padding:0;">
+                        <div class="col-md-12">
+                            <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Consent duration<p>
+                          </div>
+                        <div class="col-md-8">
+                            <input type="range" id="id_consent_duration" name="consent_duration" min="0" max="1000" value="0" class="form-control p-0" />
+                        </div>
+                        <div class="col-md-4 mt-2 d-flex align-items-center">
+                            <input class="col-md-6 form-control" id="consent_duration_val" value="0" type="number" />
+                            <p class="col-md-4 m-0" style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:12px;font-weight:500;"> Days</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2" style="padding:0;">
+                        <div class="col-md-6">
+                            <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Sharing with provider<p>
+                        </div>
+                        <div class="col-md-6 sharing_with_provider_division">
+                            <select  class="form-control" name="sharing_with_provider" id="id_sharing_with_provider" required>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-2" style="padding:0;">
+                        <div class="col-md-6">
+                            <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Sharing for research<p>
+                            <label class="switch">
+                                <input type="checkbox" id="id_sharing_for_research" name="sharing_for_research">
+                                <span  class="slider round"></span>
+                            </label>
+                            <span class="ml-2" id="id_sharing_for_research_radio_text">No</span>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Notify patient about consent<p>
+                            <label class="switch">
+                                <input type="checkbox" id="id_consent_notification" name="consent_notification">
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="ml-2" id="id_consent_notification_radio_text">No</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="error_display_consent" class="alert alert-danger d-none col-md-12 pt-2" role="alert">
+                Error info is displayed here. 
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary edit_consent_button"><i class="fa fa-spinner fa-spin d-none"></i>Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}
+    {% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- <script src="{% static 'assets/js/dashboard.js' %}"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+    <script src="{% static 'mainapp/assets/js/es6/consentTable.js' %}"></script>
+    <script src="{% static 'grievanceapp/assets/js/vendor/idle-timer.min.js' %}"></script>
+    {% endblock %}

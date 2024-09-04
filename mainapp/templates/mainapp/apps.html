@@ -1,0 +1,941 @@
+{% extends './index.html'%}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'mainapp/assets/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+{% endblock %}
+{% block body %}
+    <div class="px-4 px-lg-5">
+        <div class="row d-flex justify-content-start header_filters">
+            <div class="col-md-3 mr-auto p-2">
+                <select class="form-control" id="id_apps_type" name="apps_type" style="border-radius:25px;font-family: Source Sans Pro;">
+                  <option value="all">All</option>
+                  {% if is_administration %}
+                    <option value="administration">Administration</option>
+                  {% endif %}
+                  {% if is_frontoffice %}
+                    <option value="frontoffice">Front Office</option>
+                  {% endif %}
+                  {% if is_humanresources %}
+                    <option value="humanresources">Human Resources</option>
+                  {% endif %}
+                    <option value="myfavorites">My Favorites</option>
+                  {% if is_operations %}
+                    <option value="operations">Operations</option>
+                  {% endif %}
+                  {% if is_outreach %}
+                    <option value="outreach">Outreach</option>
+                  {% endif %}
+                  {% if is_quality %}
+                    <option value="quality">Quality</option>
+                  {% endif %}
+                </select>
+            </div>
+            <div class="col-md-3 p-2">
+                <input class="form-control" type="text" name="apps_search" placeholder="Search" style="border-radius:25px;font-family: Source Sans Pro;">
+                <i class="fa fa-search" style="position: absolute;right: 20px;top: 20px;"></i>
+            </div>
+        </div>
+        <div class="col-md-12 page-alerts">
+          <div id="server-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+        </div>
+        {% csrf_token %}
+        <hr>
+        <div class="all-cards-content-division">
+            <div class="row d-flex justify-content-start render_cards" id="sortable">
+            </div>
+        </div>
+        <div class="site-admin-division d-none">
+            <div class="row d-flex justify-content-start">
+                <div class="col-auto mr-auto my-1">
+                  <button class="btn btn-outline-primary getapps_back_button" style="font-size:14px" title="Back"><i class="fa fa-arrow-left" aria-hidden="true" style="font-size:14px;cursor:pointer"></i>  Back</button>
+                </div>
+                <div class="col-auto my-1">
+                  <select class="form-control" name="type_of_apps_site_admin" style="border-radius:25px;font-family: Source Sans Pro;">
+                  </select>
+                </div>
+                <div class="col-auto my-1">
+                    <input class="form-control" id="id_search_site_admin" name="search_site_admin" type="text" placeholder="Search" style="border-radius:25px;font-family: Source Sans Pro;">
+                </div>
+                <div class="col-auto my-1" style="border-radius: 3px;">
+                    <div id="reportrange">
+                        <img src="{% static 'mainapp/assets/images/calendar.svg' %}" alt="calenderimage">&nbsp;<span style="color:white"></span>
+                        <input type="hidden" id="date_start" value="" />
+                        <input type="hidden" id="date_end" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="row boxrow">
+                <div class="col-2 countbox_site_admin border-active" data-archive=""><b id="status_all"></b>
+                    <p style="border-radius:18px;font-family: Source Sans Pro;">Total Visit</p>
+                </div>
+            </div>
+            <div class="step-form">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 page-alerts">
+                        <div id="error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                        <div id="success-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table storebookTable text-left">
+                                <thead>
+                                    <tr>
+                                        <td class="text-left">App&nbsp;Name</td>
+                                        <td class="text-left">Operation</td>
+                                        <td class="text-left">User</td>
+                                        <td class="text-left">Date&nbsp;Time</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="storebookingData">
+                                </tbody>
+                            </table>
+                            <div class="row justify-content-between m-0">
+                                <div id="holder"> </div>
+                                <select name="limit" id="limit">
+                                    <option value="50" selected>50</option>
+                                    <option value="100">100</option>
+                                    <option value="150">150</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-start">
+            </div>
+        </div>
+        <div class="user_list_division d-none">
+          <div class="col-md-12 pt-2 pb-2">
+            <div class="row d-flex justify-content-start">
+                <div class="col-auto my-1 mr-auto">
+                    <button class="btn btn-outline-primary getapps_back_button" style="font-size:14px" title="Back"><i class="fa fa-arrow-left" aria-hidden="true" style="font-size:14px;cursor:pointer"></i>  Back</button>
+                </div>
+                <div class="col-auto my-1">
+                    <button class="btn btn-primary add_user_button" data-toggle="modal" data-target="#addedituser-model" style="font-size:14px" title="Add User"><i class="fa fa-user-plus" aria-hidden="true" style="font-size:14px;cursor:pointer;color:white"></i>  Add User</button>
+                </div>
+                <div class="col-auto my-1">
+                  <button class="btn btn-primary upload_user_button" data-toggle="modal" data-target="#ingress-model" style="font-size:14px" title="Upload User"><i class="fa fa-users" aria-hidden="true" style="font-size:14px;cursor:pointer;color:white"></i> Upload User</button>
+              </div>
+                <div class="col-auto my-1">
+                    <input class="form-control" id="id_search_user_list" type="text" placeholder="Search" style="border-radius:25px;font-family: Source Sans Pro;">
+                </div>
+            </div>
+            <div class="row boxrow">
+                <div class="col-2 countbox border-active" data-archive="users_all"><b id="users_all"></b>
+                    <p style="border-radius:18px;font-family: Source Sans Pro;">Total Users</p>
+                </div>
+                <div class="col-2 countbox" data-archive="Organization admin"><b id="users_admin"></b>
+                    <p style="border-radius:18px;font-family: Source Sans Pro;">Total Administrators</p>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table storebookTable text-left">
+                    <thead>
+                        <tr>
+                            <td>Username</td>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody id="userDetails">
+                    </tbody>
+                </table>
+                <div class="row justify-content-between m-0">
+                    <div id="holder2"> </div>
+                    <select name="limit2" id="limit2">
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="app_management_division d-none">
+            <div class="row d-flex justify-content-start">
+              <div class="col-auto mr-auto my-1">
+                <button class="btn btn-outline-primary getapps_back_button" style="font-size:14px" title="Back"><i class="fa fa-arrow-left" aria-hidden="true" style="font-size:14px;cursor:pointer"></i>  Back</button>
+              </div>
+              <div class="col-auto my-1">
+                <select class="form-control" id="id_app_management_apps_type" name="app_management_apps_type" style="border-radius:25px;font-family: Source Sans Pro;">
+                  <option value="all">All</option>
+                  <option value="administration">Administration</option>
+                  <option value="frontoffice">Front Office</option>
+                  <option value="humanresources">Human Resources</option>
+                  <option value="operations">Operations</option>
+                  <option value="outreach">Outreach</option>
+                  <option value="quality">Quality</option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                  <input class="form-control" id="id_app_management_apps_search" name="app_management_apps_search" type="text" placeholder="Search" style="border-radius:25px;font-family: Source Sans Pro;">
+              </div>
+          </div>
+          <div class="row boxrow">
+              <div class="col-2 countbox_app_managment active border-info" data-archive="Total"><b id="app_management_apps_count"></b>
+                  <p style="border-radius:18px;font-family: Source Sans Pro;">Total Apps</p>
+              </div>
+              <div class="col-2 countbox_app_managment " data-archive="Default"><b id="app_management_apps_default_count"></b>
+                  <p style="border-radius:18px;font-family: Source Sans Pro;">Default Apps</p>
+              </div>
+              <div class="col-2 countbox_app_managment " data-archive="Custom"><b id="app_management_apps_custom_count"></b>
+                <p style="border-radius:18px;font-family: Source Sans Pro;">Custom Apps</p>
+            </div>
+          </div>
+          <div class="step-form">
+              <div class="row justify-content-center">
+                  <div class="col-md-12 page-alerts">
+                      <div id="error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                      <div id="success-alert" class="alert alert-success p-2 d-none">Updated successfully</div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="table-responsive">
+                          <table class="table storebookTable text-left">
+                              <thead>
+                                  <tr>
+                                      <td>App&nbsp;Name</td>
+                                      <td>App&nbsp;Type</td>
+                                      <td>Created&nbsp;By</td>
+                                      <td>App&nbsp;Ownership</td>
+                                      <td>Status</td>
+                                      <td>Created&nbsp;Date&nbsp;Time</td>
+                                      <td>Action</td>
+                                  </tr>
+                              </thead>
+                              <tbody id="app_management_apps_render">
+                              </tbody>
+                          </table>
+                          <div class="row justify-content-between m-0">
+                              <div id="app_management_holder"> </div>
+                              <select name="app_management_limit" id="id_app_management_limit">
+                                  <option value="50" selected>50</option>
+                                  <option value="100">100</option>
+                                  <option value="150">150</option>
+                                  <option value="200">200</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal" id="edit-model" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="id_app_form" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row justify-content-around p-2">
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App Name</span>
+                                <input class="form-control" type="text" name="app_name" value="" id="id_app_name"> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App Owner</span>
+                                <input class="form-control" type="text" name="point_of_contact" value="" id="id_point_of_contact"> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App domain (Example: apps.{{title}}.org)</span>
+                                <input class="form-control" type="text" name="app_domain" value="" id="id_app_domain"> 
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <span>App Type</span>
+                                <select  class="form-control" name="app_type" id="id_app_type">
+                                    <option value="">Select App Type</option>
+                                    <option value="administration">Administration</option>
+                                    <option value="frontoffice">Front Office</option>
+                                    <option value="humanresources">Human Resources</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="outreach">Outreach</option>
+                                    <option value="quality">Quality</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 pt-2" style="padding:2px">
+                                <span>Info Text</span>
+                                <textarea class="form-control" name="info_text" value="" id="id_info_text"></textarea>
+                            </div>
+                            <div class="col-md-6 pt-2" style="padding:2px">
+                                <div class="col-md-4 pt-2" style="padding:2px">
+                                    <span class="pr-2">Hide App</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="id_hide_app">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-8 pt-2" style="padding:2px">
+                                    <span class="pr-2">App Logo</span>
+                                    <p>(Supported .PNG, Max Size 500KB)</p>
+                                    <input class="fileClass" type="file" id="id_app_logo" name="app_logo">
+                                </div>
+                            </div>
+                            <div class="col-md-6 pt-2">
+                                <img class="d-none" style="border:1px solid grey" id="app_image_preview" src="#" alt="your image" width="90" height="90"/>
+                            </div>
+                        </div>
+                        <hr>
+                        <span>Button</span>
+                        <div class="d-flex justify-content-between" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <span>Name</span>
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <span>URL (Example: https://apps.{{title}}.org)</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <input class="form-control" type="hidden" name="button_id_1" value="" id="id_button_id_1">
+                                <input class="form-control" type="text" name="button_name_1" value="" id="id_button_name_1"> 
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <input class="form-control" type="text" name="button_url_1" value="" id="id_button_url_1"> 
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <input class="form-control" type="hidden" name="button_id_2" value="" id="id_button_id_2">
+                                <input class="form-control" type="text" name="button_name_2" value="" id="id_button_name_2"> 
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <input class="form-control" type="text" name="button_url_2" value="" id="id_button_url_2"> 
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2" style="padding:0">
+                            <div class="col-md-5" style="padding:0">
+                                <input class="form-control" type="hidden" name="button_id_3" value="" id="id_button_id_3">
+                                <input class="form-control" type="text"  name="button_name_3" value="" id="id_button_name_3"> 
+                            </div>
+                            <div class="col-md-6" style="padding:0">
+                                <input class="form-control" type="text" name="button_url_3" value="" id="id_button_url_3"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div id="error-display-near-save" class="alert alert-danger d-none col-md-12 pt-2" role="alert">
+                        Error info is displayed here. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger app_delete" data-toggle="modal" data-target="#delete-app-model">Delete</button>
+                        <button type="submit" class="btn btn-primary update_button"><i class="fa fa-spinner fa-spin d-none"></i>Update</button>
+                        <button type="submit" class="btn btn-success add_button d-none"><i class="fa fa-spinner fa-spin d-none"></i>Add</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="addedituser-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="user_data_body">
+                <div class="row justify-content-start">
+                    <div class="col-md-6 form-group">
+                      <label>Position ID</label>
+                      <input type="text" class="form-control" name="position_id" value="{{employee.position_id}}">
+                        <div class="invalid-feedback">
+                            Required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Work Contact: Work Email</label>
+                        <input type="email" class="form-control" name="email" value="{{employee.email}}">
+                        <div class="invalid-feedback">
+                            Required.Please check email is in correct format.
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Reports To Name</label>
+                        <input type="text" class="form-control" name="reports_to_name" placeholder="LastName, FirstName" value="{{employee.reports_to_name}}">
+                        <div class="invalid-feedback">
+                            Required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Payroll  Name</label>
+                        <input type="text" class="form-control" name="payroll_name" placeholder="LastName, FirstName" value="{{employee.payroll_name}}">
+                        <div class="invalid-feedback">
+                            Required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Date of Birth</label>
+                        <input type="text" class="form-control datepickeradd" name="date_of_birth" placeholder="MM/DD/YYYY">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Position Status</label>
+                        <input type="text" class="form-control" name="position_status" value="{{employee.position_status}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Worker Category Description</label>
+                        <input type="text" class="form-control" name="worker_category_description" value="{{employee.worker_category_description}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Job Title Description</label>
+                        <input type="text" class="form-control" name="job_title_description" value="{{employee.job_title_description}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Hire Date</label>
+                        <input type="text" class="form-control datepickeradd" name="hire_date" placeholder="MM/DD/YYYY">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Region</label>
+                        <input type="text" class="form-control" name="region_add" value="{{employee.region}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                     <div class="col-md-6 form-group">
+                        <label>EEO Establishment</label>
+                        <input type="text" class="form-control" name="eeo_establishment" value="{{employee.eeo_establishment}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                     <div class="col-md-6 form-group">
+                        <label>Job Function Description</label>
+                        <input type="text" class="form-control" name="job_function_description" value="{{employee.job_function_description}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Home Department Description</label>
+                        <input type="text" class="form-control" name="home_department_description" value="{{employee.home_department_description}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Union Code</label>
+                        <input type="text" class="form-control" name="union_code" value="{{employee.union_code_description}}">
+                        <div class="invalid-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label>Status</label>
+                      <select type="text" class="form-control" name="emp_status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+                      <div class="invalid-feedback">
+                          Required
+                      </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label>Is Staff</label>
+                      <input class="form-control" type="checkbox" name="is_staff" style="width: 18px;height: 18px;" {%if user.is_staff %} checked {%endif%}>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <div id="addedituser-error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Add</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="usergroup-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-view-title">Edit User Permission</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="col-md-12">
+                  <div id="usergroup-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                </div>
+                <div class="modal-body">
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color:#385bcb">Available Applications</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="not_existing_group" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color:#385bcb">Chosen Applications</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="existing_group" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-2" style="background-color:#EFEFEF">
+                    <div class="col-md-4">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: #385bcb">App</label>
+                      <select class="form-control" id="id_edit_user_app_location_app_selector" name="edit_user_app_location_app_selector">
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center" style="background-color:#EFEFEF">
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: #385bcb">Available Location</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="user_available_location" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: #385bcb">Chosen Location</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="user_assigned_location" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="modal" id="deleteuser-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p style="font-size:14px;" id="delete_user_text"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="addlocation-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Location</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="col-md-12">
+                <div id="addlocation_error_alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+            </div>
+            <div class="modal-body">
+              <div class"row justify-content-start">
+                <div class="col-md-12">
+                  <input class="form-control" name="addlocation-location" type="text" placeholder="Location">
+                </div>
+                <div class="col-md-4 pt-2">
+                  <button type="button" class="btn btn-primary" id="addlocation_addlocation"><i class="fa fa-spinner fa-spin d-none"></i> Add</button>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label class="my-1" style="font-family: Source Sans Pro;color: rgba(17, 85, 108, 1)">Available Locations</label>
+                <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                  <ul class="addlocation_all_location" style="list-style-type:none;padding:0;cursor:pointer;">
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="editdeletelocation-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete location</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+                <input class="form-control" name="editdeletelocation-location" type="text" placeholder="Location">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div id="editdeletelocation-error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary"><i class="fa fa-spinner fa-spin d-none"></i> Delete</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="editapplocation-model" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-view-title">Edit App Permissions</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="col-md-12">
+                  <div id="editapplocation-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+                </div>
+                <div class="modal-body" id="modal-view-body">
+                  <div class="row mb-2">
+                    <div class="col-md-3">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: rgba(17, 85, 108, 1)">App</label>
+                      <select class="form-control" id="id_editapplocation_app_selector" name="editapplocation_app_selector">
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: rgba(17, 85, 108, 1)">Available Locations</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="all_locations" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: rgba(17, 85, 108, 1)">Chosen Locations</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="all_assigned_locations" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: rgba(17, 85, 108, 1)">Users</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="all_users" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="my-1" style="font-family: Source Sans Pro;color: rgba(17, 85, 108, 1)">App Admin</label>
+                      <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+                        <ul class="admin_users" style="list-style-type:none;padding:0;cursor:pointer;">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="outreach-model" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="col-md-12">
+            <div id="outreach-error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="delete-app-model" tabindex="-1" role="dialog">
+      <div class="modal-dialog " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete App</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p style="font-size:14px;" id="delete_app_text"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger"><i class="fa fa-spinner fa-spin d-none"></i>Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="task-scheduler-model" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title" id="modal-view-title"></h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body" id="modal-view-body">
+                <form id="slotsubmit" action="/outreach/api/v1/healthplanscheduler/" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="outreach" id="id_outreach" value="{{outreach}}">
+                  <div class="row" style="padding:0;">
+                    <div class="col-md-6">
+                      <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Type</label>
+                      <select class="form-control" name="type" id="id_type">
+                          <option value="recurring">Recurring</option>
+                          <option value="custom">Custom</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Location</label>
+                      <select class="form-control" name="location" id="id_location" >
+                      </select>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-start" style="padding:0;">
+                      <div class="col-md-6" style="padding:0;">
+                          <div class="form-group">
+                            <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Start Date</label>
+                            <input class="form-control datepicker" type="text" name="start_date" id="id_start_date" placeholder="MM/DD/YYYY">
+                          </div>
+                      </div>
+                      <div class="col-md-6 recurring">
+                          <div class="form-group">
+                            <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">End Date</label>
+                            <input class="form-control datepicker customhidden" type="text" name="end_date" id="id_end_date" placeholder="MM/DD/YYYY">
+                          </div>
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="row mb-2 recurring" style="padding:0;">
+                    <div class="col-md-12">
+                      <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Exclude<p>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="weekDays-selector">
+                        <input type="checkbox" id="weekday-mon" name="monday" value="monday" class="weekday" />
+                        <label for="weekday-mon">Mon</label>
+                        <input type="checkbox" id="weekday-tue" name="tuesday" value="tuesday" class="weekday" />
+                        <label for="weekday-tue">Tue</label>
+                        <input type="checkbox" id="weekday-wed" name="wednesday" value="wednesday" class="weekday" />
+                        <label for="weekday-wed">Wed</label>
+                        <input type="checkbox" id="weekday-thu" name="thursday" value="thursday" class="weekday" />
+                        <label for="weekday-thu">Thu</label>
+                        <input type="checkbox" id="weekday-fri" name="friday" value="friday" class="weekday" />
+                        <label for="weekday-fri">Fri</label>
+                        <input type="checkbox" id="weekday-sat" name="saturday" value="saturday" class="weekday" />
+                        <label for="weekday-sat">Sat</label>
+                        <input type="checkbox" id="weekday-sun" name="sunday" value="sunday" class="weekday" />
+                        <label for="weekday-sun">Sun</label>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-around">
+                    <div class="col-md-6">
+                      <p style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Slots<p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button type="button" class="btn btn-info" style="width:10%%;" id="addfile">Add Slot</button>
+                    </div>
+                  </div>
+                  <div class="col-md-12 timeslot" style="padding:0">
+                    <div class="d-flex justify-content-between" style="padding:0">
+                      <div class="col-md-2" style="padding:0">
+                        <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif">Time</label>
+                        <input class="form-control timeinput" type="text" name="time1" placeholder="H:M" > 
+                      </div>
+                      <div class="col-md-2" style="padding:0">
+                        <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif">AM/PM</label>
+                        <select class="form-control" name="am/pm1">
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                      </select>
+                      </div>
+                      <div class="col-md-6" style="padding:0">
+                        <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;">Maximum booking per slot</label>
+                        <input class="form-control maxinput" type="text" name="max1"> 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 pt-3">
+                    <div id="success-alert-slot-model" class="alert alert-success p-2 d-none"></div>
+                  </div>
+                  <div class="col-md-12 text-right pt-3">
+                    <button type="submit" id="save" class="btn btn-primary" style="width:20%;">Save</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal" id="addqualityreport-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Data Management</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="col-md-12">
+            <div id="addqualityreport_error_alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+        </div>
+        <div class="modal-body">
+          <div class="row justify-content-start">
+            <div class="col-md-12">
+              <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Service</label>
+              <select class="form-control" name="type" id="id_quality_type">
+                  <option value="Grievance dashboard">Grievance</option>
+                  <option value="Complaint dashboard">Complaint</option>
+                  <option value="Standards of behavior dashboard">Standards of Behavior</option>
+                  <option value="Appointment">Appointment</option>
+                  <option value="Consent management admin">Consent Management</option>
+              </select>
+            </div>
+            <div class="col-md-12 pt-2">
+              <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">Service Type</label>
+              <select class="form-control" name="type" id="id_quality_fields">
+                <option value="Report Type">Report Type</option>
+                  <option value="Service Type">Service Type</option>
+                  <option value="Event Type">Event Type</option>
+                  <option value="Health Plan">Health Plan</option>
+              </select>
+            </div>
+            <div class="col-md-12 pt-2">
+              <label style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;font-size:16px;font-weight:600;">New Service Value</label>
+              <input class="form-control" name="add-qualityreport" type="text" placeholder="New...">
+            </div>
+            <div class="col-md-4 pt-2 content-justify-end">
+              <button type="button" class="btn btn-primary" id="id_addqualityreport"><i class="fa fa-spinner fa-spin d-none"></i> Add</button>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="my-1" style="font-family: Source Sans Pro;color: rgba(17, 85, 108, 1)">Available Service Values</label>
+            <div class="col-md-12 my-2" style="background-color:white;min-height:200px;max-height:200px;border:1px solid black;padding:2px;overflow-y:scroll">
+              <ul class="all_qualityreport" style="list-style-type:none;padding:0;cursor:pointer;">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="editdeletequalityreport-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Service Value</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <input class="form-control" name="editdeletequalityreport-qualityservice" type="text" placeholder="Report Type">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div id="editdeletequalityservice-error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"><i class="fa fa-spinner fa-spin d-none"></i> Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="ingress-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">User Upload</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="col-md-12 pt-2 pb-2" method="post" id="id_ingress_form" enctype="multipart/form-data">
+            <div class="col-md-12">
+              {% csrf_token %}
+              <input type="file" id="id_ingress" name="ingress">
+            </div>
+            <div class="col-md-12 pt-2">
+                <p style="font-size:14px;font-weight:500;color:#36454F;">Supported file format : csv,xlsx. Max file size : 5 MB</p>
+                <button type="submit" class="btn btn-primary" disabled><i class="fa fa-spinner fa-spin d-none mx-2"></i>Upload</button>
+                <p style="font-size:14px;font-weight:500;color:#36454F;" class="upload_text d-none">It takes time depends on the number of records</p>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-12">
+          <div id="ingress-error-alert" class="alert alert-danger p-2 d-none">Something happened, try again</div>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{% static 'mainapp/assets/js/es6/apps.js' %}"></script>
+    <script>
+      $('.datepickeradd').datepicker({
+          changeMonth: true, 
+          changeYear: true,
+          yearRange: "-90:+00"
+      })
+  </script>
+{% endblock %}

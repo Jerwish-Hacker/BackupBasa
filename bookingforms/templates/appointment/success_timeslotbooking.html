@@ -1,0 +1,35 @@
+{% extends 'appointment/common/base.html'%}
+{% load i18n %}
+{% block body %}
+<div class="thank-page mt-5 mb-5">
+    <p>
+        <span class="success-tick">&#x2713;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Thank you! Your appointment has been confirmed for" %} {{ appointment.preferred_date }}
+        {% trans "at " %} {{ appointment.preferred_time_frame }}
+        {% trans "at " %} {{ appointment.county}}
+        {% if locationaddress != '' %}
+            {{locationaddress}}
+        {% endif %}
+        
+    </p>
+    <p>
+        {% trans "No further action is required. Please bring your ID and Insurance Cards. We look forward to seeing you!" %}
+    </p>
+    <p>
+        <!-- {% if locationphonenumber != ''%}
+            {% trans "Phone Number: "%}{{ locationphonenumber}}
+        {% endif %} -->
+    </p>
+    <!-- <div class="mt-2 text-center">
+        <h5 class="header-bold">Covid-19 Vaccine information</h5>
+        <ul class="blog-list">
+            <li><a href="">Facts about COVID-19 Vaccines</a></li>
+            <li><a href="">Understanding how COVID-19 Vaccines work</a></li>
+            <li><a href="">Vaccine Development - 101</a></li>
+            <li><a href="">Vaccine adverse Event Reporting System</a></li>
+            <li><a href="">Covid-19 Vaccination planning</a></li>
+            <li><a href="">Covid-19 Vaccines and severe allergic reactions</a></li>
+            <li><a href="">Covid-19 Vaccination Considerations - Underlying Medical Conditions</a></li>
+        </ul>
+    </div> -->
+</div>
+{% endblock body %}

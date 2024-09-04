@@ -1,0 +1,298 @@
+<div class="user-details p-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12  text-right">
+                <button id="archive-view-button"  data-id="{{ appointment.id }}" data-toggle="modal" data-target="#archive-model" type="button" class="archive btn btn-primary">Archive</button>
+            </div>
+            <div class="col-md-12 text-right">
+                <span id="viewlock" class="badge badge-success"></span>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="archivedvaluefromdb" value="{{ appointment.is_archived }}"/>
+    <h4>Appointment</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Vaccine Type : {{ appointment.appointment_type|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            County : {{ appointment.county|default_if_none:"" }}
+        </div>
+    </div>
+    <!-- <div class="row mb-2"> 
+        <div class="col-md-6">
+            {% if appointment.vaccine_eligibility_status == none %}
+                {% if appointment.is_healthworker != none %}
+                    {% if appointment.is_healthworker == 1 %}
+                        Vaccine Eligibility Status : {{ appointment.is_healthworker|yesno:"Healthcare Worker," }}
+                    {% elif appointment.is_healthworker == 0 %}
+                        {% if appointment.is_above_age_65 != none %}
+                            {% if appointment.is_above_age_65 == 1 %}
+                                Vaccine Eligibility Status : {{ appointment.is_above_age_65|yesno:"65+ Years Old," }}
+                            {% elif appointment.is_above_age_65 == 0 %}
+                                Vaccine Eligibility Status : {{ appointment.is_above_age_65|yesno:"," }}
+                            {% endif %}
+                        {% else %}
+                            Vaccine Eligibility Status : {{ appointment.is_above_age_65|yesno:"," }}
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    Vaccine Eligibility Status : {{ appointment.is_healthworker|yesno:"," }}
+                {% endif %}
+            {% else %}
+                Vaccine Eligibility Status : {{ appointment.vaccine_eligibility_status|default_if_none:"" }}
+            {% endif %}
+        </div>
+         <div class="col-md-6">
+            Is Health Worker : {{ appointment.is_healthworker|yesno:"Yes,No,-" }}
+        </div>
+        <div class="col-md-6">
+            Is 65 years old and over : {{ appointment.is_above_age_65|yesno:"Yes,No,-" }}
+        </div> 
+    </div> -->
+    <div class="row mb-2">
+        <div class="col-md-6">
+            {% if appointment.preferred_day_of_week == '' %}
+                Preferred day of week : {{ appointment.preferred_date|default_if_none:"" }}
+            {% else %}
+                Preferred day of week : {{ appointment.preferred_day_of_week|default_if_none:"" }}
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            Preferred time frame : {{ appointment.preferred_time_frame|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+    {% comment  %} 
+    <!-- CommentedAsPerReq -->
+        <div class="col-md-6">
+            Employer : {{ appointment.employer|default_if_none:"" }}
+        </div>
+    {% endcomment %}
+        <div class="col-md-6">
+            Job Role : {{ appointment.job_role|default_if_none:"" }}
+        </div>
+    </div>
+    <!-- <div class="row mb-2">
+        <div class="col-md-6">
+            Received the first dose of the Covid Vaccine? : {{ appointment.is_previously_vaccinated|yesno:"Yes,No," }}
+        </div>
+        <div class="col-md-6">
+            {% if appointment.is_previously_vaccinated or appointment.covid_vaccine_manufacturer %}
+            {{ appointment.covid_vaccine_manufacturer|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div> -->
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Current patient of {{ title|title }} ? : {{ appointment.is_a_patient_of_clinic|yesno:"Yes,No,Unknown" }}
+        </div>
+    </div>
+    <h4>Demographics</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            First Name : {{ appointment.first_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Last Name : {{ appointment.last_name|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Social security number : {{ appointment.social_security_number|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Date of birth : {{ appointment.date_of_birth|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Gender : {{ appointment.gender|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Email : {{ appointment.email_address|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Family Size : {{ appointment.family_size|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Household Income : {{ appointment.household_income|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Income frequency : {{ appointment.income_frequency|default_if_none:"" }}
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Contact number : {{ appointment.contact_number|default_if_none:"" }}
+            ({{ appointment.contact_number_type|default_if_none:"" }})
+            <br>
+            Can you accept texts ? : {{ appointment.is_contact_number_reachable_by_text|yesno:"Yes,No,Unknown" }}
+        </div>
+        <div class="col-md-6">
+            Street address : {{ appointment.street_address|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            City : {{ appointment.city|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            State : {{ appointment.state|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Zip : {{ appointment.zip_code|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Primary language :
+            {% if appointment.primary_language == 'Other' %}
+            {{ appointment.primary_langauge_entered|default_if_none:"" }}
+            {% else %}
+            {{ appointment.primary_language|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Martial status : {{ appointment.marital_status|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Ethnicity : {{ appointment.ethnicity|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Race : {{ appointment.race|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Veteran : {{ appointment.is_veteran|yesno:"Yes,No,Unknown" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Employment status : {{ appointment.employment_status|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Homeless status : {{ appointment.homeless_status|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Emergency Contact Name : {{ appointment.emergency_contact_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Emergency Contact Number : {{ appointment.emergency_contact_number|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Emergency Contact Relationship :
+            {% if appointment.emergency_contact_relationship == 'Other' %}
+            {{ appointment.emergency_contact_relationship_entered|default_if_none:"" }}
+            {% else %}
+            {{ appointment.emergency_contact_relationship|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Marital Status : {{ appointment.marital_status|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Farm worker status : {{ appointment.farmworker_status|default_if_none:"" }}
+        </div>
+    </div>
+    <h4>Insurance</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Guarantor name : {{ appointment.guarantor_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Guarantor Relationship to Patient :
+            {% if appointment.guarantor_relationship == 'Other' %}
+            {{ appointment.guarantor_relationship_entered|default_if_none:"" }}
+            {% else %}
+            {{ appointment.guarantor_relationship|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Date of Birth of Guarantor : {{ appointment.guarantor_date_of_birth|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Primary insurance carrier : {{ appointment.primary_insurance_carrier|default_if_none:"" }}
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Subscriber ID : {{ appointment.subscriber_id|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Group number : {{ appointment.group_number|default_if_none:"" }}
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Subscriber name : {{ appointment.subscriber_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Subscriber relationship :
+            {% if appointment.subscriber_relationship == 'Other' %}
+            {{ appointment.subscriber_relationship_entered|default_if_none:"" }}
+            {% else %}
+            {{ appointment.subscriber_relationship|default_if_none:"" }}
+            {% endif %}
+        </div>
+    </div>
+    <h4>Documents</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : {{ appointment.identification_document|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if appointment.attachment_support %}
+            <a href="{{ appointment.attachment_support.url }}"  target="_blank">{{ appointment.attachment_support.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : Insurance Card (Front)
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if appointment.insurance_card %}
+            <a href="{{ appointment.insurance_card.url }}" target="_blank">{{ appointment.insurance_card.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Document Type : Insurance Card (Back)
+        </div>
+        <div class="col-md-6">
+            Attached Document : {% if appointment.insurance_card_back %}
+            <a href="{{ appointment.insurance_card_back.url }}" target="_blank">{{ appointment.insurance_card_back.name }}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    var archive = $('#archivedvaluefromdb').val();
+    if(archive=='True')
+    {
+        const button = document.getElementById('archive-view-button')
+        button.innerHTML="Archived";
+        button.disabled=true;
+        button.className="btn btn-secondary"
+    }
+</script>

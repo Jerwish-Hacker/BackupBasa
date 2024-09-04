@@ -1,0 +1,317 @@
+
+
+{% load widget_tweaks %}
+{% load i18n %}
+<div class="step-form d-none" data-step="1">
+    <h3 class="mb-3">{% trans "Demographics" %}</h3>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "First Name" %}</label>
+            <div class="single_form">
+                {% render_field form.first_name %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Last Name" %}</label>
+            <div class="single_form">
+                {% render_field form.last_name %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Social Security Number" %}</label>
+            <div class="single_form">
+                {% render_field form.social_security_number placeholder="XXX-XX-XXXX" data-inputmask-mask="999-99-9999"  %}
+            </div>
+            <div class="checkbox d-flex mt-1 align-items-center">
+                <div>
+                    <input name="is_social_security_number_declined" type="hidden" value="false">
+                    <input id="farmworkerdefaultcheckedssn"type="checkbox" data-input="social_security_number" class="decline_checkbox"
+                        name="is_social_security_number_declined" value="true"
+                        {% if form.is_social_security_number_declined.value %}
+                        checked
+                        {% endif %}
+                        >
+                </div>
+                <div class="ml-2">
+                    {% trans "Decline to Answer" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Date of Birth" %}</label>
+            <div class="single_form">
+                {% render_field form.date_of_birth class="date-input datepicker" readonly="readonly" placeholder="MM/DD/YYYY" data-inputmask-mask="99/99/9999"  data-inputmask-inputFormat="MM/DD/YYYY" %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Gender" %}</label>
+            <div class="single_form">
+                {% render_field form.gender %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Email Address" %}</label>
+            <div class="single_form">
+                {% render_field form.email_address %}
+            </div>
+        </div>
+        <div class="col-md-12  mb-3">
+            <label for="">{% trans "Family Size" %}</label>
+            <div class="single_form">
+                {% render_field form.family_size placeholder="Enter number only" %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Household Income ($)" %}</label>
+            <div class="single_form">
+                {% render_field form.household_income placeholder="Enter only digits" %}
+            </div>
+            <div class="checkbox d-flex mt-1 align-items-center">
+                <div>
+                    <input type="hidden" name="is_household_income_declined" value="false" />
+                    <input id="farmworkerdefaultcheckedincome" data-input="household_income" class="decline_checkbox" type="checkbox"
+                        name="is_household_income_declined"
+                        value="true"
+                        {% if form.is_household_income_declined.value %}checked{% endif %}
+                        data-trigger="#income-trigger" />
+                </div>
+                <div class="ml-2">
+                    {% trans "Decline to Answer" %}
+                </div>
+            </div>
+        </div>
+        <div id="income-trigger" class="col-md-6 mb-3">
+            <label for="">{% trans "Income Frequency" %}</label>
+            <div class="single_form">
+                {% render_field form.income_frequency %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="">{% trans "Contact Number" %}</label>
+            <div class="single_form">
+                {% render_field form.contact_number placeholder="(123) 456–7890" class="phone_check"  data-inputmask-mask="(999) 999-9999" %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3 remove-label">
+            <label for="">&nbsp;</label>
+            <div class="equal-width-3 input_height_1">
+                <div class="radio">
+                    <div class="d-flex">
+                        <div>
+                            <input name="{{form.contact_number_type.html_name}}" type="radio" value="Home" checked>
+                        </div>
+                        <div class="ml-2">
+                            {% trans "Home" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="radio">
+                    <div class="d-flex">
+                        <div>
+                            <input name="{{form.contact_number_type.html_name}}" type="radio" value="Work">
+                        </div>
+                        <div class="ml-2">
+                            {% trans "Work" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="radio">
+                    <div class="d-flex">
+                        <div>
+                            <input name="{{form.contact_number_type.html_name}}" type="radio" value="Cell">
+                        </div>
+                        <div class="ml-2">
+                            {% trans "Cell" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label for="">{% trans "Can You Accept Texts If You can’t be Reached by Phone?" %}</label>
+            <div class="row">
+                <div class="col-md-4 radio">
+                    <div class="d-flex">
+                        <div>
+                            <input name="{{form.is_contact_number_reachable_by_text.html_name}}" type="radio" value="true" 
+                            {% if form.is_contact_number_reachable_by_text.value %}
+                            checked
+                            {% endif %}
+                            >
+                        </div>
+                        <div class="ml-2">
+                            {% trans "Yes" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 radio">
+                    <div class="d-flex">
+                        <div>
+                            <input name="{{form.is_contact_number_reachable_by_text.html_name}}" type="radio" value="false"
+                            {% if not form.is_contact_number_reachable_by_text.value %}
+                            checked
+                            {% endif %}
+                            >
+                        </div>
+                        <div class="ml-2">
+                            {% trans "No" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "State" %}</label>
+            <div class="single_form">
+                {% render_field form.state %}
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "City" %}</label>
+            <div class="single_form">
+                {% render_field form.city class="other-select" data-trigger=".city-entry-trigger" %}
+            </div>
+            {% comment %} <div class="city-entry-trigger d-none mt-1">
+                    <label for="" style="font-size: 12px;margin-bottom: 5px;">Other City ? Enter Here</label>
+                    <div class="single_form">
+                        {% render_field form.city_entered placeholder="Enter City" %}
+                    </div>
+            </div> {% endcomment %}
+        </div>
+    
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Street Address" %}</label>
+            <div class="single_form">
+                <input type="text" name="{{form.street_address.html_name}}" placeholder="Enter Street address" value="{{ form.street_address.value|default_if_none:"" }}" />
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Zip" %}</label>
+            <div class="single_form">
+                {% render_field form.zip_code placeholder="eg: 65341" data-inputmask-mask="99999" %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Primary Language" %}</label>
+            <div class="single_form optional_field_with_other">
+                {% render_field form.primary_language class="other-select" data-trigger=".language-trigger" %}
+            </div>
+            <div class="language-trigger mt-1 d-none">
+                <label for="" style="font-size: 12px;margin-bottom: 5px;">{% trans "Specify Language" %}</label>
+                <div class="single_form">
+                    {% render_field form.primary_langauge_entered placeholder="Enter Language" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Marital Status" %}</label>
+            <div class="single_form">
+                {% render_field form.marital_status %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Ethnicity" %}</label>
+            <div class="single_form">
+                {% render_field form.ethnicity %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="">{%trans "Race" %}</label>
+            <div class="single_form">
+                {% render_field form.race %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+
+        <div class="col-md-6">
+            <label for="">{% trans "Are you a Veteran?" %}</label>
+            <div class="row">
+                <div class="col-md-6 radio">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <input name="{{form.is_veteran.html_name}}" type="radio" value="true"
+                            {% if form.is_veteran.value %}
+                            checked
+                            {% endif %}
+                            >
+                        </div>
+                        <div class="ml-2">
+                            {% trans "Yes" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 radio">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <input name="{{form.is_veteran.html_name}}" type="radio" value="false" checked
+                            {% if not form.is_veteran.value %}
+                            checked
+                            {% endif %}
+                            >
+                        </div>
+                        <div class="ml-2">
+                            {% trans "No" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Emergency Contact Name" %}</label>
+            <div class="single_form">
+                {% render_field form.emergency_contact_name %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Emergency Contact Number" %}</label>
+            <div class="single_form">
+                {% render_field form.emergency_contact_number  placeholder="(123) 456–7890" class="phone_check"  data-inputmask-mask="(999) 999-9999" %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6  mb-3">
+            <label for="">{% trans "Emergency Contact Relationship" %}</label>
+            <div class="single_form">
+                {% render_field form.emergency_contact_relationship class="other-select" data-trigger=".emergency-contact-trigger" %}
+            </div>
+            <div class="emergency-contact-trigger d-none mt-1">
+                <label for="" style="font-size: 12px;margin-bottom: 5px;">{% trans "Other Emergency Contact Relationship ? Enter Here" %}</label>
+                <div class="single_form">
+                    {% render_field form.emergency_contact_relationship_entered placeholder="Enter Relationship" %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Employment Status" %}</label>
+            <div class="single_form">
+                {% render_field form.employment_status %}
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">{% trans "Homeless Status" %}</label>
+            <div class="single_form">
+                {% render_field form.homeless_status %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="">{% trans "Farm Worker Status" %}</label>
+            <div class="single_form">
+                {% render_field form.farmworker_status %}
+            </div>
+        </div>
+    </div>
+
+</div>

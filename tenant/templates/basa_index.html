@@ -1,0 +1,341 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basa</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/images/titleicon.png' %}">
+    <link rel="stylesheet" href="{% static "assets/css/basa_index.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/login.css" %}">
+
+    <style>
+            .fa-user-circle{
+                color:#007bff;
+            }
+            .header{
+              background: rgb(240, 240,240);
+            }
+
+        @media only screen and (max-width: 767px) {
+            html,body{
+                display : contents;
+                height : 100%;
+                width : 100%;
+                margin:0;
+            }
+            footer{
+                display:table-row;
+                position:fixed;
+                bottom:0;
+                height: 45px;
+                background-color:#fff;
+            }
+
+        }
+        @media only screen and (min-width: 768px) {
+         html,body{
+            display : table;
+            height : 100%;
+            min-height:100%;
+            width : 100%;
+            margin:0;
+        }
+        footer{
+            display:table-row;
+            height:0;
+        }
+        .header-row{
+          width:100%;
+          }
+        }
+        @media only screen and (min-width: 362px) {
+        .header-row{
+          width:100%;
+          }
+        }
+    </style>
+</head>
+<body>
+  <header class="header px-lg-4">
+    {% csrf_token %}
+    <nav class="navbar navbar-expand py-3 py-md-0">
+        <div class="row header-row m-auto">
+            <a href="https://www.basasystems.us/" title="Home" class="navbar-brand text-uppercase font-weight-bold p-0">
+              <img src="{% static "assets/images/basa.png" %}" width="100" height="50" alt="">
+            </a>
+            <div id="navbarSupportedContent mr-auto" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="https://www.basasystems.us/services" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="https://www.basasystems.us/contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            <div id="mr-auto" style="display:flex;align-items:center;">
+              <ul class="navbar-nav side-nav"  style="display:flex;align-items:center;">
+                  {% if user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                    <li class="nav-item my-2 px-3" title="Apps"><a href="{% url 'tenant:apps' %}" ><i class="fa fa-th" style="width:18px;height:18px;color: #11556c;" aria-hidden="true"></i></a></li>
+                    {% endif %}
+                    <li class="nav-item my-2" title="Settings"><a href="{% url 'tenant:settings_page' %}" ><i class="fa fa-cog" style="width:18px;height:18px;color: #11556c;" aria-hidden="true"></i></a></li>
+                    <li class="nav-item signin_logo dropdown nav-link" style="cursor:pointer;display:contents;">
+                      <i class="far fa-user-circle mx-2" style="color: #11556c;"></i>
+                      <div class="d-none d-md-block" style="color:#11556c;">{{user.username}}</div>
+                      <div class="dropdown-content" style="min-width: fit-content;right: 0px;">
+                        <a href="{% url 'account_logout' %}">Logout</a>
+                      </div>
+                    </li>
+                  {% else %}
+                    <li class="nav-item signin_logo nav-link" data-toggle="modal" data-target="#loginModal" style="cursor:pointer"><i class="far fa-user-circle mx-2 123"></i>Sign in</li>
+                  {% endif %}
+              </ul>
+          </div>
+        </div>
+    </nav>
+  </header>
+  <div class="container pb-5">
+    <div class="row justify-content-start">
+      <div class="col-md-12">
+        <h1>Healthcare Services & <br> Solutions</h1>
+        <ul>
+          <li>Health Data Integration</li>
+          <li>Process Automation</li>
+          <li>Reporting and Analytics</li>
+          <li>Cloud Migration</li>
+        </ul>
+      </div>
+      {% comment %} <div class="col-sm-12 col-md-6 background_image">
+        <img src="{% static "assets/images/banner.svg" %}" width="500" height="200" alt="">
+      </div> {% endcomment %}
+    </div>
+    <div class="container text-center">
+      <h4 class="titleone pt-5 pb-2">Service Types</h4>
+      <table class="table table-responsive text-center" style="margin-left:auto;margin-right:auto;">
+          <thead>
+            <tr class="text-white">
+              <th class="bg-dark" scope="col" style="width:25%">Service Name</th>
+              <th class="bg-primary" scope="col" style="width:10%;">Free</th>
+              <th scope="col" class="bg-primary" style="width:10%;">Basic</th>
+              <th scope="col" class="bg-primary" style="width:10%;">Premium</th>
+              <th scope="col" class="bg-primary" style="width:10%;">Ultra</th>
+            </tr>
+          </thead>
+          <tbody class="table-active">
+            <tr>
+              <td class="text-left">Grievance</td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">SOB</td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Complaint</td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Patient Doc Upload</td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Online Patient Appointments</td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Patient Satisfaction Survey</td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Employee Vaccine Tracker</td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Patient Secure Doc Share</td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Member Portal</td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Patient Gaps In Care (GIC) Reports</td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Staff Reporting Portal</td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Member Data Management</td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Provider Data Management</td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Patient Outreach Management</td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Health Plan Outreach Integration</td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">EHR Supplemental Data Export</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">EHR Data Integration</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">EHR Data Reconciliation</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">UDS Reporting</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">APP Customization</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Custom Development</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+            <tr>
+              <td class="text-left">Consulting Hours (20 hours)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><i class="fa fa-check text-success" aria-hidden="true"></i></td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal modal-tall" id="loginModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="content">
+            <div class="row justify-content-center">
+              <div class="pt-2">
+                <span class="error_notify d-none alert alert-danger"></span>
+              </div> 
+              <div class="contents">
+                <div class="form-block">
+                  <input type="hidden" class="form-control" value="Login" name="hidden_type" id="id_hidden_type">
+                  <div class="form-group first">
+                    <input type="email" class="form-control" placeholder="Email" name="email" id="id_email">
+                  </div>
+                  <div class="form-group last mb-4 d-none register">
+                    <input type="text" class="form-control"  placeholder="First Name" name="firstname" id="id_firstname">
+                  </div>
+                  <div class="form-group last mb-4 d-none register">
+                    <input type="text" class="form-control"  placeholder="Last Name" name="lastname" id="id_lastname">
+                  </div>
+                  <div class="form-group last mb-4">
+                    <input type="password" class="form-control"  placeholder="Password" name="password" id="id_password">
+                  </div>
+                  <div class="form-group last mb-4 d-none register">
+                    <input type="password" class="form-control"  placeholder="Confirm Password" name="confirmpassword" id="id_confirmpassword">
+                  </div>
+                  {% comment %} <div class="d-flex mb-3 align-items-center">
+                    <span class=""><a href="#" class="forgot-pass">Forgot Password</a></span> 
+                  </div> {% endcomment %}
+                  <input type="button" value="Log In" id="id_submit_button" class="btn btn-pill text-white btn-block btn-primary">
+                  {% comment %} <input type="button" value="Register" id="id_register_button" class="btn btn-pill text-white btn-block btn-success"> {% endcomment %}
+                  <div class="pt-3">
+                    <a href="{% url "account_reset_password" %}">Forgot Password/Create Password</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <footer class="flex-wrap justify-content-between align-items-center border-top" style="background: rgb(240, 240,240);">
+      <div class="col-md-4 align-items-center">
+        <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+          <img src="{% static "assets/images/basa.png" %}" width="60" height="30" alt="">
+        </a>
+        <span class="mb-3 mb-md-0 text-muted">© 2023 Basa. All Rights Reserved.</span>
+      </div>
+    </footer>
+  <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="{% static "assets/js/es6/main.js" %}"></script>
+</body>
+</html>

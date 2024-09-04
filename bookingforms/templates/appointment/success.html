@@ -1,0 +1,30 @@
+{% extends 'appointment/common/base.html'%}
+{% load i18n %}
+{% block body %}
+<div class="thank-page mt-5 mb-5">
+    <p>
+        <span class="success-tick">&#x2713;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Thank you for submitting your request for an appointment. We value your time!" %}
+    </p>
+    <p>
+        {% trans "Your appointment request is pending confirmation and will be reviewed and scheduled as soon as possible." %}
+    </p>
+    <p>
+        {% trans "If your request requires additional information, a representative may call or text to discuss" %}
+    </p>
+    <p class="text-bold">
+        {% trans "Due to time sensitivity of the vaccine and our limited supply, it is important that you let us know if you will be unable to keep your appointment." %}
+    </p>
+    <!-- <div class="mt-2 text-center">
+        <h5 class="header-bold">Covid-19 Vaccine information</h5>
+        <ul class="blog-list">
+            <li><a href="">Facts about COVID-19 Vaccines</a></li>
+            <li><a href="">Understanding how COVID-19 Vaccines work</a></li>
+            <li><a href="">Vaccine Development - 101</a></li>
+            <li><a href="">Vaccine adverse Event Reporting System</a></li>
+            <li><a href="">Covid-19 Vaccination planning</a></li>
+            <li><a href="">Covid-19 Vaccines and severe allergic reactions</a></li>
+            <li><a href="">Covid-19 Vaccination Considerations - Underlying Medical Conditions</a></li>
+        </ul>
+    </div> -->
+</div>
+{% endblock body %}

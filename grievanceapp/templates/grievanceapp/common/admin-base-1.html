@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ title|title }}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href={{ titlelogo }} type="image/png">
+
+    <link rel="stylesheet" href="{% static 'grievanceapp/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'grievanceapp/assets/css/style.css' %}">
+
+
+</head>
+
+<body>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-grad p-0">
+        <img class="logoimg mx-3" src={{ logo }} alt="Logo" width="38">
+        <span style="font: normal normal normal 18px/18px Montserrat">{{ title|title }}</span>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                {% comment %} <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                </div> {% endcomment %}
+            </div>
+        </form> 
+        <!-- Navbar-->
+        {% if user.is_authenticated %}
+         <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a cstyle="background-color: rgba(255, 255, 255, 0.11);color:white;" 
+                class="px-4 text-grey nav-link dropdown-toggle" id="userDropdown" href="#" role="button" 
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{% static 'grievanceapp/store/image/profile.png'%}">{{user.username}}</a>
+               
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                </div>
+            </li>
+        </ul> 
+        {% endif %}
+
+    </nav>
+    <div class="side-menu">
+        <ul>
+            <li>
+                <a href="{% url 'grievanceapp:grievance_list' %}">Appointments</a>
+            </li>
+        </ul>
+    </div>
+    <div class="main-content">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <script src="{% static 'grievanceapp/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'grievanceapp/assets/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'grievanceapp/assets/js/vendor/moment.min.js' %}" ></script>
+    <script src="{% static 'grievanceapp/assets/js/vendor/daterangepicker.min.js' %}"></script>
+    <script src="{% static 'grievanceapp/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+{% extends 'covidtest/common/layout.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/dashboard.css' %}" />
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="{% static 'covidtest/assets/css/userdashboardstyle.css' %}" rel="stylesheet" />
+<style>
+    hr {
+        border: none;
+        height: 2px;
+        background: black;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="col-md-12 text-center my-2"><img class="logoimg" src={{ logo }} alt="Logo" style="width:80px;height:90px;"></div>
+    <div class="text-center my-2" style="font-size:25px;font-weight:bold">
+        COVID-19 EMPLOYEE VACCINE EXEMPTION REQUEST PAGE
+    </div>
+    <div class="mx-3 row justify-content-around pt-3">
+        <div class="col-md-5 text-center border  border-dark h-100 p-4">
+            <div class="text-center my-2" style="font-size:20px;font-weight:bold">
+                MEDICAL EXEMPTION
+            </div>
+            <p style="text-align:justify;font-size:16px">
+                Accommodation while declining to receive a COVID-19 vaccination, the individual's healthcare provider (only a physician, nurse practitioner, or other licensed medical professional practicing under the license of a physician) must complete the following form.
+            </p>
+            <div class="row justify-content-around pt-3">
+                <div class="col-md-6 p-2">
+                    <a href="{{ filedownload }}" class="btn btn-primary" style="font-size:15px" target="_blank">Download Provider Form</a>
+                </div>
+                <div class="col-md-6 p-2">
+                    <a href={% url 'covidtestlogin:user_loggedin_vaccine_exemption_form' 'medical' %} class="btn btn-success" style="font-size:15px" >Apply For Medical Exemption</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 text-center border  border-dark h-120 p-4">
+            <div class="text-center my-2" style="font-size:20px;font-weight:bold;">
+                RELIGIOUS EXEMPTION
+            </div>
+            <p style="text-align:justify;font-size:16px">
+                Reason for exemption (please attach supporting information). Reason must be based on a sincerely held religious belief, practice, or observance that prevents the person from taking the vaccine.
+            </p>
+            <div class="col-md-12 pt-4 text-center">
+                <a href={% url 'covidtestlogin:user_loggedin_vaccine_exemption_form' 'religion' %} class="btn btn-success" style="font-size:15px" >Apply For Religious Exemption</a>
+            </div>
+        </div>
+        <div class="col-md-12 pt-5 text-center">
+            <p style="font-size:20px;font-weight:bold;color:red">All exemption request must be submitted to HR by Thursday, September 16, 2021.</p>
+        </div>
+    </div>
+{% endblock %}

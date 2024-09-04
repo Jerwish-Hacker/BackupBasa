@@ -1,0 +1,151 @@
+{% extends 'covidtest/common/layout.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/dashboard.css' %}" />
+<link rel="stylesheet" href="{% static 'covidtest/assets/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="{% static 'covidtest/assets/css/userdashboardstyle.css' %}" rel="stylesheet" />
+<style>
+    hr {
+        border: none;
+        height: 2px;
+        background: black;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<input type="hidden" value="{{chosen}}" id="chosenoption">
+<div class="container-fluid">
+    <div class="row justify-content-around pt-3">
+        <div class="col-md-2">
+            <div class="text-center my-5"><img class="logoimg" src={{ logo }} alt="Logo" style="width:110px;height:130px;"></div>
+        </div>
+        <div class="col-md-8 mx-4">
+            <div class="row justify-content-start">
+                <div class="col-md-12 text-left">
+                    <p style="font-size:18px;font-weight:bold">COVID-19 Vaccination Disclosure Form
+                </div>
+                <div class="col-md-6 p-2">
+                    <p>Name :&nbsp;{{Employeedata.payroll_name}}</p>
+                </div>
+                <div class="col-md-6 p-2">
+                    <p>Birth Date :&nbsp; {{Employeedata.birth_date}}</p>
+                </div>
+                <div class="col-md-6 p-2">
+                    <p>Phone :&nbsp;</p>
+                </div>
+                <div class="col-md-6 p-2">
+                    <p>Job Title :&nbsp; {{Employeedata.job_title_description}}</p>
+                </div>
+                <div class="col-md-6 p-2">
+                    <p>ID #:&nbsp; {{Employeedata.position_id}}</p>
+                </div>
+                <div class="col-md-6 p-2">
+                    <p>Department :&nbsp; {{Employeedata.home_department_description}}</p>
+                </div>
+                <div class="col-md-6 p-2">
+                    <p>Manager :&nbsp; {{Employeedata.reports_to_name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;">All Health Care Professionals (HCP) who work in healthcare settings in California are required by AFL 21-27 issued by the California Department of Public Health (CDPH) to demonstrate proof of COVID-19 vaccination effective September 30, 2021. We want to ensure the care and safety of both our {{ title|title }} staff and patients by ensuring that we all receive the COVID vaccination.</p>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;">As noted by the United States Equal Employment Opportunity Commission and California Department of Employment and Fair Housing, any person who has either (1) a medical condition or disability that prevents taking the vaccine, or (2) a sincerely held religious belief, practice, or observance that prevents the person from taking the vaccine may be entitled to an exemption as a reasonable accommodation.</p>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;">All exemption requests must be submitted to HR by Thursday, September 16, 2021.</p>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;">Any {{ title|title }} employee who has not received the 2nd dose of the Moderna or Pfizer vaccine or the Johnson & Johnson vaccine by September 30, 2021 will be placed on unpaid administrative leave for a maximum of 2-weeks if currently in the process of compliance with the mandate. Following 2-weeks of unpaid administrative leave, or at any time if refusing to comply with the mandate, disciplinary action, up to, and including termination of employment will result.</p>
+    </div>
+    <div class="col-md-12 pt-2">
+         <p style="text-align:justify;">Employees will be required to get weekly testing until they are fully vaccinated. Fully vaccinated means that you have received your full vaccination series AND have completed a two-week waiting period following your final vaccination.</p>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;font-weight:bold">Section 1: COVID-19 EXEMPTION REQUEST FORM 2021</p>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;">To request an exemption, you must complete and submit the Exemption Request Form along with supporting documentation (see below), to HR by September 16, 2021.</p>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;">If you are granted an exemption, you will not be required to be vaccinated, but will be required to wear an N95 mask and be tested weekly.</p>
+    </div>
+    <div class="col-md-12 pt-2">
+        <p style="text-align:justify;">I request an exemption to the Mandatory COVID-Vaccine requirement based on the following:</p>
+    </div>
+    <div class="col-md-12 p-2">
+        <form id="vaccineexemptionform" method="post" enctype="multipart/form-data" action="/api/v1/vaccineexemption/">
+            {% csrf_token %}
+            <input class="ui checkbox" type="checkbox" value="medical" id="medicalcheckboxid" name="medicalcheckbox" style="width: 15px;height: 15px;background:blue;border:2px solid blue;" data-toggle="collapse" data-target="#collapseMedical"><label class="mx-1" style="text-align:justify;font-weight:bold">MEDICAL EXEMPTION REQUEST :</label>
+            <p style="text-align:justify;">Please have your provider complete the Medical Exemption Healthcare Provider Statement and attach.</p>
+            <div class="alert alert-danger d-none my-2" role="alert" id="errormessages">
+            </div>
+            <div class="collapse pb-2" id="collapseMedical">
+                <div class="card card-body">
+                    <div class="row justify-content-start">
+                        <div class="text-left col-md-12">
+                            <p>Upload PDF, JPG, JPEG, PNG Files<br>Maximum file size is 10 MB<br>Maximum 7 files can be uploaded</p>
+                            <button type="button" class="btn btn-info" style="width:10%%;background" id="addfile"><i class="bi bi-file-earmark-plus p-2"></i>Add File</button>
+                        </div>
+                        <div class="col-md-3 pt-2" id="filesContainer">
+                            <input class="fileclass" type="file" name="file_1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input class="ui disabled checkbox" type="checkbox" value="religion" id="religioncheckboxid" name="religioncheckbox" style="width: 15px;height: 15px;" data-toggle="collapse" data-target="#collapseReligion"><label class="mx-1" style="text-align:justify;font-weight:bold">RELIGIOUS EXEMPTION REQUEST :</label>
+            <p style="text-align:justify;">Reason for exemption (please attach supporting information). Reason must be based on a sincerely held religious belief, practice, or observance that prevents the person from taking the vaccine.</p>
+            <div class="collapse pb-2" id="collapseReligion">
+                <div class="card card-body">
+                    <p style="font-weight:bold">Reason For Exemption</p>
+                    <textarea class="control-group col-md-6" id="religioustext" name="religioustextarea" rows="5"></textarea>
+                    <div class="row justify-content-start">
+                        <div class="text-left col-md-12 pt-2">
+                            <p>Upload PDF, JPG, JPEG, PNG Files<br>Maximum file size is 10 MB<br>Maximum 7 files can be uploaded</p>
+                            <button type="button" class="btn btn-info" style="width:10%%;background" id="addfile2"><i class="bi bi-file-earmark-plus p-2"></i>Add File</button>
+                        </div>
+                        <div class="col-md-3 pt-2" id="filesContainer2">
+                            <input class="fileclass" type="file" name="file_1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:justify;">I understand that my failure to submit a completed Exemption Request Form, including for example, acceptable medical documentation for a medical exemption, by September 16th may result in my request for an exemption being denied.</p>
+            <p class="pt-2" style="text-align:justify;">By signing this form, I am attesting that I am requesting an exemption in good faith, and the information I am providing is true and correct. I understand that providing false or misleading information may be grounds for discipline, up to, and including termination of employment.</p>
+            <p class="pt-2" style="text-align:justify;">I understand and consent to the following:</p>
+            <p class="mx-1">I.&emsp;My exemption request will be reviewed by the designated parties</p>
+            <p class="mx-1">II.&emsp;{{ title|title }} reserves the right to deny any exemption that does not meet criteria</p>
+            <p class="mx-1">III.&emsp;My manager and/or supervisor will be notified if my exemption request is granted.</p>
+            <p class="mx-1">IV.&emsp;My exemption may not be granted if it would pose a direct threat to others (i.e., patients, co-workers or visitors) or if it would otherwise create an undue hardship on {{ title|title }}</p>
+            <div class="col-md-6" id="to_be_canvased">
+                <canvas id="can" width="400" height="200" class="col-md-6" style="border:2px solid;"></canvas>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-6 text-left">
+                    <button type="button" id="clear" value="Clear" class="btn btn-info">Clear</button>
+                </div>
+                <div class="col-md-6 text-right">
+                    <p>DATE :&nbsp;{{date}}</p>
+                </div>
+            </div>
+            <input type="hidden" value="" id="sigantureurlinput" name="signatureurl">
+            <div class="row justify-content-end">
+                <div class="col-md-12 text-right">
+                    <div class="alert alert-danger d-none my-2" role="alert" id="errormessagessubmit">
+                    </div>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="submit" class="btn btn-info" style="width:25%;background:#11556c">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+    <script src="{% static "covidtest/assets/js/es6/user-vaccineexception.js" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% for data in patientdetails %}
+<div class="user-details p-3">
+    <h4>Appointment</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Appointment Type : {{ data.appointment_type }}
+        </div>
+        <div class="col-md-6">
+            Appointment Location : {{ healthplanpatientcalldetails.appointment_location|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Appointment Date : {{  healthplanpatientcalldetails.appointment_date|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Appointment Time : {{  healthplanpatientcalldetails.appointment_time|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Can you accept text message : {{ healthplanpatientcalldetails.is_accept_text_messages|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            New Phone Number for text message : {{ healthplanpatientcalldetails.text_message_new_phone_number|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Primary Language : {{ healthplanpatientcalldetails.patient_primary_language|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-12">
+            Comments : {{  healthplanpatientcalldetails.comments|default_if_none:""}}
+        </div>
+    </div>
+    <h4>Demographics</h4>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            First Name : {{ data.first_name|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Last Name : {{ data.last_name|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            MRN : {{ data.mrn|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Date of birth : {{ data.date_of_birth|default_if_none:"" }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            Phone Number : {{ data.phone_number|default_if_none:"" }}
+        </div>
+        <div class="col-md-6">
+            Provider : {{ data.provider|default_if_none:"" }}
+        </div>
+    </div>
+{% endfor %}

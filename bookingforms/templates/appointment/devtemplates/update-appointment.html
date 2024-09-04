@@ -1,0 +1,16 @@
+{% extends 'appointment/common/admin-base.html' %}
+
+{% block body %}
+<div class="row">
+    <div class="col">
+        <form action="." method="POST" enctype="multipart/form-data">
+            {% if form.errors %}
+                {{ form.errors }}
+            {% endif %}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock body %}

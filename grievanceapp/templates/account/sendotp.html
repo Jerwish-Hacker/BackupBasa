@@ -1,0 +1,45 @@
+{% extends './admin-base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+
+<div class="wrapper">
+  <form class="login form-signin"  method="POST" action="/accounts/password_reset/">
+    <div class="error-div d-none">{{ form.errors }}</div>
+    <div class="form-error">
+  
+    </div>
+    {% for message in messages %}
+      <div class="alert alert-danger p-1 {% if message.extra_tags != True %} d-none {% endif %}">
+          {{ message }}
+      </div>
+    {% endfor %}
+  
+    {% csrf_token %}
+      <div class="d-flex justify-content-center">
+      <img src={{ logo }} alt="logo" style="width: 120px;">
+      </div>
+     <h4 class="form-signin-heading text-center">Reset Password</h4> 
+     <input class="form-control mb-2" type="text" name="email" placeholder="Email"
+     autocomplete="email" maxlength="150" required="" id="id_email">
+     <div class="pb-2">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" style="background: #034694;border: #034694;"><i class="fa fa-spinner fa-spin d-none"></i>Send OTP</button>
+     </div>
+    </form>
+  
+</div>
+
+{% endblock body %}
+
+
+{% block script %}
+  <script>
+    var list_in_errors = $('.form-signin .error-div>ul>li>ul>li')
+    var error_html = ''
+    for(var i=0;i<list_in_errors.length;i++){
+      error_html+= `<div class="alert alert-danger p-1">${$(list_in_errors[i]).text()}</div>`
+    }
+    $('.form-error').html(error_html)
+  </script>
+{% endblock %}

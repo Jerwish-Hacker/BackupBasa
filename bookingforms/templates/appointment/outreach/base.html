@@ -1,0 +1,147 @@
+{% load static %}
+{% load i18n %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Medical, Vision, Dental & Behavioral Health Services | {{ title|title }}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="shortcut icon" href="" type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href={{ titlelogo }}>
+
+    <link rel="stylesheet" href="{% static "appointment/assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "appointment/assets/css/style.css" %}">
+    {% block css %}
+    {% endblock css %}
+    <style>
+        .icon-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: #333333;
+            background: #dddddd;
+            border: none;
+            outline: none;
+            border-radius: 50%;
+          }
+          
+          .icon-button:hover {
+            cursor: pointer;
+          }
+          
+          .icon-button:active {
+            background: #cccccc;
+            border: none;
+          }
+          
+          .icon-button__badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: red;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+          }
+    </style>
+
+</head>
+
+<body>
+    <section>
+        {% block table-header%}
+        <div class="header-background">
+            <div class="container">
+            <div class="row">
+                <div class="col-md-6 logo-main">
+                    <img src={{ logo }} alt="logo" />
+                </div>
+                <div class="col-md-6">
+                    <h3 class="main-header">{% translate "Appointment Request" %}</h3>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+            <div class="nav-bar pt-4 pb-4">
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-4 social-icons">
+                            <span>{% trans "follow us" %}</span>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/facebook.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/instagram.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/twitter.png" %}" alt="" width="32">
+                            </a>
+                            <a class="ml-3" href="">
+                                <img src="{% static "appointment/assets/images/youtube.png" %}" alt="" width="32">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    {% if request.resolver_match.url_name == 'health_plan' or request.resolver_match.url_name == 'healthplan_notification_list' %}
+                    <a href="{% url 'bookingforms:healthplan_notification_list' %}">
+                        <button type="button" class="icon-button">
+                            <span class="fa fa-bell" ></span>
+                            <span class="icon-button__badge">0</span>
+                        </button><a>
+                    {% endif %}
+                    <div class="col">
+                    {% if user.is_authenticated %}
+                        <ul class="navbar-nav ml-auto ml-md-0">
+                            <li class="nav-item dropdown">
+                                <a style="color:white;" 
+                                class="px-4 text-grey nav-link dropdown-toggle" id="userDropdown" href="#" role="button" 
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user fa-lg"></i>&nbsp;{{user.username}}</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                                </div>
+                            </li>
+                        </ul> 
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+    {% block footer %}
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+            <img src={{ logo }} width="60" height="30" alt="">
+          </a>
+          <span class="mb-3 mb-md-0 text-muted">© 2023 Basa. All Rights Reserved.</span>
+        </div>
+    </footer>
+    {% endblock %}
+    <script src="{% static "appointment/assets/js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    {% block script%}
+    {% endblock %}
+</body>
+
+</html>

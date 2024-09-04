@@ -1,0 +1,37 @@
+{% extends './base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block body %}
+<div class="d-flex justify-content-center pt-2">
+    <div class="col-md-4">
+    <form method="POST" action="/appointment/healthplan-login/">
+        {% for message in messages %}
+            <div class="alert alert-danger p-1">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% csrf_token %}
+         <input class="form-control mb-2" type="text" name="login" placeholder="Username"
+         autocomplete="username" maxlength="150" required="" id="id_login">
+         <input class="form-control mb-2" type="password" name="password" placeholder="Password"
+         autocomplete="current-password" required="" id="id_password">
+        <button class="col-md-4 text-center btn btn-lg btn-primary btn-block" type="submit" style="background: #60a6a2;border: #60a6a2;"  id="loginsubmitbutton"><i class="fa fa-spinner fa-spin d-none"></i>Login</button>  
+    </form>
+    <a style="text-decoration: none"href="{% url 'account_sso_login' %}?next=/healthplan/"><img class="logoimg mx-1" src="{% static 'appointment/assets/images/ms.png' %}" alt="ms" width="20">Login with Microsoft</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'appointment/assets/js/build/inputmask.min.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/inputmask.binding.js' %}"></script>
+    <script src="{% static 'appointment/assets/js/build/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'appointment/assets/css/jquery-ui.css' %}">
+    <script>
+        $("#loginsubmitbutton").click(function(){
+            console.log("hi")
+            $("i.fa-spinner").removeClass('d-none')
+        })
+    </script>
+{% endblock %}
